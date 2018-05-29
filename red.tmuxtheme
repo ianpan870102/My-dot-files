@@ -1,0 +1,76 @@
+#
+# Powerline Red Block - Tmux Theme
+# Created by Jim Myhrberg <contact@jimeh.me>.
+#
+# Inspired by vim-powerline: https://github.com/Lokaltog/powerline
+#
+# Requires terminal to be using a powerline compatible font, find one here:
+# https://github.com/Lokaltog/powerline-fonts
+#
+
+# Status update interval
+set -g status-interval 1
+
+# Basic status bar colors
+set -g status-fg colour240
+set -g status-bg colour88
+
+# Left side of status bar
+set -g status-left-bg colour233
+set -g status-left-fg colour243
+set -g status-left-length 20
+set -g status-left "#[fg=white,bg=colour124,bold] #S  "
+
+# Right side of status bar
+set -g status-right-bg colour233
+set -g status-right-fg colour243
+set -g status-right-length 150
+set -g status-right "#[fg=white,bg=colour88]  %H:%M:%S  #[fg=white,bg=colour124] %d-%b-%y #[fg=white,      bg=colour196] ianpan@mackbook  "
+
+# Window status
+set -g window-status-format " #[fg=white]#I:#W#F "
+set -g window-status-current-format "#[fg=white] #I:#W#F "
+# set -g window-status-current-format " #I:#W#F "
+
+# Current window status
+set -g window-status-current-bg red
+set -g window-status-current-fg white
+set -g window-active-style 'bg=#300000'
+
+# Window with activity status
+set -g window-status-activity-bg colour124  # fg and bg are flipped here due to
+set -g window-status-activity-fg colour233 # a bug in tmux
+
+# Window separator
+set -g window-status-separator " "
+
+# Window status alignment
+set -g status-justify centre
+
+# Pane border
+set -g pane-border-bg default
+set -g pane-border-fg colour238
+
+# Active pane border
+set -g pane-active-border-bg default
+set -g pane-active-border-fg colour124
+
+# Pane number indicator
+set -g display-panes-colour colour52
+set -g display-panes-active-colour colour199
+
+# Clock mode
+set -g clock-mode-colour colour124
+set -g message-bg colour24
+
+# Message
+set -g message-bg colour196
+set -g message-fg white
+
+# Command message
+set -g message-command-bg colour124
+set -g message-command-fg black
+
+# Mode
+set -g mode-bg colour124
+set -g mode-fg colour231
