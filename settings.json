@@ -85,5 +85,6 @@
     "markdown.preview.fontFamily": "arial",
     "window.zoomLevel": 0,
     "latex-workshop.view.pdf.viewer": "tab",
-    "scrolloff.scrolloff": 5
+    "scrolloff.scrolloff": 5,
+    "workbench.startupEditor": "none"
 }
