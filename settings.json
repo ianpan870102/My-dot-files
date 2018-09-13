@@ -1,10 +1,14 @@
-// For Visual Studio Code
+// For Visual Studio Code / Visucal Studio Code-Insiders
+
 {
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": ["f"],
+    "vim.normalModeKeyBindingsNonRecursive": [{
+            "before": ["f"], // use 'f' for EasyMotion
             "after": ["leader", "leader", "s"],
-        }
+        },
+        {
+            "before": [" "],
+            "after": ["leader", "leader", "leader", "b", "d", "w"]
+        },
     ],
     "vim.leader": ";",
     "vim.easymotion": true,
@@ -16,40 +20,70 @@
     "vim.easymotionMarkerHeight": 17,
     "vim.cursorStylePerMode.insert": "line",
 
-    "editor.fontFamily": "DejaVu Sans Mono",
+    "editor.fontFamily": "DejaVuSansMono Nerd Font",
     "editor.fontSize": 16,
     "editor.lineHeight": 22,
     "editor.cursorStyle": "block",
+    "editor.cursorBlinking": "blink",
     "editor.wordWrap": "on",
 
-    // "editor.tokenColorCustomizations":   
-    // {   "comments": "#b1afafcd",
-    //     "numbers": "#fffafa",
-    //     "keywords": "#d3a8fd",
-    //     "functions": "#93e9e8", 
-    //     //"variables": "#ff826c",
-    //     "strings": "#fcc97c",
-    //     "types": "#ceec7c", 
-    // },
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.fontSize": 15,
+    "terminal.integrated.fontWeightBold": "normal",
+    "terminal.integrated.cursorBlinking": true,
 
-
-    "terminal.integrated.fontSize": 16,
+    "editor.tokenColorCustomizations": {
+        "variables": "#c9c9c9"
+    },
 
     "workbench.colorCustomizations": {
-        "editorCursor.foreground": "#d63e85",
-        "editorBracketMatch.background": "#fff12cb6",
-        "editor.foreground": "#fffafa",
+        "editorCursor.foreground": "#e93e8e",
+        "editor.foreground": "#c9c9c9",
         "editor.selectionBackground": "#3ef1f741",
-        "terminal.background": "#292929",
-        "terminal.foreground": "#fffafa",
+        "terminal.background": "#252525",
+        "terminal.foreground": "#b8b8b8",
+        "terminalCursor.foreground": "#a8e732"
     },
 
     "workbench.iconTheme": "vscode-icons",
-    "workbench.colorTheme": "Better Solarized Dark",
+    "workbench.colorTheme": "Solarized Dark",
     "workbench.statusBar.visible": true,
-    "workbench.activityBar.visible": true,
-    "window.zoomLevel": 0,
-    "editor.minimap.enabled": false,
     "zenMode.hideTabs": false,
-    "editor.lineNumbers": "relative"
+    "zenMode.hideStatusBar": false,
+    "editor.lineNumbers": "relative",
+    "files.autoSave": "afterDelay",
+    "explorer.openEditors.visible": 0,
+    "workbench.activityBar.visible": false,
+    "bracketPairColorizer.timeOut": 0,
+    "bracketPairColorizer.forceUniqueOpeningColor": true,
+    "org.addLeftZero": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "[javascriptreact]": {
+        "editor.tabSize": 2
+    },
+    "[html]": {
+        "editor.tabSize": 2
+    },
+    "[css]": {
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.tabSize": 2
+    },
+    "prettier.jsxBracketSameLine": true,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "editor.minimap.enabled": false,
+    "python.formatting.autopep8Path": "/usr/local/bin/autopep8",
+    "markdown.preview.doubleClickToSwitchToEditor": false,
+    "markdown.preview.fontSize": 19,
+    "markdown.preview.fontFamily": "arial",
+    "window.zoomLevel": 0,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "scrolloff.scrolloff": 5
 }
