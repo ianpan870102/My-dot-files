@@ -3,36 +3,62 @@ execute pathogen#infect()
 filetype plugin indent on
 set nocompatible
 
+set wrapmargin=8
+
+let g:auto_save = 1
+
+let g:airline_powerline_fonts=1
+
+hi VertSplit cterm=NONE
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"Autocommand to remove trailing whitespace on save"
-autocmd BufWritePre * %s/\s\+$//e
+"To prevent markdown syntax from concealing symbols
+" (However this autocmd will hide indent guide lines as well)
+" autocmd VimEnter * set conceallevel=0
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"NerdTree
-nnoremap <C-n> :NERDTreeToggle<CR>
+"Minimap toggling
+"<leader>mm (to activate minimap)
+"<leader>mc (to close)
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Autocommand to remove trailing whitespace on save
+" winsaveview & winrestview make sure that the cursor
+" position stays the same.
+fun! Trimwhitespace()
+    let l:save = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+autocmd BufWritePre * call Trimwhitespace()
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"NERDTree
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "Split windows
-nnoremap <space>w/ :vsp<cr>
-nnoremap <space>w- :sp<cr>
+nnoremap <silent> <space>w/ :vsp<cr>
+nnoremap <silent> <space>w- :sp<cr>
+nnoremap <space>wh <C-W><C-H>
 nnoremap <space>wj <C-W><C-J>
 nnoremap <space>wk <C-W><C-K>
 nnoremap <space>wl <C-W><C-L>
-nnoremap <space>wh <C-W><C-H>
-nnoremap <space>wd :hide<cr>
+nnoremap <silent> <space>wd :hide<cr>
 set splitbelow
 set splitright
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " EasyMotion
 nmap f <Plug>(easymotion-s)
+let g:EasyMotion_keys='ghasdflkjweroiu'
 let g:EasyMotion_smartcase = 1
 imap <ESC> <C-c>
+hi EasyMotionTarget2First cterm=bold ctermfg=208
+hi EasyMotionTarget2Second cterm=bold ctermfg=208
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"Indent Lines
-"Enabled by default
-let g:indentLine_color_term = 242
-"let g:indentLine_bgcolor_term = 202
-let g:indentLine_char = '¦'
-"let g:indentLine_char = '│'
-"let g:indentLine_char = ' '
+"Indent Lines  (Enabled by default)
+"conceallevel has to be set to 1 or 2 for the characters to show!
+let g:indentLine_color_term = 232
+let g:indentLine_char = '┊'
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"Code Length Limit Guideline
+set colorcolumn=80
+hi ColorColumn ctermbg=1
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "General Settings
 
@@ -41,54 +67,32 @@ set wildmenu
 set wildmode=longest:list,full
 
 "Toggle Relative Number (Ctrl + j)
-nnoremap <C-J> :set<space>nu!<cr>:set<space>relativenumber!<cr>
+nnoremap <silent> <C-J> :set<space>nu!<cr>:set<space>relativenumber!<cr>
 
 "Line numbers and other basic features
-hi LineNr  cterm=NONE ctermbg=NONE ctermfg=249
+hi LineNr  cterm=NONE ctermbg=NONE ctermfg=247
+set nu
+set relativenumber
 set numberwidth=2
 set ruler
 set lbr
 set mouse=
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"(Personal preference)Changing syntax colours of keywords (:highlight)
-hi cComment  cterm=italic ctermfg=37
-hi vimComment  cterm=italic ctermfg=37
-hi cType  cterm=bold,italic ctermfg=80
-hi pythonComment  cterm=italic ctermfg=37
-hi Structure  cterm=bold ctermfg=80
-hi StorageClass  cterm=bold,italic ctermfg=80
-hi Number cterm=bold ctermfg=154
-hi Tag            cterm=bold ctermfg=197
-hi SpecialChar    cterm=bold ctermfg=197
-hi Delimiter      cterm=bold ctermfg=197
-hi SpecialComment cterm=bold ctermfg=197
-hi Debug          cterm=bold ctermfg=197
-hi pythonEscape          cterm=bold ctermfg=197
-hi pythonDoctest          cterm=bold ctermfg=197
-hi pythonAttribute          cterm=bold,italic ctermfg=197
-hi pythonSync          cterm=bold ctermfg=197
-hi javaScriptPropietaryMethods  cterm=bold ctermfg=197
-hi javaScriptEventListenerMethods  cterm=bold ctermfg=197
-hi javaScriptParen  cterm=bold ctermfg=197
-hi javaScriptDotNotation  cterm=bold ctermfg=197
-hi javaScriptFunctionKey  cterm=bold ctermfg=197
-hi javaScriptObjectKey  cterm=bold ctermfg=197
-hi javaScriptTemplateVar  cterm=bold ctermfg=197
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "Mapping keys
 nmap <space> l
 
 let mapleader = ";"
+let maplocalleader = ";"
 "navigation in normal mode"
-nnoremap <leader>a 0
-nnoremap a<leader> $
-nnoremap d< eader>a d0
-nnoremap da<leader> d$
-nnoremap c<leader>a c0
-nnoremap ca<leader> c$
-nnoremap y<leader>a y0
-nnoremap ya<leader> y$
-nnoremap <space>fs :w<cr>
+" nnoremap <leader>a 0
+" nnoremap a<leader> $
+" nnoremap d< eader>a d0
+" nnoremap da<leader> d$
+" nnoremap c<leader>a c0
+" nnoremap ca<leader> c$
+" nnoremap y<leader>a y0
+" nnoremap ya<leader> y$
+nnoremap <silent> <space>fs :w<cr>
 
 nnoremap <cr> k
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,7 +129,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set smarttab
-set backspace=indent,eol
+set backspace=2
 augroup specific_filetype_indentations
     autocmd!
     autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
@@ -135,18 +139,18 @@ augroup END
 
 imap <leader>i <cr><C-o>k<Tab>
 
-"Autoindent everything correctly while startup
-augroup autoindent_the_whole_file
-    autocmd!
-    autocmd VimEnter * :normal migg=G`i
-augroup END
+fun! Autoindenting()
+    let l:save = winsaveview()
+    :norm ggVG=
+    call winrestview(l:save)
+endfun
+nnoremap <leader>i :call Autoindenting()<cr>
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Colorscheme
 syntax on
-hi Visual cterm=NONE ctermbg=244 ctermfg=226
-hi Pmenu cterm=italic ctermfg=white ctermbg=19
-hi PmenuSel cterm=italic ctermfg=white ctermbg=33
-hi MatchParen cterm=bold ctermbg=243 ctermfg=white
+colorscheme solarized
+let g:airline_theme='powerlineish'
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Show incomplete commands
 set showcmd
@@ -155,12 +159,12 @@ set showcmd
 set hlsearch
 set incsearch
 set ignorecase
-hi Search cterm=bold ctermbg=63 ctermfg=white
-nnoremap <space><space> :noh<cr>
+hi Search cterm=NONE ctermbg=63 ctermfg=white
+nnoremap <silent> <space><space> :noh<cr>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set dictionary="/usr/dict/words"
-inoremap ( ()<C-c>i
-inoremap { {}<C-c>i
-inoremap [ []<C-c>i
-inoremap " ""<C-c>i
-inoremap ' ''<C-c>i
+" inoremap ( ()<C-c>i
+" inoremap { {}<C-c>i
+" inoremap [ []<C-c>i
+" inoremap " ""<C-c>i
+" inoremap ' ''<C-c>i
