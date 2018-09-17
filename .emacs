@@ -20,7 +20,7 @@
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(package-selected-packages
    (quote
-    (neotree autopair solarized-theme linum-relative auto-complete evil-surround evil-commentary))))
+    (rainbow-delimiters flycheck neotree autopair solarized-theme linum-relative auto-complete evil-surround evil-commentary))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -34,6 +34,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(blink-cursor-mode 0)
 
 (global-auto-complete-mode t)
 
@@ -48,6 +49,20 @@
 
 (require 'autopair)
 (autopair-global-mode)
+
+(add-to-list 'load-path "/.emacs.d/elpa/neotree/")
+(require 'neotree)
+
+;; Flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; Rainbow
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+
+
+
 
 (add-to-list 'load-path "/.emacs.d/elpa/neotree/")
 (require 'neotree)
