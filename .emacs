@@ -18,7 +18,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#2b303b" :foreground "#c0c5ce" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "nil" :family "Monaco"))))
+ '(default ((t (:inherit nil :stipple nil :background "#262626" :foreground "#dab997" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "nil" :family "Monaco"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(mode-line ((t (:foreground "#9f9f9f" :background "#000" :box nil))))
@@ -145,7 +145,7 @@
                                    'help-echo (buffer-file-name)))
 
                '(:eval (when (buffer-modified-p)
-                         (concat ":"  (propertize " ✘ Save me! ✘"
+                         (concat ":"  (propertize " ✘Save me!✘"
                                                   'face 'font-lock-warning-face
                                                   'help-echo "Buffer has been modified"))))
                " (Line:"
@@ -186,10 +186,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (base16-ocean)))
+ '(custom-enabled-themes (quote (base16-gruvbox-dark-pale)))
  '(custom-safe-themes
    (quote
-    ("78c1c89192e172436dbf892bd90562bc89e2cc3811b5f9506226e735a953a9c6" "5a7830712d709a4fc128a7998b7fa963f37e960fd2e8aa75c76f692b36e6cf3c" default))))
+    ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default))))
 
 (set-cursor-color "#FFFAFA")
 ;;; .emacs ends here
