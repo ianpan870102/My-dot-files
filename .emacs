@@ -1,3 +1,8 @@
+;;; .emacs --- Custom Emacs Configuration
+;; Author: Ian Y.E. Pan
+;;; Commentary:
+;;; Code:
+
 (require 'package)
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
@@ -215,6 +220,53 @@
 
 (setq user-full-name "Ian Y.E. Pan")
 
-(add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
-(require 'powerline)
+(setq frame-title-format '( "%b" " [" (:eval mode-name) "]"))
+
+(global-hl-line-mode)
+
+
+(setq-default mode-line-format
+              (list
+               '(:eval (propertize "  %b" 'face 'font-lock-keyword-face
+                                   'help-echo (buffer-file-name)))
+
+               '(:eval (when (buffer-modified-p)
+                         (concat ":"  (propertize " ✘ Save me! ✘"
+                                                  'face 'font-lock-warning-face
+                                                  'help-echo "Buffer has been modified"))))
+               " (Line:"
+               (propertize "%02l" 'face 'font-lock-type-face)
+               ")  "
+               "["
+               (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
+               "|"
+               (propertize "%I" 'face 'font-lock-constant-face) ;; size
+               "]  "
+               "{"
+               '(:eval (propertize "%m" 'face 'font-lock-string-face
+                                   'help-echo buffer-file-coding-system))
+               "} "
+               "[" ;; insert vs overwrite mode, input-method in a tooltip
+               '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
+                                   'face 'font-lock-preprocessor-face
+                                   'help-echo (concat "Buffer is in "
+                                                      (if overwrite-mode "overwrite" "insert") " mode")))
+               '(:eval (when buffer-read-only
+                         (concat "|"  (propertize "R-O"
+                                                  'face 'font-lock-type-face
+                                                  'help-echo "Buffer is read-only"))))
+               "] "
+               ;; add the time, with the date and the emacs uptime in the tooltip
+               '(:eval (propertize (format-time-string "%H:%M")
+                                   'help-echo
+                                   (concat (format-time-string "%c; ")
+                                           (emacs-uptime "Uptime:%hh"))))
+               " ------ Minor:("
+               minor-mode-alist  ;; list of minor modes
+               ")"
+               "%-" ;; fill with '-'
+               ))
+
+;;; .emacs ends here
+
 
