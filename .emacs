@@ -1,6 +1,5 @@
 (require 'package)
 
-
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'load-path "~/.emacs.d/evil")
@@ -26,7 +25,7 @@
  '(custom-safe-themes
    (quote
     ("62c81ae32320ceff5228edceeaa6895c029cc8f43c8c98a023f91b5b339d633f" "a5956ec25b719bf325e847864e16578c61d8af3e8a3d95f60f9040d02497e408" "f27c3fcfb19bf38892bc6e72d0046af7a1ded81f54435f9d4d09b3bff9c52fc1" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
- ;; '(fancy-splash-image nil)
+ '(fancy-splash-image nil)
  '(fci-rule-color "#073642")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
@@ -58,7 +57,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (pdf-tools dashboard gruvbox-theme all-the-icons evil-smartparens aggressive-indent which-key smooth-scrolling elpy htmlize org-bullets emmet-mode fill-column-indicator rainbow-delimiters flycheck neotree solarized-theme linum-relative auto-complete evil-surround evil-commentary)))
+    (powerline-evil hackernews pdf-tools dashboard gruvbox-theme all-the-icons evil-smartparens aggressive-indent which-key smooth-scrolling elpy htmlize org-bullets emmet-mode fill-column-indicator rainbow-delimiters flycheck neotree solarized-theme linum-relative auto-complete evil-surround evil-commentary)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -102,7 +101,7 @@
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "nil" :family "DejaVuSansMono Nerd Font"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
- '(neo-dir-link-face ((t (:foreground "#4B90A7" :slant normal :weight bold :height 145 :family "Arial"))))
+ '(neo-dir-link-face ((t (:foreground "#1499CF" :slant normal :weight bold :height 145 :family "Arial"))))
  '(neo-file-link-face ((t (:foreground "#DADADA" :weight normal :height 135 :family "Arial"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DeepSkyBlue1"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DarkGoldenrod2"))))
@@ -110,7 +109,9 @@
  '(rainbow-delimiters-depth-4-face ((t (:foreground "plum2"))))
  '(rainbow-delimiters-depth-5-face ((t (:foreground "medium sea green"))))
  '(rainbow-delimiters-depth-6-face ((t (:foreground "sienna1"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "RosyBrown2")))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "RosyBrown2"))))
+ '(mode-line ((t (:foreground "#030303" :background "#9F9F9F" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#000" :background "#616161" :box nil)))))
 
 ;; Disable all bold fonts and underlines
 (mapc
@@ -202,3 +203,18 @@
 (require 'doc-view)
 
 (setq image-type-available-p 'pdf)
+
+(require 'hackernews)
+
+
+(setq solorized-high-contrast-mode-line t)
+
+
+;; Word-wrapping
+(global-visual-line-mode t)
+
+(setq user-full-name "Ian Y.E. Pan")
+
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
+(require 'powerline)
+
