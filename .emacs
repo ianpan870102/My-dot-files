@@ -21,6 +21,8 @@
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 170 :width normal :foundry "nil" :family "Monaco"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
+ '(mode-line ((t (:foreground "#c1c1c1" :background "#3a3a3a" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#000" :background "#3a3a3a" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 155 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 155 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DeepSkyBlue1"))))
@@ -29,8 +31,7 @@
  '(rainbow-delimiters-depth-4-face ((t (:foreground "plum2"))))
  '(rainbow-delimiters-depth-5-face ((t (:foreground "medium sea green"))))
  '(rainbow-delimiters-depth-6-face ((t (:foreground "sienna1"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "RosyBrown2"))))
- '(scroll-bar ((t (:background "black" :foreground "salmon4" :underline nil :weight normal)))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "RosyBrown2")))))
 
 
 (setq ring-bell-function 'ignore)
@@ -163,15 +164,17 @@
                ;;                                    'face 'font-lock-type-face
                ;;                                    'help-echo "Buffer is read-only"))))
                ;; "] "
-               '(:eval (list (nyan-create)))
                ;; add the time, with the date and the emacs uptime in the tooltip
-               '(:eval (propertize (format-time-string "%H:%M")
+               '(:eval (propertize (format-time-string "%H:%M [ ")
                                    'help-echo
                                    (concat (format-time-string "%c; ")
                                            (emacs-uptime "Uptime:%hh"))))
-               " ------ Minor:("
-               minor-mode-alist  ;; list of minor modes
-               ")"
+               '(:eval (list (nyan-create)))
+               "]"
+               ;; "Minor:("
+               ;; minor-mode-alist  ;; list of minor modes
+               ;; ")"
+
                "%-" ;; fill with '-'
                ))
 
@@ -186,7 +189,13 @@
     ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default)))
  '(nyan-animate-nyancat nil)
  '(nyan-animation-frame-interval 0.8)
+ '(nyan-bar-length 40)
+ '(nyan-cat-face-number 1)
  '(nyan-mode t)
+ '(org-format-latex-options
+   (quote
+    (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+                 ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
     (nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
@@ -226,4 +235,6 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+
+(global-set-key (kbd "<s-return>") 'eshell)
 ;;; .emacs ends here
