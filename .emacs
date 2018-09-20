@@ -18,11 +18,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#262626" :foreground "#dab997" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "nil" :family "Monaco"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 170 :width normal :foundry "nil" :family "Monaco"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
- '(mode-line ((t (:foreground "#c1c1c1" :background "#5E421F" :box nil))))
- '(mode-line-inactive ((t (:foreground "#000" :background "#616161" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 155 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 155 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DeepSkyBlue1"))))
@@ -95,10 +93,13 @@
 
 
 ;; Aggressive-Indent
-(global-aggressive-indent-mode 1)
+;; (global-aggressive-indent-mode 1)
 
 ;; Never use the tab character: always convert to spaces!
 (setq-default tab-width 2)
+(setq tab-width 2)
+(defvaralias 'c-basic-offset 'tab-width)
+(defvaralias 'cperl-indent-level 'tab-width)
 (setq-default indent-tabs-mode nil)
 
 (smartparens-global-mode 1)
@@ -128,8 +129,9 @@
 
 (setq frame-title-format '( "%b" " [" (:eval mode-name) "]"))
 
-;; Cursor-guide current line
+;;;; Cursor-guide current line
 ;; (global-hl-line-mode)
+
 
 
 (setq-default mode-line-format
@@ -138,31 +140,30 @@
                                    'help-echo (buffer-file-name)))
 
                '(:eval (when (buffer-modified-p)
-                         (concat ":"  (propertize " ✘Save me!✘"
-                                                  'face 'font-lock-warning-face
+                         (concat " "  (propertize "▲"
+                                                  'face 'font-lock-constant-face
                                                   'help-echo "Buffer has been modified"))))
                " (Line:"
                (propertize "%02l" 'face 'font-lock-type-face)
-               ")  "
+               ") "
                "["
                (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
-               " | "
-               (propertize "%I" 'face 'font-lock-constant-face) ;; size
-               "]  "
+               "] "
                "{"
                '(:eval (propertize "%m" 'face 'font-lock-string-face
                                    'help-echo buffer-file-coding-system))
                "} "
-               "[" ;; insert vs overwrite mode, input-method in a tooltip
-               '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
-                                   'face 'font-lock-preprocessor-face
-                                   'help-echo (concat "Buffer is in "
-                                                      (if overwrite-mode "overwrite" "insert") " mode")))
-               '(:eval (when buffer-read-only
-                         (concat "|"  (propertize "R-O"
-                                                  'face 'font-lock-type-face
-                                                  'help-echo "Buffer is read-only"))))
-               "] "
+               ;; "[" ;; insert vs overwrite mode, input-method in a tooltip
+               ;; '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
+               ;;                     'face 'font-lock-preprocessor-face
+               ;;                     'help-echo (concat "Buffer is in "
+               ;;                                        (if overwrite-mode "overwrite" "insert") " mode")))
+               ;; '(:eval (when buffer-read-only
+               ;;           (concat "|"  (propertize "R-O"
+               ;;                                    'face 'font-lock-type-face
+               ;;                                    'help-echo "Buffer is read-only"))))
+               ;; "] "
+               '(:eval (list (nyan-create)))
                ;; add the time, with the date and the emacs uptime in the tooltip
                '(:eval (propertize (format-time-string "%H:%M")
                                    'help-echo
@@ -183,9 +184,13 @@
  '(custom-safe-themes
    (quote
     ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default)))
+ '(nyan-animate-nyancat nil)
+ '(nyan-animation-frame-interval 0.8)
+ '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent))))
+    (nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
+ '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 
 (set-cursor-color "#FFFAFA")
 (setq-default indicate-empty-lines t)
@@ -195,4 +200,30 @@
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
 (global-set-key (kbd "C-j") 'linum-relative-toggle)   ;; Ctrl + j (just like in vim)
 
+(defun newline-and-push-brace ()
+  "`newline-and-indent', but bracket aware."
+  (interactive)
+  (insert "\n")
+  (when (looking-at "}")
+    (insert "\n")
+    (indent-according-to-mode)
+    (forward-line -1))
+  (indent-according-to-mode))
+(global-set-key (kbd "RET") 'newline-and-push-brace)
+
+(require 'auto-indent-mode)
+ 
+(setq show-paren-delay 0)
+(show-paren-mode 1)
+
+;; Spell checker software Aspell (to replace ispell)
+(setq ispell-program-name "/usr/local/bin/aspell")
+
+;; Use Command + f for easymotion!
+(global-set-key (kbd "s-f") 'avy-goto-char)
+(setq avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?n ?w ?e ?r ?y ?u ?i ?o ?t ?v ?l))
+(setq avy-background t)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 ;;; .emacs ends here
