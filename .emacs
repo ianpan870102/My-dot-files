@@ -21,7 +21,7 @@
  '(default ((t (:inherit nil :stipple nil :background "#262626" :foreground "#dab997" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "nil" :family "Monaco"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
- '(mode-line ((t (:foreground "#9f9f9f" :background "#000" :box nil))))
+ '(mode-line ((t (:foreground "#c1c1c1" :background "#5E421F" :box nil))))
  '(mode-line-inactive ((t (:foreground "#000" :background "#616161" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 155 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 155 :family "San Francisco"))))
@@ -31,13 +31,8 @@
  '(rainbow-delimiters-depth-4-face ((t (:foreground "plum2"))))
  '(rainbow-delimiters-depth-5-face ((t (:foreground "medium sea green"))))
  '(rainbow-delimiters-depth-6-face ((t (:foreground "sienna1"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "RosyBrown2")))))
-
-;; Disable all bold fonts and underlines
-(mapc
- (lambda (face)
-   (set-face-attribute face nil :weight 'normal :underline nil))
- (face-list))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "RosyBrown2"))))
+ '(scroll-bar ((t (:background "black" :foreground "salmon4" :underline nil :weight normal)))))
 
 
 (setq ring-bell-function 'ignore)
@@ -91,7 +86,7 @@
 (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
 (define-key global-map (kbd "C-c o") 'iedit-mode)
 
-  (require 'smooth-scrolling)
+(require 'smooth-scrolling)
 (smooth-scrolling-mode 1)
 
 (add-to-list 'load-path "path/to/which-key.el")
@@ -151,7 +146,7 @@
                ")  "
                "["
                (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
-               "|"
+               " | "
                (propertize "%I" 'face 'font-lock-constant-face) ;; size
                "]  "
                "{"
@@ -197,6 +192,6 @@
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file (then manually specify which file)
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
+(global-set-key (kbd "s-p") 'find-file)   ;; Command + p
 
 ;;; .emacs ends here
-
