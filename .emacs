@@ -23,8 +23,8 @@
  '(buffer-menu-buffer ((t (:weight normal))))
  '(mode-line ((t (:foreground "#9f9f9f" :background "#000" :box nil))))
  '(mode-line-inactive ((t (:foreground "#000" :background "#616161" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#b58900" :slant normal :weight bold :height 150 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#fffafa" :weight normal :height 150 :family "San Francisco"))))
+ '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 155 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#fffafa" :weight normal :height 155 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DeepSkyBlue1"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepPink2"))))
@@ -88,8 +88,10 @@
 
 
 (elpy-enable)
+(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+(define-key global-map (kbd "C-c o") 'iedit-mode)
 
-(require 'smooth-scrolling)
+  (require 'smooth-scrolling)
 (smooth-scrolling-mode 1)
 
 (add-to-list 'load-path "path/to/which-key.el")
@@ -121,12 +123,7 @@
 
 (require 'doc-view)
 
-(setq image-type-available-p 'pdf)
-
 (require 'hackernews)
-
-
-(setq solorized-high-contrast-mode-line t)
 
 
 ;; Word-wrapping
@@ -134,9 +131,9 @@
 
 (setq user-full-name "Ian Y.E. Pan")
 
-
 (setq frame-title-format '( "%b" " [" (:eval mode-name) "]"))
 
+;; Cursor-guide current line
 ;; (global-hl-line-mode)
 
 
@@ -190,9 +187,14 @@
  '(custom-enabled-themes (quote (base16-gruvbox-dark-pale)))
  '(custom-safe-themes
    (quote
-    ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default))))
+    ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default)))
+ '(package-selected-packages
+   (quote
+    (which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent))))
 
 (set-cursor-color "#FFFAFA")
+(setq-default indicate-empty-lines t)
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file (then manually specify which file)
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
+(global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 ;;; .emacs ends here
