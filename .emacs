@@ -193,5 +193,6 @@
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
+(global-set-key (kbd "C-j") 'linum-relative-toggle)   ;; Ctrl + j (just like in vim)
 
 ;;; .emacs ends here
