@@ -23,8 +23,8 @@
  '(buffer-menu-buffer ((t (:weight normal))))
  '(mode-line ((t (:foreground "#9f9f9f" :background "#000" :box nil))))
  '(mode-line-inactive ((t (:foreground "#000" :background "#616161" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#b58900" :slant normal :weight bold :height 145 :family "Arial"))))
- '(neo-file-link-face ((t (:foreground "#fffafa" :weight normal :height 135 :family "Arial"))))
+ '(neo-dir-link-face ((t (:foreground "#b58900" :slant normal :weight bold :height 150 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#fffafa" :weight normal :height 150 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DeepSkyBlue1"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepPink2"))))
@@ -54,7 +54,7 @@
 (evil-commentary-mode)
 
 (require 'linum-relative)
-(linum-relative-global-mode t)
+;; (linum-relative-global-mode t)
 
 ;; NeoTree
 (add-to-list 'load-path "/.emacs.d/elpa/neotree/")
@@ -63,6 +63,7 @@
 (add-hook 'neotree-mode-hook
           (lambda ()
             (define-key evil-normal-state-local-map (kbd "l") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
             (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
             (define-key evil-normal-state-local-map (kbd "zh") 'neotree-hidden-file-toggle)))
 (setq neo-theme 'arrow)
@@ -136,7 +137,7 @@
 
 (setq frame-title-format '( "%b" " [" (:eval mode-name) "]"))
 
-(global-hl-line-mode)
+;; (global-hl-line-mode)
 
 
 (setq-default mode-line-format
@@ -192,4 +193,6 @@
     ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default))))
 
 (set-cursor-color "#FFFAFA")
+(global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file (then manually specify which file)
+(global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 ;;; .emacs ends here
