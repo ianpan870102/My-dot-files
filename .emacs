@@ -24,7 +24,7 @@
  '(mode-line ((t (:foreground "#9f9f9f" :background "#000" :box nil))))
  '(mode-line-inactive ((t (:foreground "#000" :background "#616161" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 155 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#fffafa" :weight normal :height 155 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 155 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DeepSkyBlue1"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepPink2"))))
@@ -197,4 +197,6 @@
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file (then manually specify which file)
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
+
 ;;; .emacs ends here
+
