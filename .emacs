@@ -4,6 +4,13 @@
 ;;; Code:
 (require 'package)
 
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
+
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'load-path "~/.emacs.d/evil")
@@ -18,7 +25,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 170 :width normal :foundry "nil" :family "Monaco"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-light :height 160 :width ultra-condensed :foundry "nil" :family "Monaco"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#3a3a3a" :box nil))))
@@ -125,6 +132,7 @@
 
 ;; Word-wrapping
 (global-visual-line-mode t)
+;; (auto-fill-mode t)
 
 (setq user-full-name "Ian Y.E. Pan")
 
@@ -187,6 +195,7 @@
  '(custom-safe-themes
    (quote
     ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default)))
+ '(jdee-server-dir "~/myJars")
  '(nyan-animate-nyancat nil)
  '(nyan-animation-frame-interval 0.8)
  '(nyan-bar-length 40)
@@ -198,7 +207,7 @@
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
+    (jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 
 (set-cursor-color "#FFFAFA")
@@ -236,5 +245,41 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
+;; Command + Enter: fire up eshell in current frame
 (global-set-key (kbd "<s-return>") 'eshell)
+
+
+;; EShell Prompt
+(setq eshell-prompt-function (lambda nil
+    (concat
+     "\n"
+     (propertize (eshell/pwd) 'face `(:foreground "#fe8019"))
+     (propertize " ~ $ " 'face `(:foreground "#fe8019")))))
+  (setq eshell-highlight-prompt nil)
+
+
+;; Clear the EShell buffer and end at the top (instead of the bottom)
+(defun eshell/clear ()
+    "Clear the eshell buffer."
+    (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(js2-imenu-extras-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+;; (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)
+
+(setq elpy-rpc-python-command "/usr/local/bin/python3")
+(setq python-shell-interpreter "/usr/local/bin/python3")
+
+
+;; Set Environment Variables
+(setenv "PATH"
+  (concat
+   "/usr/local/bin/" ":"
+   (getenv "PATH")
+  )
+)
+
 ;;; .emacs ends here
