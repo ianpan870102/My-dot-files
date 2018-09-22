@@ -25,16 +25,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-light :height 160 :width ultra-condensed :foundry "nil" :family "Monaco"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-light :height 155 :width ultra-condensed :foundry "nil" :family "Monaco"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#3a3a3a" :box nil))))
  '(mode-line-inactive ((t (:foreground "#000" :background "#3a3a3a" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 155 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 155 :family "San Francisco"))))
- '(rainbow-delimiters-depth-1-face ((t (:foreground "DeepSkyBlue1"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "DarkGoldenrod2"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepPink2"))))
+ '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 145 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140 :family "San Francisco"))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1"))))
  '(rainbow-delimiters-depth-4-face ((t (:foreground "plum2"))))
  '(rainbow-delimiters-depth-5-face ((t (:foreground "medium sea green"))))
  '(rainbow-delimiters-depth-6-face ((t (:foreground "sienna1"))))
@@ -115,7 +115,8 @@
 
 (defun always-use-fancy-splash-screens-p () 1)
 (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-(setq fancy-splash-image (expand-file-name "~/Downloads/rms1.png" ))
+;; (setq fancy-splash-image (expand-file-name "~/Downloads/rms1.png" ))
+(setq fancy-splash-image (expand-file-name "~/Downloads/emacs-logo.png" ))
 
 
 ;; In order for 'pdflatex' to work
@@ -207,7 +208,8 @@
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
+    (electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
+ '(smooth-scroll-margin 2)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 
 (set-cursor-color "#FFFAFA")
@@ -249,12 +251,15 @@
 (global-set-key (kbd "<s-return>") 'eshell)
 
 
-;; EShell Prompt
+;; Customize Eshell prompt
 (setq eshell-prompt-function (lambda nil
     (concat
-     "\n"
-     (propertize (eshell/pwd) 'face `(:foreground "#fe8019"))
-     (propertize " ~ $ " 'face `(:foreground "#fe8019")))))
+        (propertize "\n╭─" 'face `(:foreground "#fe8019"))
+        (format-time-string "%H:%M:%S " (current-time))
+        (propertize (eshell/pwd) 'face `(:foreground "#B0AE37"))
+        (propertize "\n╰─ ~ ∃ " 'face `(:foreground "#fe8019"))
+    )))
+
   (setq eshell-highlight-prompt nil)
 
 
@@ -281,5 +286,11 @@
    (getenv "PATH")
   )
 )
+
+;; (add-hook 'python-mode-hook #'electric-spacing-mode)
+;; (add-hook 'org-mode-hook #'electric-spacing-mode)
+;; (add-hook 'emacs-lisp-mode-hook #'electric-spacing-mode)
+;; (add-hook 'jdee-mode-hook #'electric-spacing-mode)
+
 
 ;;; .emacs ends here
