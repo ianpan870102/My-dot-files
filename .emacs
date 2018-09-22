@@ -54,8 +54,14 @@
 
 (evil-commentary-mode)
 
-(require 'linum-relative)
-;; (linum-relative-global-mode t)
+;; (require 'linum-relative)
+;; (global-set-key (kbd "C-j") 'linum-relative-toggle)
+(require 'nlinum-relative)
+(nlinum-relative-setup-evil)                    ;; setup for evil
+(add-hook 'prog-mode-hook 'nlinum-relative-mode)
+(setq nlinum-relative-redisplay-delay 0)      ;; delay
+(setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
+(setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
 
 ;; NeoTree
 (add-to-list 'load-path "/.emacs.d/elpa/neotree/")
@@ -208,7 +214,7 @@
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
+    (nlinum-relative electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
  '(smooth-scroll-margin 2)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 
@@ -218,7 +224,6 @@
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
-(global-set-key (kbd "C-j") 'linum-relative-toggle)   ;; Ctrl + j (just like in vim)
 
 (defun newline-and-push-brace ()
   "`newline-and-indent', but bracket aware."
