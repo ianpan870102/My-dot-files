@@ -25,12 +25,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-light :height 165 :width ultra-condensed :foundry "nil" :family "Monaco"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "nil" :family "Hack"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(line-number ((t (:background "#262626" :foreground "#676767"))))
- '(mode-line ((t (:foreground "#c1c1c1" :background "#3a3a3a" :box nil))))
+ '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 145 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140 :family "San Francisco"))))
@@ -275,7 +275,7 @@
  '(xterm-color-names-bright
    ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
 
-;; (set-cursor-color "#C1C1C1")
+(set-cursor-color "#C1C1C1")
 (setq-default indicate-empty-lines t)
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file (then manually specify which file)
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
@@ -328,9 +328,12 @@
 ;; Clear the EShell buffer and end at the top (instead of the bottom)
 (defun eshell/clear ()
     "Clear the eshell buffer."
+    (interactive)
     (let ((inhibit-read-only t))
     (erase-buffer)
-    (eshell-send-input)))
+    ;; (eshell-send-input)))
+    ))
+
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (js2-imenu-extras-mode)
@@ -354,5 +357,7 @@
 ;; (add-hook 'emacs-lisp-mode-hook #'electric-spacing-mode)
 ;; (add-hook 'jdee-mode-hook #'electric-spacing-mode)
 
+;; Disable Python ugly indent-guide
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 
 ;;; .emacs ends here
