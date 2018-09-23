@@ -309,6 +309,7 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
+
 ;; Command + Enter: fire up eshell in current frame
 (global-set-key (kbd "<s-return>") 'eshell)
 
