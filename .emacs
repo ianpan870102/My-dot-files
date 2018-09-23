@@ -25,11 +25,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-light :height 155 :width ultra-condensed :foundry "nil" :family "Monaco"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-light :height 165 :width ultra-condensed :foundry "nil" :family "Monaco"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
+ '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
+ '(line-number ((t (:background "#262626" :foreground "#676767"))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#3a3a3a" :box nil))))
- '(mode-line-inactive ((t (:foreground "#000" :background "#3a3a3a" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 145 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
@@ -62,6 +64,7 @@
 (setq nlinum-relative-redisplay-delay 0)      ;; delay
 (setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
 (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
+(global-set-key (kbd "C-j") 'nlinum-mode)
 
 ;; NeoTree
 (add-to-list 'load-path "/.emacs.d/elpa/neotree/")
@@ -152,44 +155,29 @@
 
 (setq-default mode-line-format
               (list
-               '(:eval (propertize "  %b" 'face 'font-lock-keyword-face
+               '(:eval (propertize "(Buffer: %b)" 'face 'font-lock-keyword-face
                                    'help-echo (buffer-file-name)))
 
                '(:eval (when (buffer-modified-p)
                          (concat " "  (propertize "▲"
                                                   'face 'font-lock-constant-face
                                                   'help-echo "Buffer has been modified"))))
-               " (Line:"
-               (propertize "%02l" 'face 'font-lock-type-face)
-               ") "
-               "["
-               (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
-               "] "
-               "{"
+               " {"
                '(:eval (propertize "%m" 'face 'font-lock-string-face
                                    'help-echo buffer-file-coding-system))
                "} "
-               ;; "[" ;; insert vs overwrite mode, input-method in a tooltip
-               ;; '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
-               ;;                     'face 'font-lock-preprocessor-face
-               ;;                     'help-echo (concat "Buffer is in "
-               ;;                                        (if overwrite-mode "overwrite" "insert") " mode")))
-               ;; '(:eval (when buffer-read-only
-               ;;           (concat "|"  (propertize "R-O"
-               ;;                                    'face 'font-lock-type-face
-               ;;                                    'help-echo "Buffer is read-only"))))
-               ;; "] "
-               ;; add the time, with the date and the emacs uptime in the tooltip
-               '(:eval (propertize (format-time-string "%H:%M [ ")
+               '(:eval (propertize (format-time-string "%H:%M ")
                                    'help-echo
                                    (concat (format-time-string "%c; ")
                                            (emacs-uptime "Uptime:%hh"))))
+               "["
+               (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
+               "] [ "
                '(:eval (list (nyan-create)))
                "]"
-               ;; "Minor:("
-               ;; minor-mode-alist  ;; list of minor modes
-               ;; ")"
-
+               " (Line:"
+               (propertize "%02l" 'face 'font-lock-type-face)
+               ") "
                "%-" ;; fill with '-'
                ))
 
@@ -218,7 +206,7 @@
  '(smooth-scroll-margin 2)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 
-(set-cursor-color "#FFFAFA")
+(set-cursor-color "#C1C1C1")
 (setq-default indicate-empty-lines t)
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file (then manually specify which file)
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
