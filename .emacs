@@ -285,5 +285,4 @@
 ;; (add-hook 'emacs-lisp-mode-hook #'electric-spacing-mode)
 ;; (add-hook 'jdee-mode-hook #'electric-spacing-mode)
 
-
 ;;; .emacs ends here
