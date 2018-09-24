@@ -25,7 +25,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 165 :width normal :foundry "nil" :family "Hack"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 165 :width normal :foundry "nil" :family "Hack"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
@@ -60,11 +60,10 @@
 ;; (global-set-key (kbd "C-j") 'linum-relative-toggle)
 (require 'nlinum-relative)
 (nlinum-relative-setup-evil)                    ;; setup for evil
-(add-hook 'prog-mode-hook 'nlinum-relative-mode)
+(add-hook 'prog-mode-hook 'nlinum-relative-mode)  ;; Use relat.num for prog-mode
 (setq nlinum-relative-redisplay-delay 0)      ;; delay
-(setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
+(setq nlinum-relative-current-symbol "")      ;; display current line number
 (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
-(global-set-key (kbd "C-j") 'nlinum-mode)
 
 ;; NeoTree
 (add-to-list 'load-path "/.emacs.d/elpa/neotree/")
@@ -83,15 +82,17 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; Flycheck
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'after-init-hook 'global-flycheck-mode)
 
 ;; Line 80 Ruler
 (require 'fill-column-indicator)
 (setq fci-rule-column 80)
-(setq fci-rule-color "#dc322f")
+(setq fci-rule-color "#B74835")
+(add-hook 'prog-mode-hook 'fci-mode)
 
 (require 'emmet-mode)
-(add-hook 'html-mode-hook #'emmet-mode)
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -108,16 +109,16 @@
 (require 'which-key)
 (which-key-mode)
 
-
 ;; Aggressive-Indent
 ;; (global-aggressive-indent-mode 1)
 
 ;; Never use the tab character: always convert to spaces!
 (setq-default tab-width 2)
-(setq tab-width 2)
+;; (setq tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 (setq-default indent-tabs-mode nil)
+(setq js-indent-level 2)
 
 (smartparens-global-mode 1)
 (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
@@ -130,8 +131,12 @@
 
 ;; In order for 'pdflatex' to work
 ;; Also, had to export PATH from .zshrc
-(setenv "PATH" (concat "/usr/texbin:/Library/TeX/texbin:" (getenv "PATH")))
+(setenv "PATH"
+        (
+         concat "/usr/texbin:/Library/TeX/texbin:" (getenv "PATH")
+         ))
 (setq exec-path (append '("/usr/texbin" "/Library/TeX/texbin") exec-path))
+
 
 (setq make-backup-files nil)
 
@@ -142,7 +147,6 @@
 
 ;; Word-wrapping
 (global-visual-line-mode t)
-;; (auto-fill-mode t)
 
 (setq user-full-name "Ian Y.E. Pan")
 
@@ -195,7 +199,7 @@
  '(custom-safe-themes
    (quote
     ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default)))
- '(fci-rule-color "#073642")
+ '(fci-rule-color "#B74835")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
    (--map
@@ -236,7 +240,7 @@
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (nlinum-relative electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
+    (java-snippets yasnippet-snippets yasnippet-classic-snippets nlinum-relative electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -275,13 +279,14 @@
  '(xterm-color-names-bright
    ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
 
-(set-cursor-color "#C1C1C1")
+(set-cursor-color "#dbdbdb")
 (setq-default indicate-empty-lines t)
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file (then manually specify which file)
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
 
+;; Indent when RET brackets / parenthesis
 (defun newline-and-push-brace ()
   "`newline-and-indent', but bracket aware."
   (interactive)
@@ -290,11 +295,27 @@
     (insert "\n")
     (indent-according-to-mode)
     (forward-line -1))
-  (indent-according-to-mode))
+  (indent-according-to-mode)
+
+  (when (looking-at ")")
+    (insert "\n")
+    (indent-according-to-mode)
+    (forward-line -1))
+  (indent-according-to-mode)
+
+  (when (looking-at "]")
+    (insert "\n")
+    (indent-according-to-mode)
+    (forward-line -1))
+  (indent-according-to-mode)
+
+  )
 (global-set-key (kbd "RET") 'newline-and-push-brace)
 
+
 (require 'auto-indent-mode)
- 
+
+
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
@@ -305,10 +326,11 @@
 (global-set-key (kbd "s-f") 'avy-goto-char)
 (setq avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?n ?w ?e ?r ?y ?u ?i ?o ?t ?v ?l))
 (setq avy-background t)
+
+;; IDO Mode
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
-
 
 ;; Command + Enter: fire up eshell in current frame
 (global-set-key (kbd "<s-return>") 'eshell)
@@ -316,23 +338,22 @@
 
 ;; Customize Eshell prompt
 (setq eshell-prompt-function (lambda nil
-    (concat
-        (propertize "\n╭─" 'face `(:foreground "#fe8019"))
-        (format-time-string "%H:%M:%S " (current-time))
-        (propertize (eshell/pwd) 'face `(:foreground "#B0AE37"))
-        (propertize "\n╰─ ~ ∃ " 'face `(:foreground "#fe8019"))
-    )))
+                               (concat
+                                (propertize "\n╭─" 'face `(:foreground "#fe8019"))
+                                (format-time-string "%H:%M:%S " (current-time))
+                                (propertize (eshell/pwd) 'face `(:foreground "#B0AE37"))
+                                (propertize "\n╰─ ~ ✘ " 'face `(:foreground "#fe8019"))
+                                )))
 
-  (setq eshell-highlight-prompt nil)
+(setq eshell-highlight-prompt nil)
 
 
 ;; Clear the EShell buffer and end at the top (instead of the bottom)
 (defun eshell/clear ()
-    "Clear the eshell buffer."
-    (interactive)
-    (let ((inhibit-read-only t))
+  "Clear the eshell buffer to the top."
+  (interactive)
+  (let ((inhibit-read-only t))
     (erase-buffer)
-    ;; (eshell-send-input)))
     ))
 
 
@@ -341,24 +362,23 @@
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 ;; (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)
 
+
+;; Set Python default to Python3
 (setq elpy-rpc-python-command "/usr/local/bin/python3")
 (setq python-shell-interpreter "/usr/local/bin/python3")
 
 
 ;; Set Environment Variables
+;; to let Eshell use all the brew-installed commands.
 (setenv "PATH"
-  (concat
-   "/usr/local/bin/" ":"
-   (getenv "PATH")
-  )
-)
+        (concat
+         "/usr/local/bin/" ":"
+         (getenv "PATH")
+         )
+        )
 
-;; (add-hook 'python-mode-hook #'electric-spacing-mode)
-;; (add-hook 'org-mode-hook #'electric-spacing-mode)
-;; (add-hook 'emacs-lisp-mode-hook #'electric-spacing-mode)
-;; (add-hook 'jdee-mode-hook #'electric-spacing-mode)
-
-;; Disable Python ugly indent-guide
+;; Disable Python's ugly indent-guide
 (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+
 
 ;;; .emacs ends here
