@@ -25,15 +25,21 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 150 :width normal :foundry "nil" :family "Hack"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil
+                         :strike-through nil :overline nil :underline nil
+                         :slant normal :weight light :height 150 :width normal
+                         :foundry "nil" :family "hack"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(line-number ((t (:background "#262626" :foreground "#676767"))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 145 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140 :family "San Francisco"))))
+ '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal
+                                      :weight bold :height 145
+                                      :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height
+                                       140 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1"))))
@@ -60,7 +66,7 @@
 ;; (global-set-key (kbd "C-j") 'linum-relative-toggle)
 (require 'nlinum-relative)
 (nlinum-relative-setup-evil)                    ;; setup for evil
-(add-hook 'prog-mode-hook 'nlinum-relative-mode)  ;; Use relat.num for prog-mode
+(add-hook 'prog-mode-hook 'nlinum-relative-mode)
 (setq nlinum-relative-redisplay-delay 0)      ;; delay
 (setq nlinum-relative-current-symbol "")      ;; display current line number
 (setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
@@ -71,10 +77,14 @@
 (global-set-key (kbd "s-b") 'neotree-toggle)
 (add-hook 'neotree-mode-hook
           (lambda ()
-            (define-key evil-normal-state-local-map (kbd "l") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
-            (define-key evil-normal-state-local-map (kbd "zh") 'neotree-hidden-file-toggle)))
+            (define-key evil-normal-state-local-map
+              (kbd "l") 'neotree-enter)
+            (define-key evil-normal-state-local-map
+              (kbd "RET") 'neotree-enter)
+            (define-key evil-normal-state-local-map
+              (kbd "A") 'neotree-stretch-toggle)
+            (define-key evil-normal-state-local-map
+              (kbd "zh") 'neotree-hidden-file-toggle)))
 (setq neo-theme 'arrow)
 
 ;; Rainbow
@@ -87,7 +97,7 @@
 ;; Line 80 Ruler
 (require 'fill-column-indicator)
 (setq fci-rule-column 80)
-(setq fci-rule-color "#B74835")
+(setq fci-rule-color "#A52C1C")
 (add-hook 'prog-mode-hook 'fci-mode)
 
 (require 'emmet-mode)
@@ -165,7 +175,8 @@
                '(:eval (when (buffer-modified-p)
                          (concat " "  (propertize "▲"
                                                   'face 'font-lock-constant-face
-                                                  'help-echo "Buffer has been modified"))))
+                                                  'help-echo
+                                                  "Buffer has been modified"))))
                " {"
                '(:eval (propertize "%m" 'face 'font-lock-string-face
                                    'help-echo buffer-file-coding-system))
@@ -190,16 +201,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(compilation-message-face (quote default))
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#839496")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
+ ;; '(compilation-message-face (quote default))
+ ;; '(cua-global-mark-cursor-color "#2aa198")
+ ;; '(cua-normal-cursor-color "#839496")
+ ;; '(cua-overwrite-cursor-color "#b58900")
+ ;; '(cua-read-only-cursor-color "#859900")
  '(custom-enabled-themes (quote (base16-solarized-dark)))
  '(custom-safe-themes
    (quote
-    ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default)))
- '(fci-rule-color "#B74835")
+    ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa"
+     "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450"
+     default)))
+ '(fci-rule-color "#A52C1C")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
    (--map
@@ -219,16 +232,20 @@
      ("#073642" . 100))))
  '(hl-bg-colors
    (quote
-    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
+    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91"
+     "#00629D" "#00736F" "#546E00")))
  '(hl-fg-colors
    (quote
-    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
- '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")))
+    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36"
+     "#002b36" "#002b36" "#002b36")))
+ '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2"
+                           "#6c71c4" "#859900")))
  '(jdee-server-dir "~/myJars")
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
    (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
+    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342"
+     "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(nyan-animate-nyancat nil)
  '(nyan-animation-frame-interval 0.8)
  '(nyan-bar-length 40)
@@ -236,11 +253,20 @@
  '(nyan-mode t)
  '(org-format-latex-options
    (quote
-    (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+    (:foreground default :background default :scale 2.0 :html-foreground "Black"
+                 :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (java-snippets yasnippet-snippets yasnippet-classic-snippets nlinum-relative electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
+    (java-snippets yasnippet-snippets yasnippet-classic-snippets
+                   nlinum-relative electric-spacing jdee jedi helm-emmet
+                   js2-mode nyan-mode auto-indent-mode which-key solarized-theme
+                   smooth-scrolling rainbow-delimiters pdf-tools org-bullets
+                   neotree linum-relative htmlize hackernews gruvbox-theme
+                   flycheck fill-column-indicator evil-surround evil-smartparens
+                   evil-commentary emmet-mode elpy dashboard
+                   base16-theme avy auto-complete
+                   all-the-icons aggressive-indent)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -273,15 +299,19 @@
  '(vc-annotate-very-old-color nil)
  '(weechat-color-list
    (quote
-    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
+    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900"
+                 "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682"
+                 "#00736F" "#2aa198" "#839496" "#657b83")))
  '(xterm-color-names
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
+   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2"
+    "#d33682" "#2aa198" "#eee8d5"])
  '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
+   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496"
+    "#6c71c4" "#93a1a1" "#fdf6e3"]))
 
 (set-cursor-color "#dbdbdb")
 (setq-default indicate-empty-lines t)
-(global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file (then manually specify which file)
+(global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
@@ -339,10 +369,13 @@
 ;; Customize Eshell prompt
 (setq eshell-prompt-function (lambda nil
                                (concat
-                                (propertize "\n╭─" 'face `(:foreground "#fe8019"))
+                                (propertize "\n╭─" 'face
+                                            `(:foreground "#fe8019"))
                                 (format-time-string "%H:%M:%S " (current-time))
-                                (propertize (eshell/pwd) 'face `(:foreground "#B0AE37"))
-                                (propertize "\n╰─ ~ ✘ " 'face `(:foreground "#fe8019"))
+                                (propertize (eshell/pwd) 'face
+                                            `(:foreground "#B0AE37"))
+                                (propertize "\n╰─ ~ ✘ " 'face
+                                            `(:foreground "#fe8019"))
                                 )))
 
 (setq eshell-highlight-prompt nil)
