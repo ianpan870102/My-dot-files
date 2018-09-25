@@ -34,9 +34,10 @@
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(line-number ((t (:background "#262626" :foreground "#676767"))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
- '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#3a3a3a"
+                                       :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold
-                                      :height 145 :family "San Francisco"))))
+                                      :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140
                                        :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
@@ -89,7 +90,7 @@
 
 ;; Line 80 Ruler
 (require 'fill-column-indicator)
-(setq fci-rule-column 80)
+(setq fci-rule-column 79)
 (setq fci-rule-color "#A52C1C")
 (add-hook 'prog-mode-hook 'fci-mode)
 
@@ -104,6 +105,11 @@
 (elpy-enable)
 (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
 (define-key global-map (kbd "C-c o") 'iedit-mode)
+
+
+;; Yasnippets enable
+(yas-global-mode 1)
+
 
 (require 'smooth-scrolling)
 (smooth-scrolling-mode 1)
@@ -408,5 +414,13 @@
 (require 'prettier-js)
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
+
+;; Natural color title-bar (matching theme)
+(add-to-list 'default-frame-alist
+             '(ns-transparent-titlebar . t))
+
+;; macOS dark title-bar
+(add-to-list 'default-frame-alist
+             '(ns-appearance . dark))
 
 ;;; .emacs ends here
