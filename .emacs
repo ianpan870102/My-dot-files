@@ -42,11 +42,7 @@
                                        140 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1"))))
- '(rainbow-delimiters-depth-4-face ((t (:foreground "plum2"))))
- '(rainbow-delimiters-depth-5-face ((t (:foreground "medium sea green"))))
- '(rainbow-delimiters-depth-6-face ((t (:foreground "sienna1"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "RosyBrown2")))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
 
 
 (setq ring-bell-function 'ignore)
@@ -62,14 +58,12 @@
 
 (evil-commentary-mode)
 
-;; (require 'linum-relative)
-;; (global-set-key (kbd "C-j") 'linum-relative-toggle)
 (require 'nlinum-relative)
 (nlinum-relative-setup-evil)                    ;; setup for evil
 (add-hook 'prog-mode-hook 'nlinum-relative-mode)
 (setq nlinum-relative-redisplay-delay 0)      ;; delay
 (setq nlinum-relative-current-symbol "")      ;; display current line number
-(setq nlinum-relative-offset 0)                 ;; 1 if you want 0, 2, 3...
+(setq nlinum-relative-offset 0)               ;; 1 if you want 0, 2, 3...
 
 ;; NeoTree
 (add-to-list 'load-path "/.emacs.d/elpa/neotree/")
@@ -87,7 +81,7 @@
               (kbd "zh") 'neotree-hidden-file-toggle)))
 (setq neo-theme 'arrow)
 
-;; Rainbow
+;; Rainbow Brackets
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
@@ -119,8 +113,6 @@
 (require 'which-key)
 (which-key-mode)
 
-;; Aggressive-Indent
-;; (global-aggressive-indent-mode 1)
 
 ;; Never use the tab character: always convert to spaces!
 (setq-default tab-width 2)
@@ -130,12 +122,19 @@
 (setq-default indent-tabs-mode nil)
 (setq js-indent-level 2)
 
+;; Setting the default indentation style for C to be "gnu"
+(add-hook 'c-mode-hook
+          '(lambda ()
+             (c-set-style "gnu")))
+
+;; Always syntax highlight
+(global-font-lock-mode t)
+
 (smartparens-global-mode 1)
 (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
 
-(defun always-use-fancy-splash-screens-p () 1)
+(defun always-use-fancy-splash-screens-p () "Use splash screen on start-up." 1)
 (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-;; (setq fancy-splash-image (expand-file-name "~/Downloads/rms1.png" ))
 (setq fancy-splash-image (expand-file-name "~/Downloads/emacs-logo.png" ))
 
 
@@ -401,8 +400,7 @@
 (setq python-shell-interpreter "/usr/local/bin/python3")
 
 
-;; Set Environment Variables
-;; to let Eshell use all the brew-installed commands.
+;; Set Environment Variables to let Eshell use all the brew-installed commands.
 (setenv "PATH"
         (concat
          "/usr/local/bin/" ":"
