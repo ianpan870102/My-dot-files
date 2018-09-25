@@ -35,11 +35,10 @@
  '(line-number ((t (:background "#262626" :foreground "#676767"))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal
-                                      :weight bold :height 145
-                                      :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height
-                                       140 :family "San Francisco"))))
+ '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold
+                                      :height 145 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140
+                                       :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
@@ -200,11 +199,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(compilation-message-face (quote default))
- ;; '(cua-global-mark-cursor-color "#2aa198")
- ;; '(cua-normal-cursor-color "#839496")
- ;; '(cua-overwrite-cursor-color "#b58900")
- ;; '(cua-read-only-cursor-color "#859900")
  '(custom-enabled-themes (quote (base16-solarized-dark)))
  '(custom-safe-themes
    (quote
@@ -243,8 +237,8 @@
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
    (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342"
-     "#00629D" "#2aa198" "#d33682" "#6c71c4")))
+    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D"
+     "#2aa198" "#d33682" "#6c71c4")))
  '(nyan-animate-nyancat nil)
  '(nyan-animation-frame-interval 0.8)
  '(nyan-bar-length 40)
@@ -263,9 +257,8 @@
                    smooth-scrolling rainbow-delimiters pdf-tools org-bullets
                    neotree linum-relative htmlize hackernews gruvbox-theme
                    flycheck fill-column-indicator evil-surround evil-smartparens
-                   evil-commentary emmet-mode elpy dashboard
-                   base16-theme avy auto-complete
-                   all-the-icons aggressive-indent)))
+                   evil-commentary emmet-mode elpy dashboard base16-theme avy
+                   auto-complete all-the-icons aggressive-indent)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -302,13 +295,12 @@
                  "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682"
                  "#00736F" "#2aa198" "#839496" "#657b83")))
  '(xterm-color-names
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2"
-    "#d33682" "#2aa198" "#eee8d5"])
+   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198"
+    "#eee8d5"])
  '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496"
-    "#6c71c4" "#93a1a1" "#fdf6e3"]))
+   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1"
+    "#fdf6e3"]))
 
-(set-cursor-color "#dbdbdb")
 (setq-default indicate-empty-lines t)
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
@@ -411,5 +403,10 @@
 ;; Disable Python's ugly indent-guide
 (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 
+(set-cursor-color "#dbdbdb")
+
+(require 'prettier-js)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
 
 ;;; .emacs ends here
