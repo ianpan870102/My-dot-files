@@ -28,14 +28,13 @@
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil
                          :strike-through nil :overline nil :underline nil
                          :slant normal :weight light :height 150 :width normal
-                         :foundry "nil" :family "hack"))))
+                         :foundry "nil" :family "Hack"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(line-number ((t (:background "#262626" :foreground "#676767"))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
- '(mode-line-inactive ((t (:foreground "#3a3a3a"
-                                       :background "#000" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold
                                       :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140
@@ -205,6 +204,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(css-indent-offset 2)
  '(custom-enabled-themes (quote (base16-solarized-dark)))
  '(custom-safe-themes
    (quote
@@ -231,14 +231,14 @@
      ("#073642" . 100))))
  '(hl-bg-colors
    (quote
-    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91"
-     "#00629D" "#00736F" "#546E00")))
+    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D"
+     "#00736F" "#546E00")))
  '(hl-fg-colors
    (quote
-    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36"
-     "#002b36" "#002b36" "#002b36")))
- '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2"
-                           "#6c71c4" "#859900")))
+    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36"
+     "#002b36" "#002b36")))
+ '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4"
+                           "#859900")))
  '(jdee-server-dir "~/myJars")
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
@@ -259,14 +259,16 @@
    (quote
     (java-snippets yasnippet-snippets yasnippet-classic-snippets
                    nlinum-relative electric-spacing jdee jedi helm-emmet
-                   js2-mode nyan-mode auto-indent-mode which-key solarized-theme
-                   smooth-scrolling rainbow-delimiters pdf-tools org-bullets
-                   neotree linum-relative htmlize hackernews gruvbox-theme
-                   flycheck fill-column-indicator evil-surround evil-smartparens
-                   evil-commentary emmet-mode elpy dashboard base16-theme avy
-                   auto-complete all-the-icons aggressive-indent)))
+                   js2-mode nyan-mode auto-indent-mode which-key
+                   solarized-theme smooth-scrolling rainbow-delimiters
+                   pdf-tools org-bullets neotree linum-relative htmlize
+                   hackernews gruvbox-theme flycheck fill-column-indicator
+                   evil-surround evil-smartparens evil-commentary emmet-mode
+                   elpy dashboard base16-theme avy auto-complete all-the-icons
+                   aggressive-indent)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
+ '(python-indent-guess-indent-offset nil)
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(smooth-scroll-margin 2)
  '(term-default-bg-color "#002b36")
@@ -297,9 +299,9 @@
  '(vc-annotate-very-old-color nil)
  '(weechat-color-list
    (quote
-    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900"
-                 "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682"
-                 "#00736F" "#2aa198" "#839496" "#657b83")))
+    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00"
+                 "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C"
+                 "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
  '(xterm-color-names
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198"
     "#eee8d5"])
