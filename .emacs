@@ -25,20 +25,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil
-                         :strike-through nil :overline nil :underline nil
-                         :slant normal :weight light :height 150 :width normal
-                         :foundry "nil" :family "Hack"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 150 :width normal :foundry "nil" :family "DejaVu Sans Mono"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(line-number ((t (:background "#262626" :foreground "#676767"))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold
-                                      :height 140 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140
-                                       :family "San Francisco"))))
+ '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 140 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
@@ -208,9 +203,7 @@
  '(custom-enabled-themes (quote (base16-solarized-dark)))
  '(custom-safe-themes
    (quote
-    ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa"
-     "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450"
-     default)))
+    ("50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default)))
  '(fci-rule-color "#A52C1C")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
@@ -231,20 +224,16 @@
      ("#073642" . 100))))
  '(hl-bg-colors
    (quote
-    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D"
-     "#00736F" "#546E00")))
+    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
  '(hl-fg-colors
    (quote
-    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36"
-     "#002b36" "#002b36")))
- '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4"
-                           "#859900")))
+    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
+ '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")))
  '(jdee-server-dir "~/myJars")
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
    (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D"
-     "#2aa198" "#d33682" "#6c71c4")))
+    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(nyan-animate-nyancat nil)
  '(nyan-animation-frame-interval 0.8)
  '(nyan-bar-length 40)
@@ -252,20 +241,11 @@
  '(nyan-mode t)
  '(org-format-latex-options
    (quote
-    (:foreground default :background default :scale 2.0 :html-foreground "Black"
-                 :html-background "Transparent" :html-scale 1.0 :matchers
+    (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (java-snippets yasnippet-snippets yasnippet-classic-snippets
-                   nlinum-relative electric-spacing jdee jedi helm-emmet
-                   js2-mode nyan-mode auto-indent-mode which-key
-                   solarized-theme smooth-scrolling rainbow-delimiters
-                   pdf-tools org-bullets neotree linum-relative htmlize
-                   hackernews gruvbox-theme flycheck fill-column-indicator
-                   evil-surround evil-smartparens evil-commentary emmet-mode
-                   elpy dashboard base16-theme avy auto-complete all-the-icons
-                   aggressive-indent)))
+    (multiple-cursors java-snippets yasnippet-snippets yasnippet-classic-snippets nlinum-relative electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(python-indent-guess-indent-offset nil)
@@ -299,17 +279,15 @@
  '(vc-annotate-very-old-color nil)
  '(weechat-color-list
    (quote
-    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00"
-                 "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C"
-                 "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
+    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
  '(xterm-color-names
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198"
-    "#eee8d5"])
+   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
  '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1"
-    "#fdf6e3"]))
+   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
+
 
 (setq-default indicate-empty-lines t)
+
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
@@ -424,5 +402,10 @@
 ;; macOS dark title-bar
 (add-to-list 'default-frame-alist
              '(ns-appearance . dark))
+
+;; Multiple-cursors, triggered by Option + mouse-click
+(require 'multiple-cursors)
+(global-unset-key (kbd "M-<down-mouse-1>"))
+(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
 ;;; .emacs ends here
