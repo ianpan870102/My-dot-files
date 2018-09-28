@@ -79,6 +79,7 @@
 ;; Rainbow Brackets
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'jdee-mode-hook 'rainbow-delimiters-mode)
 
 ;; Flycheck
 (add-hook 'after-init-hook 'global-flycheck-mode)
@@ -123,9 +124,13 @@
 (setq js-indent-level 2)
 
 ;; Setting the default indentation style for C to be "gnu"
-(add-hook 'c-mode-hook
-          '(lambda ()
-             (c-set-style "gnu")))
+;; (add-hook 'c-mode-hook
+;;           '(lambda ()
+;;              (c-set-style "gnu")))
+
+;; Setting indentation style
+(setq c-default-style
+      '((java-mode . "java") (other . "gnu")))
 
 ;; Always syntax highlight
 (global-font-lock-mode t)
@@ -246,7 +251,7 @@
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (multiple-cursors java-snippets yasnippet-snippets yasnippet-classic-snippets nlinum-relative electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete all-the-icons aggressive-indent)))
+    (multiple-cursors java-snippets yasnippet-snippets yasnippet-classic-snippets nlinum-relative electric-spacing jdee jedi helm-emmet js2-mode nyan-mode auto-indent-mode which-key solarized-theme smooth-scrolling rainbow-delimiters pdf-tools org-bullets neotree linum-relative htmlize hackernews gruvbox-theme flycheck fill-column-indicator evil-surround evil-smartparens evil-commentary emmet-mode elpy dashboard base16-theme avy auto-complete)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(python-indent-guess-indent-offset nil)
