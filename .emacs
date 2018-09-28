@@ -3,24 +3,17 @@
 ;;; Commentary:
 ;;; Code:
 (require 'package)
-
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
-
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'load-path "~/.emacs.d/evil")
-
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-(setq evil-want-C-u-scroll t)
-(require 'evil)
-(evil-mode 1)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -30,7 +23,6 @@
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
- '(line-number ((t (:background "#262626" :foreground "#676767"))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 140 :family "San Francisco"))))
@@ -39,7 +31,15 @@
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
 
+(setq user-full-name "Ian Y.E. Pan")
 
+;; Start-up
+(setq frame-title-format '( "%b" " [" (:eval mode-name) "]"))
+(defun always-use-fancy-splash-screens-p () "Use splash screen on start-up." 1)
+(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
+(setq fancy-splash-image (expand-file-name "~/Downloads/emacs-logo.png" ))
+
+;; Cleaning up the interface
 (setq ring-bell-function 'ignore)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -48,11 +48,15 @@
 
 (global-auto-complete-mode t)
 
+;; EVIL
+(setq evil-want-C-u-scroll t)
+(require 'evil)
+(evil-mode 1)
 (require 'evil-surround)
 (global-evil-surround-mode 1)
-
 (evil-commentary-mode)
 
+;; Line Numbers
 (require 'nlinum-relative)
 (nlinum-relative-setup-evil)                    ;; setup for evil
 (add-hook 'prog-mode-hook 'nlinum-relative-mode)
@@ -97,15 +101,15 @@
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
-
+;; Python
 (elpy-enable)
-(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
-(define-key global-map (kbd "C-c o") 'iedit-mode)
-
+(setq elpy-rpc-python-command "/usr/local/bin/python3")
+(setq python-shell-interpreter "/usr/local/bin/python3")
+;; disable Python's ugly indent-guide
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 
 ;; Yasnippets enable
 (yas-global-mode 1)
-
 
 (require 'smooth-scrolling)
 (smooth-scrolling-mode 1)
@@ -114,63 +118,59 @@
 (require 'which-key)
 (which-key-mode)
 
-
-;; Never use the tab character: always convert to spaces!
+;; Indenting
 (setq-default tab-width 2)
-;; (setq tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 (setq-default indent-tabs-mode nil)
 (setq js-indent-level 2)
+(setq c-default-style '((java-mode . "java") (other . "gnu")))
 
-;; Setting the default indentation style for C to be "gnu"
-;; (add-hook 'c-mode-hook
-;;           '(lambda ()
-;;              (c-set-style "gnu")))
+;; Indent when RET brackets / parenthesis
+(defun newline-and-push-brace ()
+  "`newline-and-indent', but bracket aware."
+  (interactive)
+  (insert "\n")
+  (when (looking-at "}")
+    (insert "\n")
+    (indent-according-to-mode)
+    (forward-line -1))
+  (indent-according-to-mode)
 
-;; Setting indentation style
-(setq c-default-style
-      '((java-mode . "java") (other . "gnu")))
+  (when (looking-at ")")
+    (insert "\n")
+    (indent-according-to-mode)
+    (forward-line -1))
+  (indent-according-to-mode)
+
+  (when (looking-at "]")
+    (insert "\n")
+    (indent-according-to-mode)
+    (forward-line -1))
+  (indent-according-to-mode))
+(global-set-key (kbd "RET") 'newline-and-push-brace)
+(require 'auto-indent-mode)
 
 ;; Always syntax highlight
 (global-font-lock-mode t)
 
+;; Smart Parenthesis
 (smartparens-global-mode 1)
 (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
 
-(defun always-use-fancy-splash-screens-p () "Use splash screen on start-up." 1)
-(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-(setq fancy-splash-image (expand-file-name "~/Downloads/emacs-logo.png" ))
-
-
 ;; In order for 'pdflatex' to work
-;; Also, had to export PATH from .zshrc
+;; Also had to export PATH from .zshrc
 (setenv "PATH"
-        (
-         concat "/usr/texbin:/Library/TeX/texbin:" (getenv "PATH")
-         ))
+        (concat "/usr/texbin:/Library/TeX/texbin:" (getenv "PATH")))
 (setq exec-path (append '("/usr/texbin" "/Library/TeX/texbin") exec-path))
 
-
+;; No #...# back-ups
 (setq make-backup-files nil)
-
-(require 'doc-view)
-
-(require 'hackernews)
-
 
 ;; Word-wrapping
 (global-visual-line-mode t)
 
-(setq user-full-name "Ian Y.E. Pan")
-
-(setq frame-title-format '( "%b" " [" (:eval mode-name) "]"))
-
-;;;; Cursor-guide current line
-;; (global-hl-line-mode)
-
-
-
+;; Mode Line
 (setq-default mode-line-format
               (list
                '(:eval (propertize "(Buffer: %b)" 'face 'font-lock-keyword-face
@@ -291,43 +291,13 @@
  '(xterm-color-names-bright
    ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
 
-
 (setq-default indicate-empty-lines t)
 
+;; Some macOS-like keybindings
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
-
-;; Indent when RET brackets / parenthesis
-(defun newline-and-push-brace ()
-  "`newline-and-indent', but bracket aware."
-  (interactive)
-  (insert "\n")
-  (when (looking-at "}")
-    (insert "\n")
-    (indent-according-to-mode)
-    (forward-line -1))
-  (indent-according-to-mode)
-
-  (when (looking-at ")")
-    (insert "\n")
-    (indent-according-to-mode)
-    (forward-line -1))
-  (indent-according-to-mode)
-
-  (when (looking-at "]")
-    (insert "\n")
-    (indent-according-to-mode)
-    (forward-line -1))
-  (indent-according-to-mode)
-
-  )
-(global-set-key (kbd "RET") 'newline-and-push-brace)
-
-
-(require 'auto-indent-mode)
-
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)
@@ -335,7 +305,7 @@
 ;; Spell checker software Aspell (to replace ispell)
 (setq ispell-program-name "/usr/local/bin/aspell")
 
-;; Use Command + f for easymotion!
+;; Avy-easymotion: Cmd + f
 (global-set-key (kbd "s-f") 'avy-goto-char)
 (setq avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?n ?w ?e ?r ?y ?u ?i ?o ?t ?v ?l))
 (setq avy-background t)
@@ -345,11 +315,8 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
-;; Command + Enter: fire up eshell in current frame
+;; Eshell
 (global-set-key (kbd "<s-return>") 'eshell)
-
-
-;; Customize Eshell prompt
 (setq eshell-prompt-function (lambda nil
                                (concat
                                 (propertize "\n╭─" 'face
@@ -360,29 +327,21 @@
                                 (propertize "\n╰─ ~ ✘ " 'face
                                             `(:foreground "#fe8019"))
                                 )))
-
 (setq eshell-highlight-prompt nil)
 
-
-;; Clear the EShell buffer and end at the top (instead of the bottom)
 (defun eshell/clear ()
   "Clear the eshell buffer to the top."
   (interactive)
   (let ((inhibit-read-only t))
-    (erase-buffer)
-    ))
+    (erase-buffer)))
 
-
+;; JavaScript
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (js2-imenu-extras-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
-;; (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)
-
-
-;; Set Python default to Python3
-(setq elpy-rpc-python-command "/usr/local/bin/python3")
-(setq python-shell-interpreter "/usr/local/bin/python3")
-
+(require 'prettier-js)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
 
 ;; Set Environment Variables to let Eshell use all the brew-installed commands.
 (setenv "PATH"
@@ -392,14 +351,7 @@
          )
         )
 
-;; Disable Python's ugly indent-guide
-(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
-
 (set-cursor-color "#dbdbdb")
-
-(require 'prettier-js)
-(add-hook 'js2-mode-hook 'prettier-js-mode)
-(add-hook 'web-mode-hook 'prettier-js-mode)
 
 ;; Natural color title-bar (matching theme)
 (add-to-list 'default-frame-alist
@@ -409,9 +361,7 @@
 (add-to-list 'default-frame-alist
              '(ns-appearance . dark))
 
-;; Multiple-cursors, triggered by Option + mouse-click
-(require 'multiple-cursors)
-(global-unset-key (kbd "M-<down-mouse-1>"))
-(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+;; Press `a' to enter new buffer in Dired and kill old one
+(put 'dired-find-alternate-file 'disabled nil)
 
 ;;; .emacs ends here
