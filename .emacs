@@ -12,19 +12,27 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+;; Load theme by hand, don't use 'customize'
+(load-theme 'base16-ocean t)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 150 :width normal :foundry "nil" :family "DejaVu Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil
+                         :strike-through nil :overline nil :underline nil
+                         :slant normal :weight light :height 150 :width normal
+                         :foundry "nil" :family "DejaVu Sans Mono"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#268BD2" :slant normal :weight bold :height 140 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#C1C1C1" :weight normal :height 140 :family "San Francisco"))))
+ '(neo-dir-link-face ((t (:foreground "#EEAD0F" :slant normal :weight bold
+                                      :height 140 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#e0e0e0" :weight normal :height 140
+                                       :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
@@ -34,21 +42,28 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (base16-solarized-dark)))
- '(custom-safe-themes
-   (quote
-    ("fede08d0f23fc0612a8354e0cf800c9ecae47ec8f32c5f29da841fe090dfc450" default)))
+ '(display-battery-mode t)
  '(jdee-server-dir "~/myJars")
+ '(neo-autorefresh t)
+ '(neo-window-position (quote right))
+ '(neo-window-width 30)
  '(nyan-animate-nyancat nil)
- '(nyan-animation-frame-interval 0.8)
  '(nyan-bar-length 40)
  '(nyan-cat-face-number 1)
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize helm-emmet fill-column-indicator evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
+    (column-enforce-mode yasnippet-snippets yasnippet-classic-snippets
+                         which-key smooth-scrolling shrink-path scroll-restore
+                         rainbow-delimiters projectile prettier-js pdf-tools
+                         org-bullets nyan-mode nlinum-relative neotree
+                         linum-relative js2-mode jedi jdee java-snippets
+                         htmlize helm-emmet evil-surround
+                         evil-smartparens evil-commentary elpy eldoc-eval
+                         dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
+
 
 (setq user-full-name "Ian Y.E. Pan")
 
@@ -60,12 +75,18 @@
 
 ;; Cleaning up the interface
 (setq ring-bell-function 'ignore)
-(menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (blink-cursor-mode 0)
 
-(global-auto-complete-mode t)
+;; Auto-completion
+(add-hook 'after-init-hook 'global-company-mode)
+(setq company-idle-delay t) ;; no delay
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "M-n") nil)
+  (define-key company-active-map (kbd "M-p") nil)
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
 ;; EVIL
 (setq evil-want-C-u-scroll t)
@@ -107,11 +128,9 @@
 ;; Flycheck
 (add-hook 'after-init-hook 'global-flycheck-mode)
 
-;; Line 80 Ruler
-(require 'fill-column-indicator)
-(setq fci-rule-column 79)
-(setq fci-rule-color "#A52C1C")
-(add-hook 'prog-mode-hook 'fci-mode)
+;; Highlight red when pass column-80, since fci-mode breaks a lot of things.
+(add-hook 'prog-mode-hook 'column-enforce-mode)
+(setq column-enforce-column 79)
 
 (require 'emmet-mode)
 (add-hook 'html-mode-hook 'emmet-mode)
@@ -279,7 +298,7 @@
          )
         )
 
-(set-cursor-color "#dbdbdb")
+(set-cursor-color "#E4E4E4")
 
 ;; Natural color title-bar (matching theme)
 (add-to-list 'default-frame-alist
