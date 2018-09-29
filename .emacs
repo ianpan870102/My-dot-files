@@ -3,11 +3,9 @@
 ;;; Commentary:
 ;;; Code:
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'load-path "~/.emacs.d/evil")
@@ -25,8 +23,8 @@
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#F1B03D" :slant normal :weight bold :height 140 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#D4BA9B" :weight normal :height 140 :family "San Francisco"))))
+ '(neo-dir-link-face ((t (:foreground "#268BD2" :slant normal :weight bold :height 140 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#C1C1C1" :weight normal :height 140 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
@@ -46,9 +44,11 @@
  '(nyan-bar-length 40)
  '(nyan-cat-face-number 1)
  '(nyan-mode t)
+ '(package-selected-packages
+   (quote
+    (yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize helm-emmet fill-column-indicator evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
- '(smooth-scroll-margin 2)
- )
+ '(smooth-scroll-margin 2))
 
 (setq user-full-name "Ian Y.E. Pan")
 
@@ -183,7 +183,7 @@
         (concat "/usr/texbin:/Library/TeX/texbin:" (getenv "PATH")))
 (setq exec-path (append '("/usr/texbin" "/Library/TeX/texbin") exec-path))
 
-;; No #...# back-ups
+;; No 'index.js~' back-ups
 (setq make-backup-files nil)
 
 ;; Word-wrapping
@@ -291,5 +291,9 @@
 
 ;; Press `a' to enter new buffer in Dired and kill old one
 (put 'dired-find-alternate-file 'disabled nil)
+
+;; Binding C-8 and C-9 to Eshell previous / next command.
+(global-set-key (kbd "C-8") 'eshell-previous-input)
+(global-set-key (kbd "C-9") 'eshell-next-input)
 
 ;;; .emacs ends here
