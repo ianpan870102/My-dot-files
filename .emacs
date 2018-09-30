@@ -255,9 +255,11 @@
 ;; Spell checker software Aspell (to replace ispell)
 (setq ispell-program-name "/usr/local/bin/aspell")
 
-;; Avy-easymotion: Cmd + f
-(global-set-key (kbd "s-f") 'avy-goto-char)
-(setq avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?n ?w ?e ?r ?y ?u ?i ?o ?t ?v ?l))
+;; Avy-easymotion
+(define-key evil-normal-state-map (kbd "f") nil)
+(define-key evil-normal-state-map (kbd "f") 'avy-goto-word-1)
+(setq avy-keys '(?a ?s ?d ?f ?g ?h ?n ?w ?e ?r ?y
+                    ?u ?o ?t ?v ?i ?j ?k ?l))
 (setq avy-background t)
 
 ;; IDO Mode
