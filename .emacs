@@ -23,7 +23,9 @@
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil
                          :strike-through nil :overline nil :underline nil
                          :slant normal :weight light :height 150 :width normal
-                         :foundry "nil" :family "Monaco"))))
+                         :foundry "nil" :family "DejaVu Sans Mono"))))
+ '(avy-lead-face ((t (:foreground "red"))))
+ '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
@@ -42,6 +44,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(avy-background t)
  '(display-battery-mode t)
  '(jdee-server-dir "~/myJars")
  '(neo-autorefresh t)
@@ -58,9 +61,9 @@
                          rainbow-delimiters projectile prettier-js pdf-tools
                          org-bullets nyan-mode nlinum-relative neotree
                          linum-relative js2-mode jedi jdee java-snippets
-                         htmlize helm-emmet evil-surround
-                         evil-smartparens evil-commentary elpy eldoc-eval
-                         dashboard base16-theme avy auto-indent-mode)))
+                         htmlize helm-emmet evil-surround evil-smartparens
+                         evil-commentary elpy eldoc-eval dashboard base16-theme
+                         avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
 
@@ -310,7 +313,7 @@
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
 
-(set-cursor-color "#E4E4E4")
+(set-cursor-color "#B0C1C1")
 
 ;; Natural color title-bar (matching theme)
 (add-to-list 'default-frame-alist
