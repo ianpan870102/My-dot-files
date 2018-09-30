@@ -24,7 +24,7 @@
                          :strike-through nil :overline nil :underline nil
                          :slant normal :weight light :height 150 :width normal
                          :foundry "nil" :family "DejaVu Sans Mono"))))
- '(avy-lead-face ((t (:foreground "red"))))
+ '(avy-lead-face ((t (:foreground "#ff0000"))))
  '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
@@ -33,7 +33,7 @@
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#EEAD0F" :slant normal :weight bold
                                       :height 140 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#B1C2C2" :weight normal :height 140
+ '(neo-file-link-face ((t (:foreground "#E4DECD" :weight normal :height 140
                                        :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
@@ -83,6 +83,7 @@
 
 ;; Auto-completion
 (add-hook 'after-init-hook 'global-company-mode)
+(setq company-global-modes '(not eshell-mode))  ;; No auto-completion in eshell
 (setq company-idle-delay t) ;; no delay
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "M-n") nil)
@@ -104,7 +105,7 @@
 (add-hook 'prog-mode-hook 'nlinum-relative-mode)
 (setq nlinum-relative-redisplay-delay 0)      ;; delay
 (setq nlinum-relative-current-symbol "")      ;; display current line number
-(setq nlinum-relative-offset 0)               ;; 1 if you want 0, 2, 3...
+(setq nlinum-relative-offset 0)               ;; 1 if want 0, 2, 3...
 
 ;; NeoTree
 (add-to-list 'load-path "/.emacs.d/elpa/neotree/")
@@ -280,7 +281,7 @@
                             (concat
                             (propertize "\n" 'face
                                         `(:foreground "#fe8019"))
-                            (propertize "➜ " 'face
+                            (propertize "▶ " 'face
                                         `(:foreground "#54C22A"))
                             (propertize (if (string= (eshell/pwd)
                                                         (getenv "HOME"))
@@ -323,9 +324,12 @@
 (add-to-list 'default-frame-alist
              '(ns-appearance . dark))
 
-;; Press `a' to enter new buffer in Dired and kill old one
+;; Enter new buffer in Dired and kill old one
 (put 'dired-find-alternate-file 'disabled nil)
-
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (define-key dired-mode-map (kbd "RET")
+              'dired-find-alternate-file)))
 
 ;; Use `C-x r j e' to jump to .emacs
 (set-register ?e (cons 'file "~/.emacs"))
