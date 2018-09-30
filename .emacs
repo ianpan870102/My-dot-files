@@ -13,7 +13,7 @@
 (package-initialize)
 
 ;; Load theme by hand, don't use 'customize'
-(load-theme 'base16-ocean t)
+(load-theme 'base16-solarized-dark t)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -23,7 +23,7 @@
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil
                          :strike-through nil :overline nil :underline nil
                          :slant normal :weight light :height 150 :width normal
-                         :foundry "nil" :family "DejaVu Sans Mono"))))
+                         :foundry "nil" :family "Monaco"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
@@ -31,7 +31,7 @@
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#EEAD0F" :slant normal :weight bold
                                       :height 140 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#e0e0e0" :weight normal :height 140
+ '(neo-file-link-face ((t (:foreground "#B1C2C2" :weight normal :height 140
                                        :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
@@ -63,7 +63,6 @@
                          dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
-
 
 (setq user-full-name "Ian Y.E. Pan")
 
@@ -264,16 +263,30 @@
 
 ;; Eshell
 (global-set-key (kbd "<s-return>") 'eshell)
+;; (setq eshell-prompt-function (lambda nil
+;;                          (concat
+;;                           (propertize "\n╭─" 'face
+;;                                       `(:foreground "#fe8019"))
+;;                           (format-time-string "%H:%M:%S " (current-time))
+;;                           (propertize (eshell/pwd) 'face
+;;                                       `(:foreground "#B0AE37"))
+;;                           (propertize "\n╰─ ~ ✘ " 'face
+;;                                       `(:foreground "#fe8019"))
+;;                           )))
 (setq eshell-prompt-function (lambda nil
-                               (concat
-                                (propertize "\n╭─" 'face
-                                            `(:foreground "#fe8019"))
-                                (format-time-string "%H:%M:%S " (current-time))
-                                (propertize (eshell/pwd) 'face
-                                            `(:foreground "#B0AE37"))
-                                (propertize "\n╰─ ~ ✘ " 'face
-                                            `(:foreground "#fe8019"))
-                                )))
+                            (concat
+                            (propertize "\n" 'face
+                                        `(:foreground "#fe8019"))
+                            (propertize "➜ " 'face
+                                        `(:foreground "#54C22A"))
+                            (propertize (if (string= (eshell/pwd)
+                                                        (getenv "HOME"))
+                                            "~" (eshell/basename
+                                                    (eshell/pwd))) 'face
+                                                    `(:foreground "#fe8019"))
+                            (propertize " " 'face
+                                        `(:foreground "#93A1A1"))
+                            )))
 (setq eshell-highlight-prompt nil)
 
 (defun eshell/clear ()
@@ -282,6 +295,13 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
+(global-set-key (kbd "C-8") 'eshell-previous-input)
+(global-set-key (kbd "C-9") 'eshell-next-input)
+;; To let Eshell use brew-installed commands
+(setenv "PATH" (concat "/usr/local/bin/" ":" (getenv "PATH")))
+;; Eshell aliases
+(defalias 'ff 'find-file)
+
 ;; JavaScript
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (js2-imenu-extras-mode)
@@ -289,14 +309,6 @@
 (require 'prettier-js)
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
-
-;; Set Environment Variables to let Eshell use all the brew-installed commands.
-(setenv "PATH"
-        (concat
-         "/usr/local/bin/" ":"
-         (getenv "PATH")
-         )
-        )
 
 (set-cursor-color "#E4E4E4")
 
@@ -311,8 +323,8 @@
 ;; Press `a' to enter new buffer in Dired and kill old one
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; Binding C-8 and C-9 to Eshell previous / next command.
-(global-set-key (kbd "C-8") 'eshell-previous-input)
-(global-set-key (kbd "C-9") 'eshell-next-input)
+
+;; Use `C-x r j e' to jump to .emacs
+(set-register ?e (cons 'file "~/.emacs"))
 
 ;;; .emacs ends here
