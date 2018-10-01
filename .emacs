@@ -20,10 +20,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil
-                         :strike-through nil :overline nil :underline nil
-                         :slant normal :weight light :height 150 :width normal
-                         :foundry "nil" :family "DejaVu Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 150 :width normal :foundry "nil" :family "DejaVuSansMono Nerd Font"))))
  '(avy-lead-face ((t (:foreground "#ff0000"))))
  '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
  '(bold ((t (:weight normal))))
@@ -31,10 +28,8 @@
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#EEAD0F" :slant normal :weight bold
-                                      :height 140 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#E4DECD" :weight normal :height 140
-                                       :family "San Francisco"))))
+ '(neo-dir-link-face ((t (:foreground "#EEAD0F" :slant normal :weight bold :height 140 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:foreground "#E4DECD" :weight normal :height 140 :family "San Francisco"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
@@ -44,8 +39,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(avy-background t)
- '(display-battery-mode t)
+ '(avy-background t t)
+ '(jdee-compiler (quote ("javac")))
  '(jdee-server-dir "~/myJars")
  '(neo-autorefresh t)
  '(neo-window-position (quote right))
@@ -54,16 +49,13 @@
  '(nyan-bar-length 40)
  '(nyan-cat-face-number 1)
  '(nyan-mode t)
+ '(org-format-latex-options
+   (quote
+    (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+                 ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (column-enforce-mode yasnippet-snippets yasnippet-classic-snippets
-                         which-key smooth-scrolling shrink-path scroll-restore
-                         rainbow-delimiters projectile prettier-js pdf-tools
-                         org-bullets nyan-mode nlinum-relative neotree
-                         linum-relative js2-mode jedi jdee java-snippets
-                         htmlize helm-emmet evil-surround evil-smartparens
-                         evil-commentary elpy eldoc-eval dashboard base16-theme
-                         avy auto-indent-mode)))
+    (company-jedi ranger emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
 
@@ -85,6 +77,7 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-global-modes '(not eshell-mode))  ;; No auto-completion in eshell
 (setq company-idle-delay t) ;; no delay
+(add-to-list 'company-backends 'company-jedi)
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "M-n") nil)
   (define-key company-active-map (kbd "M-p") nil)
@@ -161,6 +154,7 @@
 
 ;; Indenting
 (setq-default tab-width 2)
+(setq evil-shift-width 2)  ;; Using < and > to shift.
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 (setq-default indent-tabs-mode nil)
@@ -218,7 +212,7 @@
                                    'help-echo (buffer-file-name)))
 
                '(:eval (when (buffer-modified-p)
-                         (concat " "  (propertize "▲"
+                         (concat " "  (propertize "●"
                                                   'face 'font-lock-constant-face
                                                   'help-echo
                                                   "Buffer has been modified"))))
@@ -269,30 +263,28 @@
 
 ;; Eshell
 (global-set-key (kbd "<s-return>") 'eshell)
-;; (setq eshell-prompt-function (lambda nil
-;;                          (concat
-;;                           (propertize "\n╭─" 'face
-;;                                       `(:foreground "#fe8019"))
-;;                           (format-time-string "%H:%M:%S " (current-time))
-;;                           (propertize (eshell/pwd) 'face
-;;                                       `(:foreground "#B0AE37"))
-;;                           (propertize "\n╰─ ~ ✘ " 'face
-;;                                       `(:foreground "#fe8019"))
-;;                           )))
 (setq eshell-prompt-function (lambda nil
-                            (concat
-                            (propertize "\n" 'face
-                                        `(:foreground "#fe8019"))
-                            (propertize "▶ " 'face
-                                        `(:foreground "#54C22A"))
-                            (propertize (if (string= (eshell/pwd)
-                                                        (getenv "HOME"))
-                                            "~" (eshell/basename
-                                                    (eshell/pwd))) 'face
-                                                    `(:foreground "#fe8019"))
-                            (propertize " " 'face
-                                        `(:foreground "#93A1A1"))
-                            )))
+                               (concat
+                                "\n"
+                                (propertize "▶ " 'face
+                                            `(:foreground "#FFC100"))
+                                (propertize "(" 'face
+                                            `(:foreground "#DF7823"))
+                                (propertize(format-time-string "%H:%M:%S"
+                                                               (current-time))
+                                           'face `(:foreground "#DF7823"))
+                                (propertize ") " 'face
+                                            `(:foreground "#DF7823"))
+                                (propertize (if (string= (eshell/pwd)
+                                                         (getenv "HOME"))
+                                                "~" (eshell/basename
+                                                     (eshell/pwd))) 'face
+                                                     `(:foreground "#95A71A"))
+                                (propertize " $" 'face
+                                            `(:foreground "#DF7823"))
+                                (propertize " " 'face
+                                            `(:foreground "#93A1A1"))
+                                )))
 (setq eshell-highlight-prompt nil)
 
 (defun eshell/clear ()
@@ -333,7 +325,16 @@
             (define-key dired-mode-map (kbd "RET")
               'dired-find-alternate-file)))
 
-;; Use `C-x r j e' to jump to .emacs
+;; Use `C-x r j e' to jump to ~/.emacs
 (set-register ?e (cons 'file "~/.emacs"))
+(setq gc-cons-threshold 100000000) ; ie 100mb, default is 800kb
+
+;; Ranger
+(ranger-override-dired-mode t)
+(setq ranger-show-hidden nil)
+(setq ranger-width-preview 0.5)
+(setq ranger-width-parents 0.13)
+(setq ranger-max-preview-size 10) ;; No preview > 10 MB
+(setq ranger-dont-show-binary t)
 
 ;;; .emacs ends here
