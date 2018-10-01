@@ -55,7 +55,7 @@
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (company-jedi ranger emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
+    (doom-themes company-jedi ranger emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
 
@@ -77,7 +77,6 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-global-modes '(not eshell-mode))  ;; No auto-completion in eshell
 (setq company-idle-delay t) ;; no delay
-(add-to-list 'company-backends 'company-jedi)
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "M-n") nil)
   (define-key company-active-map (kbd "M-p") nil)
@@ -208,7 +207,7 @@
 ;; Mode Line
 (setq-default mode-line-format
               (list
-               '(:eval (propertize "(Buffer: %b)" 'face 'font-lock-keyword-face
+               '(:eval (propertize "(Buffer: %b)" 'face `(:foreground "#D5A102")
                                    'help-echo (buffer-file-name)))
 
                '(:eval (when (buffer-modified-p)
@@ -336,5 +335,16 @@
 (setq ranger-width-parents 0.13)
 (setq ranger-max-preview-size 10) ;; No preview > 10 MB
 (setq ranger-dont-show-binary t)
+
+;; src-code background for Org.
+(setq org-src-block-faces '(("java" (:background "#272C35"))
+                            ("elisp" (:background "#272C35"))
+                            ("c" (:background "#272C35"))
+                            ("python" (:background "#272C35"))
+                            ("html" (:background "#272C35"))
+                            ("css" (:background "#272C35"))
+                            ("javascript" (:background "#272C35"))
+                            ))
+
 
 ;;; .emacs ends here
