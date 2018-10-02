@@ -30,6 +30,10 @@
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#EEAD0F" :slant normal :weight bold :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#E4DECD" :weight normal :height 140 :family "San Francisco"))))
+ '(org-document-title ((t (:foreground "#D5A102" :weight bold :height 2.0))))
+ '(org-level-1 ((t (:inherit outline-1 :weight bold :height 1.3))))
+ '(org-level-2 ((t (:inherit outline-2 :weight bold :height 1.1))))
+ '(org-level-3 ((t (:inherit outline-3 :weight bold :height 1.1))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
@@ -53,6 +57,26 @@
    (quote
     (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
+ '(org-latex-classes
+   (quote
+    (("article" "\\documentclass[12pt]{article}"
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+      ("\\paragraph{%s}" . "\\paragraph*{%s}")
+      ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+     ("report" "\\documentclass[11pt]{report}"
+      ("\\part{%s}" . "\\part*{%s}")
+      ("\\chapter{%s}" . "\\chapter*{%s}")
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+     ("book" "\\documentclass[11pt]{book}"
+      ("\\part{%s}" . "\\part*{%s}")
+      ("\\chapter{%s}" . "\\chapter*{%s}")
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))))
  '(package-selected-packages
    (quote
     (doom-themes company-jedi ranger emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
@@ -329,12 +353,12 @@
 (setq gc-cons-threshold 100000000) ; ie 100mb, default is 800kb
 
 ;; Ranger
-(ranger-override-dired-mode t)
-(setq ranger-show-hidden nil)
-(setq ranger-width-preview 0.5)
-(setq ranger-width-parents 0.13)
-(setq ranger-max-preview-size 10) ;; No preview > 10 MB
-(setq ranger-dont-show-binary t)
+;; (ranger-override-dired-mode t)
+;; (setq ranger-show-hidden nil)
+;; (setq ranger-width-preview 0.5)
+;; (setq ranger-width-parents 0.13)
+;; (setq ranger-max-preview-size 10) ;; No preview > 10 MB
+;; (setq ranger-dont-show-binary t)
 
 ;; src-code background for Org.
 (setq org-src-block-faces '(("java" (:background "#272C35"))
@@ -345,6 +369,5 @@
                             ("css" (:background "#272C35"))
                             ("javascript" (:background "#272C35"))
                             ))
-
 
 ;;; .emacs ends here
