@@ -113,7 +113,7 @@
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 (evil-commentary-mode)
-(define-key evil-insert-state-local-map (kbd "C-h") 'delete-backward-char)
+(define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 
 ;; Line Numbers
 (require 'nlinum-relative)
