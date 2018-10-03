@@ -3,16 +3,13 @@
 ;;; Commentary:
 ;;; Code:
 (require 'package)
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'load-path "~/.emacs.d/evil")
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-;; Load theme by hand, don't use 'customize'
+;; Load theme by hand, don't use 'M-x customize-themes'
 (load-theme 'base16-ocean t)
 
 (custom-set-faces
@@ -25,6 +22,8 @@
  '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
+ '(dashboard-banner-logo-title-face ((t (:inherit default :overline t :height 1.17 :family "San Francisco"))))
+ '(dashboard-heading-face ((t (:inherit default :foreground "#EAB102" :height 1.1))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
@@ -43,6 +42,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(css-indent-offset 2)
  '(jdee-compiler (quote ("javac")))
  '(jdee-server-dir "~/myJars")
  '(neo-autorefresh t)
@@ -86,9 +86,11 @@
 
 ;; Start-up
 (setq frame-title-format '( "GNU Emacs @ %b" " [" (:eval mode-name) "]"))
-(defun always-use-fancy-splash-screens-p () "Use splash screen on start-up." 1)
-(defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
-(setq fancy-splash-image (expand-file-name "~/Downloads/emacs-logo.png" ))
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+(setq dashboard-banner-logo-title "Welcome, my Lord. GNU Emacs at your command.")
+(setq dashboard-startup-banner "~/Downloads/emacs-logo.png")
+(setq dashboard-items '((recents  . 5) (bookmarks . 5) (registers . 5)))
 
 ;; Cleaning up the interface
 (setq ring-bell-function 'ignore)
@@ -147,10 +149,11 @@
 ;; Flycheck
 (add-hook 'after-init-hook 'global-flycheck-mode)
 
-;; Highlight red when pass column-80, since fci-mode breaks a lot of things.
+;; Column-80 Rule
 (add-hook 'prog-mode-hook 'column-enforce-mode)
 (setq column-enforce-column 79)
 
+;; Emmet
 (require 'emmet-mode)
 (add-hook 'html-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
@@ -168,12 +171,13 @@
 ;; Yasnippets enable
 (yas-global-mode 1)
 
+;; Scrolling
 (require 'smooth-scrolling)
 (smooth-scrolling-mode 1)
 
-(add-to-list 'load-path "path/to/which-key.el")
+;; Which-key
 (require 'which-key)
-(which-key-mode)
+(which-key-mode t)
 
 ;; Indenting
 (setq-default tab-width 2)
@@ -215,6 +219,8 @@
 ;; Smart Parenthesis
 (smartparens-global-mode 1)
 (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+(setq show-paren-delay 0)
+(show-paren-mode 1)
 
 ;; In order for 'pdflatex' to work
 ;; Also had to export PATH from .zshrc
@@ -265,9 +271,6 @@
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + f = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
-
-(setq show-paren-delay 0)
-(show-paren-mode 1)
 
 ;; Spell checker software Aspell (to replace ispell)
 (setq ispell-program-name "/usr/local/bin/aspell")
@@ -333,11 +336,9 @@
 
 (set-cursor-color "#C0C5CE")
 
-;; Natural color title-bar (matching theme)
+;; Dark natural color title-bar (matching theme)
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
-
-;; macOS dark title-bar
 (add-to-list 'default-frame-alist
              '(ns-appearance . dark))
 
@@ -348,9 +349,8 @@
             (define-key dired-mode-map (kbd "RET")
               'dired-find-alternate-file)))
 
-;; Use `C-x r j e' to jump to ~/.emacs
+;; Registers
 (set-register ?e (cons 'file "~/.emacs"))
-;; Use `C-x r j t' to jump to ~/.emacs
 (set-register ?t (cons 'file "~/todo.org"))
 
 (setq gc-cons-threshold 100000000) ; ie 100mb, default is 800kb
@@ -364,15 +364,13 @@
 ;; (setq ranger-dont-show-binary t)
 
 ;; src-code background for Org.
-(setq org-src-block-faces '(("java" (:background "#272C35"))
-                            ("elisp" (:background "#272C35"))
-                            ("c" (:background "#272C35"))
-                            ("python" (:background "#272C35"))
-                            ("html" (:background "#272C35"))
-                            ("css" (:background "#272C35"))
-                            ("javascript" (:background "#272C35"))
+(setq org-src-block-faces '(("java" (:background "#252930"))
+                            ("elisp" (:background "#252930"))
+                            ("c" (:background "#252930"))
+                            ("python" (:background "#252930"))
+                            ("html" (:background "#252930"))
+                            ("css" (:background "#252930"))
+                            ("javascript" (:background "#252930"))
                             ))
-
-
 
 ;;; .emacs ends here
