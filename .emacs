@@ -85,6 +85,8 @@
 (setq user-full-name "Ian Y.E. Pan")
 
 ;; Start-up
+(setq initial-major-mode 'org-mode) ;; for *scratch* buffer
+(setq initial-scratch-message nil)
 (setq frame-title-format '( "GNU Emacs @ %b" " [" (:eval mode-name) "]"))
 (require 'dashboard)
 (dashboard-setup-startup-hook)
@@ -108,7 +110,7 @@
   (define-key company-active-map (kbd "C-n") #'company-select-next)
   (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
-;; EVIL
+;; Evil Mode
 (setq evil-want-C-u-scroll t)
 (require 'evil)
 (evil-mode 1)
@@ -165,7 +167,6 @@
 (elpy-enable)
 (setq elpy-rpc-python-command "/usr/local/bin/python3")
 (setq python-shell-interpreter "/usr/local/bin/python3")
-;; disable Python's ugly indent-guide
 (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 
 ;; Yasnippets enable
@@ -224,8 +225,7 @@
 
 ;; In order for 'pdflatex' to work
 ;; Also had to export PATH from .zshrc
-(setenv "PATH"
-        (concat "/usr/texbin:/Library/TeX/texbin:" (getenv "PATH")))
+(setenv "PATH" (concat "/usr/texbin:/Library/TeX/texbin:" (getenv "PATH")))
 (setq exec-path (append '("/usr/texbin" "/Library/TeX/texbin") exec-path))
 
 ;; No 'index.js~' back-ups
@@ -337,31 +337,19 @@
 (set-cursor-color "#C0C5CE")
 
 ;; Dark natural color title-bar (matching theme)
-(add-to-list 'default-frame-alist
-             '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist
-             '(ns-appearance . dark))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;; Enter new buffer in Dired and kill old one
 (put 'dired-find-alternate-file 'disabled nil)
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (define-key dired-mode-map (kbd "RET")
-              'dired-find-alternate-file)))
+(add-hook 'dired-mode-hook (lambda () (define-key dired-mode-map (kbd "RET")
+                                        'dired-find-alternate-file)))
 
 ;; Registers
 (set-register ?e (cons 'file "~/.emacs"))
 (set-register ?t (cons 'file "~/todo.org"))
 
 (setq gc-cons-threshold 100000000) ; ie 100mb, default is 800kb
-
-;; Ranger
-;; (ranger-override-dired-mode t)
-;; (setq ranger-show-hidden nil)
-;; (setq ranger-width-preview 0.5)
-;; (setq ranger-width-parents 0.13)
-;; (setq ranger-max-preview-size 10) ;; No preview > 10 MB
-;; (setq ranger-dont-show-binary t)
 
 ;; src-code background for Org.
 (setq org-src-block-faces '(("java" (:background "#252930"))
