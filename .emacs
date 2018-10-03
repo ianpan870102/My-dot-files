@@ -11,6 +11,8 @@
 
 ;; Load theme by hand, don't use 'M-x customize-themes'
 (load-theme 'base16-ocean t)
+(add-hook 'prog-mode-hook 'highlight-numbers-mode)
+(add-hook 'prog-mode-hook 'highlight-operators-mode)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -27,8 +29,9 @@
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
- '(neo-dir-link-face ((t (:foreground "#EEAD0F" :slant normal :weight bold :height 140 :family "San Francisco"))))
- '(neo-file-link-face ((t (:foreground "#E4DECD" :weight normal :height 140 :family "San Francisco"))))
+ '(neo-dir-link-face ((t (:foreground "#fffafa" :height 140 :family "San Francisco"))))
+ '(neo-file-link-face ((t (:height 140 :family "San Francisco"))))
+ '(nlinum-relative-current-face ((t (:inherit linum :background "#444444" :foreground "#c6c6c6" :weight normal))))
  '(org-document-title ((t (:foreground "#E2DCCB" :weight bold :height 2.0))))
  '(org-level-1 ((t (:inherit outline-1 :weight bold :height 1.3))))
  '(org-level-2 ((t (:inherit outline-2 :weight bold :height 1.1))))
@@ -48,6 +51,7 @@
  '(neo-autorefresh t)
  '(neo-window-position (quote right))
  '(neo-window-width 30)
+ '(nlinum-relative-redisplay-delay 0)
  '(nyan-animate-nyancat nil)
  '(nyan-bar-length 40)
  '(nyan-cat-face-number 1)
@@ -78,7 +82,7 @@
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))))
  '(package-selected-packages
    (quote
-    (doom-themes company-jedi ranger emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
+    (highlight-operators highlight-numbers doom-themes company-jedi ranger emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
 
