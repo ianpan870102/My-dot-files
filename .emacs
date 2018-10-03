@@ -13,7 +13,7 @@
 (package-initialize)
 
 ;; Load theme by hand, don't use 'customize'
-(load-theme 'base16-solarized-dark t)
+(load-theme 'base16-ocean t)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -30,7 +30,7 @@
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#EEAD0F" :slant normal :weight bold :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:foreground "#E4DECD" :weight normal :height 140 :family "San Francisco"))))
- '(org-document-title ((t (:foreground "#D5A102" :weight bold :height 2.0))))
+ '(org-document-title ((t (:foreground "#E2DCCB" :weight bold :height 2.0))))
  '(org-level-1 ((t (:inherit outline-1 :weight bold :height 1.3))))
  '(org-level-2 ((t (:inherit outline-2 :weight bold :height 1.1))))
  '(org-level-3 ((t (:inherit outline-3 :weight bold :height 1.1))))
@@ -43,7 +43,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(avy-background t t)
  '(jdee-compiler (quote ("javac")))
  '(jdee-server-dir "~/myJars")
  '(neo-autorefresh t)
@@ -86,7 +85,7 @@
 (setq user-full-name "Ian Y.E. Pan")
 
 ;; Start-up
-(setq frame-title-format '( "%b" " [" (:eval mode-name) "]"))
+(setq frame-title-format '( "GNU Emacs @ %b" " [" (:eval mode-name) "]"))
 (defun always-use-fancy-splash-screens-p () "Use splash screen on start-up." 1)
 (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
 (setq fancy-splash-image (expand-file-name "~/Downloads/emacs-logo.png" ))
@@ -114,6 +113,7 @@
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 (evil-commentary-mode)
+(define-key evil-insert-state-local-map (kbd "C-h") 'delete-backward-char)
 
 ;; Line Numbers
 (require 'nlinum-relative)
@@ -277,7 +277,7 @@
 (define-key evil-normal-state-map (kbd "f") 'avy-goto-word-1)
 (setq avy-keys '(?a ?s ?d ?f ?g ?h ?n ?w ?e ?r ?y
                     ?u ?o ?t ?v ?i ?j ?k ?l))
-(setq avy-background t)
+;; (setq avy-background t)
 
 ;; IDO Mode
 (setq ido-enable-flex-matching t)
@@ -331,7 +331,7 @@
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
 
-(set-cursor-color "#B0C1C1")
+(set-cursor-color "#C0C5CE")
 
 ;; Natural color title-bar (matching theme)
 (add-to-list 'default-frame-alist
@@ -350,6 +350,9 @@
 
 ;; Use `C-x r j e' to jump to ~/.emacs
 (set-register ?e (cons 'file "~/.emacs"))
+;; Use `C-x r j t' to jump to ~/.emacs
+(set-register ?t (cons 'file "~/todo.org"))
+
 (setq gc-cons-threshold 100000000) ; ie 100mb, default is 800kb
 
 ;; Ranger
@@ -369,5 +372,7 @@
                             ("css" (:background "#272C35"))
                             ("javascript" (:background "#272C35"))
                             ))
+
+
 
 ;;; .emacs ends here
