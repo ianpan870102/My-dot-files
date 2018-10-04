@@ -5,6 +5,8 @@ set nocompatible
 
 set wrapmargin=8
 
+set encoding=utf-8
+
 let g:auto_save = 1
 
 let g:airline_powerline_fonts=1
@@ -149,7 +151,7 @@ nnoremap <leader>i :call Autoindenting()<cr>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Colorscheme
 syntax on
-colorscheme solarized
+colorscheme base16-gruvbox-dark-hard
 let g:airline_theme='powerlineish'
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Show incomplete commands
@@ -163,8 +165,3 @@ hi Search cterm=NONE ctermbg=63 ctermfg=white
 nnoremap <silent> <space><space> :noh<cr>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set dictionary="/usr/dict/words"
-" inoremap ( ()<C-c>i
-" inoremap { {}<C-c>i
-" inoremap [ []<C-c>i
-" inoremap " ""<C-c>i
-" inoremap ' ''<C-c>i
