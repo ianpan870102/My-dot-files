@@ -17,10 +17,6 @@ hi VertSplit cterm=NONE
 " (However this autocmd will hide indent guide lines as well)
 " autocmd VimEnter * set conceallevel=0
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"Minimap toggling
-"<leader>mm (to activate minimap)
-"<leader>mc (to close)
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Autocommand to remove trailing whitespace on save
 " winsaveview & winrestview make sure that the cursor
 " position stays the same.
@@ -85,15 +81,6 @@ nmap <space> l
 
 let mapleader = ";"
 let maplocalleader = ";"
-"navigation in normal mode"
-" nnoremap <leader>a 0
-" nnoremap a<leader> $
-" nnoremap d< eader>a d0
-" nnoremap da<leader> d$
-" nnoremap c<leader>a c0
-" nnoremap ca<leader> c$
-" nnoremap y<leader>a y0
-" nnoremap ya<leader> y$
 nnoremap <silent> <space>fs :w<cr>
 
 nnoremap <cr> k
