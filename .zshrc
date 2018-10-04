@@ -19,6 +19,13 @@ alias tu='top -u'
 # For TMUX
 alias e='exit'
 
+#In case I messed up
+# alias rm='trash'
+alias rm -rf='trash'
+
+# Alias from opening (HTMl) with Google
+alias chrome='open -a "Google Chrome"'
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -114,3 +121,9 @@ alias ins="code-insiders"
 
 # Zsh command syntax highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$PATH:/Library/TeX/texbin"
