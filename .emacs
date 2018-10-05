@@ -25,7 +25,7 @@
  '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
- '(dashboard-banner-logo-title-face ((t (:inherit default :overline t :height 1.17 :family "San Francisco"))))
+ '(dashboard-banner-logo-title-face ((t (:inherit default :overline t :height 1.15 :family "Monaco"))))
  '(dashboard-heading-face ((t (:inherit default :foreground "#EAB102" :height 1.1))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
  '(mode-line ((t (:foreground "#c1c1c1" :background "#000" :box nil))))
@@ -101,7 +101,7 @@
 (setq dashboard-banner-logo-title "Welcome, my Lord. GNU Emacs at your command.")
 ;; (setq dashboard-startup-banner "~/Downloads/emacs-logo.png")
 (setq dashboard-startup-banner "~/Downloads/gnuemacs.png")
-(setq dashboard-items '((recents  . 5) (bookmarks . 5) (registers . 5)))
+(setq dashboard-items '((recents . 5) (bookmarks . 5) (registers . 5)))
 
 ;; Cleaning up the interface
 (setq ring-bell-function 'ignore)
@@ -262,14 +262,14 @@
                                    (concat (format-time-string "%c; ")
                                            (emacs-uptime "Uptime:%hh"))))
                " | "
-               (propertize "\xf161 %p" 'face 'font-lock-constant-face) ;; % above top
+               (propertize "\xf161 %p" 'face 'font-lock-constant-face)
                " | "
                '(:eval (list (nyan-create)))
                " | "
                "\xf0ca Line:"
                (propertize "%02l" 'face 'font-lock-type-face)
                " |"
-               "%-" ;; fill with '-'
+               "%-"  ;; fill with '-'
                ))
 
 (setq-default indicate-empty-lines t)
@@ -288,7 +288,6 @@
 (define-key evil-normal-state-map (kbd "f") 'avy-goto-word-1)
 (setq avy-keys '(?a ?s ?d ?f ?g ?h ?n ?w ?e ?r ?y
                     ?u ?o ?t ?v ?i ?j ?k ?l))
-;; (setq avy-background t)
 
 ;; IDO Mode
 (setq ido-enable-flex-matching t)
