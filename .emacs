@@ -10,9 +10,10 @@
 (package-initialize)
 
 ;; Load theme by hand, don't use 'M-x customize-themes'
-(load-theme 'base16-ocean t)
+(load-theme 'spacemacs-dark t)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'highlight-operators-mode)
+(hes-mode)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -20,14 +21,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 150 :width normal :foundry "nil" :family "DejaVuSansMono Nerd Font"))))
- '(avy-lead-face ((t (:foreground "#ff0000"))))
+ '(avy-lead-face ((t (:foreground "#F95323"))))
  '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
  '(bold ((t (:weight normal))))
  '(buffer-menu-buffer ((t (:weight normal))))
  '(dashboard-banner-logo-title-face ((t (:inherit default :overline t :height 1.17 :family "San Francisco"))))
  '(dashboard-heading-face ((t (:inherit default :foreground "#EAB102" :height 1.1))))
  '(highlight-indentation-face ((t (:background "#3a3a3a" :width condensed))))
- '(mode-line ((t (:foreground "#c1c1c1" :background "#333" :box nil))))
+ '(mode-line ((t (:foreground "#c1c1c1" :background "#000" :box nil))))
  '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#fffafa" :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:height 140 :family "San Francisco"))))
@@ -46,6 +47,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(css-indent-offset 2)
+ '(fringe-mode (quote (nil . 1)) nil (fringe))
  '(jdee-compiler (quote ("javac")))
  '(jdee-server-dir "~/myJars")
  '(neo-autorefresh t)
@@ -82,9 +84,11 @@
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))))
  '(package-selected-packages
    (quote
-    (highlight-operators highlight-numbers doom-themes company-jedi ranger emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
+    (magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers doom-themes company-jedi ranger emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling shrink-path scroll-restore rainbow-delimiters projectile prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree linum-relative js2-mode jedi jdee java-snippets htmlize evil-surround evil-smartparens evil-commentary elpy eldoc-eval dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
- '(smooth-scroll-margin 2))
+ '(smooth-scroll-margin 2)
+ '(spacemacs-theme-comment-bg nil)
+ '(spacemacs-theme-comment-italic t))
 
 (setq user-full-name "Ian Y.E. Pan")
 
@@ -95,7 +99,8 @@
 (require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Welcome, my Lord. GNU Emacs at your command.")
-(setq dashboard-startup-banner "~/Downloads/emacs-logo.png")
+;; (setq dashboard-startup-banner "~/Downloads/emacs-logo.png")
+(setq dashboard-startup-banner "~/Downloads/gnuemacs.png")
 (setq dashboard-items '((recents  . 5) (bookmarks . 5) (registers . 5)))
 
 ;; Cleaning up the interface
@@ -241,30 +246,29 @@
 ;; Mode Line
 (setq-default mode-line-format
               (list
-               '(:eval (propertize "(Buffer: %b)" 'face `(:foreground "#D5A102")
+               '(:eval (propertize "  \xf0c9 %b " 'face `(:foreground "#D5A102")
                                    'help-echo (buffer-file-name)))
-
                '(:eval (when (buffer-modified-p)
-                         (concat " "  (propertize "●"
-                                                  'face 'font-lock-constant-face
-                                                  'help-echo
-                                                  "Buffer has been modified"))))
-               " {"
-               '(:eval (propertize "%m" 'face 'font-lock-string-face
+                         (concat (propertize "\xe780 "
+                                             'face 'font-lock-constant-face
+                                             'help-echo
+                                             "Buffer has been modified"))))
+               "| "
+               '(:eval (propertize "\xe799 %m" 'face 'font-lock-string-face
                                    'help-echo buffer-file-coding-system))
-               "} "
-               '(:eval (propertize (format-time-string "%H:%M ")
+               " | "
+               '(:eval (propertize (format-time-string "\xe384 %H:%M")
                                    'help-echo
                                    (concat (format-time-string "%c; ")
                                            (emacs-uptime "Uptime:%hh"))))
-               "["
-               (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
-               "] [ "
+               " | "
+               (propertize "\xf161 %p" 'face 'font-lock-constant-face) ;; % above top
+               " | "
                '(:eval (list (nyan-create)))
-               "]"
-               " (Line:"
+               " | "
+               "\xf0ca Line:"
                (propertize "%02l" 'face 'font-lock-type-face)
-               ") "
+               " |"
                "%-" ;; fill with '-'
                ))
 
@@ -296,15 +300,17 @@
 (setq eshell-prompt-function (lambda nil
                                (concat
                                 "\n"
-                                (propertize "▶ " 'face
-                                            `(:foreground "#FFC100"))
-                                (propertize "(" 'face
-                                            `(:foreground "#DF7823"))
-                                (propertize(format-time-string "%H:%M:%S"
+                                ;; (propertize "➜ " 'face
+                                ;;             `(:foreground "#70DE00" :family "Monaco"))
+                                (propertize "\xf302 " 'face
+                                            `(:foreground "#95a71a"))
+                                (propertize(format-time-string "| %H:%M:%S"
                                                                (current-time))
                                            'face `(:foreground "#DF7823"))
-                                (propertize ") " 'face
+                                (propertize " | " 'face
                                             `(:foreground "#DF7823"))
+                                (propertize "\xf115 " 'face
+                                            `(:foreground "#95A71A"))
                                 (propertize (if (string= (eshell/pwd)
                                                          (getenv "HOME"))
                                                 "~" (eshell/basename
@@ -316,6 +322,7 @@
                                             `(:foreground "#93A1A1"))
                                 )))
 (setq eshell-highlight-prompt nil)
+
 
 (defun eshell/clear ()
   "Clear the eshell buffer to the top."
@@ -338,7 +345,7 @@
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
 
-(set-cursor-color "#C0C5CE")
+(set-cursor-color "#B2B2B2")
 
 ;; Dark natural color title-bar (matching theme)
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -356,13 +363,14 @@
 (setq gc-cons-threshold 100000000) ; ie 100mb, default is 800kb
 
 ;; src-code background for Org.
-(setq org-src-block-faces '(("java" (:background "#252930"))
-                            ("elisp" (:background "#252930"))
-                            ("c" (:background "#252930"))
-                            ("python" (:background "#252930"))
-                            ("html" (:background "#252930"))
-                            ("css" (:background "#252930"))
-                            ("javascript" (:background "#252930"))
-                            ))
+;; (setq org-src-block-faces '(("java" (:background "#252930"))
+;;                             ("elisp" (:background "#252930"))
+;;                             ("c" (:background "#252930"))
+;;                             ("python" (:background "#252930"))
+;;                             ("html" (:background "#252930"))
+;;                             ("css" (:background "#252930"))
+;;                             ("javascript" (:background "#252930"))
+;;                             ))
+
 
 ;;; .emacs ends here
