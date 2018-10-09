@@ -91,7 +91,7 @@
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))))
  '(package-selected-packages
    (quote
-    (vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode)))
+    (edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2)
  '(spacemacs-theme-comment-bg nil)
@@ -173,12 +173,6 @@
 (add-hook 'prog-mode-hook 'column-enforce-mode)
 (setq column-enforce-column 79)
 
-;; Emmet
-(require 'emmet-mode)
-(add-hook 'html-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook 'emmet-mode)
-(add-hook 'js2-mode-hook 'emmet-mode)
-
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
@@ -195,7 +189,7 @@
       '((sequence "TODO" "DOING" "DONE")))
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "#E74E22" :weight bold))
-        ("DOING" . (:foreground "#FFD000" :weight bold))
+        ("DOING" . (:foreground "#D9B203" :weight bold))
         ("DONE" . (:foreground "#83E230" :weight bold))))
 
 ;; Python
@@ -293,9 +287,10 @@
 (setq-default indicate-empty-lines t)
 
 ;; Some macOS-like keybindings
+(global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 (global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + F = replace
-(global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
+(global-set-key (kbd "s-P") 'smex)   ;; Command + Shift + P
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
 (global-set-key (kbd "s-K") 'kill-some-buffers)   ;; Command + Shift + K
 
@@ -307,13 +302,18 @@
 (define-key evil-normal-state-map (kbd "f") 'avy-goto-word-1)
 (setq avy-keys '(?a ?s ?d ?f ?g ?h ?n ?w ?e ?r ?y ?u ?o ?t ?v ?i ?j ?k ?l))
 
-;; IDO Mode (& ido-vertical-mode)
+;; Ido & Ido-Vertical & Flx-Ido
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (require 'ido-vertical-mode)
 (ido-mode 1)
 (ido-vertical-mode 1)
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+(require 'flx-ido)
+(flx-ido-mode 1)
+(setq ido-enable-flex-matching t)
+
+;; SMEX
 (require 'smex)
 (global-set-key (kbd "M-x") 'smex)
 
@@ -355,11 +355,20 @@
 ;; Eshell aliases
 (defalias 'ff 'find-file)
 
+;; Emmet
+(require 'emmet-mode)
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
+(add-hook 'js2-mode-hook 'emmet-mode)
+
 ;; JavaScript
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 (require 'prettier-js)
+(setq prettier-js-args '(
+  "--trailing-comma" "all"
+  "--bracket-spacing" "true"))
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 
 (set-cursor-color "#B2B2B2")
@@ -380,9 +389,13 @@
 (set-register ?e (cons 'file "~/.emacs"))
 (set-register ?t (cons 'file "~/todo.org"))
 
-(setq gc-cons-threshold 100000000) ; ie 100mb, default is 800kb
+(setq gc-cons-threshold 20000000) ; ie 100mb, default is 800kb
 
 ;; Magit
 (require 'evil-magit)
+
+;; Edit with Emacs-Chrome
+(require 'edit-server)
+(edit-server-start)
 
 ;;; .emacs ends here
