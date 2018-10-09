@@ -52,6 +52,8 @@
  '(fringe-mode (quote (nil . 1)) nil (fringe))
  '(jdee-compiler (quote ("javac")))
  '(jdee-server-dir "~/myJars")
+ '(js-indent-level 2)
+ '(js2-strict-missing-semi-warning nil)
  '(neo-autorefresh t)
  '(neo-window-position (quote right))
  '(neo-window-width 30)
@@ -89,7 +91,7 @@
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))))
  '(package-selected-packages
    (quote
-    (lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode)))
+    (vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode)))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2)
  '(spacemacs-theme-comment-bg nil)
@@ -175,6 +177,7 @@
 (require 'emmet-mode)
 (add-hook 'html-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
+(add-hook 'js2-mode-hook 'emmet-mode)
 
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode"
@@ -188,6 +191,12 @@
 (global-set-key "\C-ca" 'org-agenda)  ;; Use C-c a to active agenda
 (require 'evil-org-agenda)
 (evil-org-agenda-set-keys)
+(setq org-todo-keywords
+      '((sequence "TODO" "DOING" "DONE")))
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "#E74E22" :weight bold))
+        ("DOING" . (:foreground "#FFD000" :weight bold))
+        ("DONE" . (:foreground "#83E230" :weight bold))))
 
 ;; Python
 (elpy-enable)
@@ -237,8 +246,12 @@
 (global-set-key (kbd "RET") 'newline-and-push-brace)
 (require 'auto-indent-mode)
 
-;; Always syntax highlight
+;; Syntax Highlight
 (global-font-lock-mode t)
+
+;; Vimrc Mode
+(require 'vimrc-mode)
+(add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode))
 
 ;; Smart Parenthesis
 (smartparens-global-mode 1)
@@ -267,23 +280,12 @@
                                              'face 'font-lock-constant-face
                                              'help-echo
                                              "Buffer has been modified"))))
-               "| "
-               '(:eval (propertize "\xe799 %m" 'face 'font-lock-string-face
+               "| " '(:eval (propertize "\xe799 %m" 'face 'font-lock-string-face
                                    'help-echo buffer-file-coding-system))
-               " | "
-               '(:eval (propertize (format-time-string "\xe384 %H:%M")
-                                   'face `(:foreground "#A79FC5")
-                                   'help-echo
-                                   (concat (format-time-string "%c; ")
-                                           (emacs-uptime "Uptime:%hh"))))
-               " | "
-               (propertize "\xf161 %p" 'face 'font-lock-constant-face)
-               " | "
-               '(:eval (list (nyan-create)))
-               " | "
-               "\xf0ca Line:"
-               (propertize "%02l" 'face 'font-lock-type-face)
-               " |"
+               " | " (propertize "\xf161 %p" 'face 'font-lock-constant-face)
+               " | " '(:eval (list (nyan-create)))
+               " | " "\xf0ca Line:"
+               (propertize "%02l" 'face 'font-lock-type-face) " |"
                "%-"  ;; fill with '-'
                ))
 
@@ -295,6 +297,7 @@
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + F = replace
 (global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
+(global-set-key (kbd "s-K") 'kill-some-buffers)   ;; Command + Shift + K
 
 ;; Spell checker software Aspell (to replace ispell)
 (setq ispell-program-name "/usr/local/bin/aspell")
@@ -302,8 +305,7 @@
 ;; Avy-easymotion
 (define-key evil-normal-state-map (kbd "f") nil)
 (define-key evil-normal-state-map (kbd "f") 'avy-goto-word-1)
-(setq avy-keys '(?a ?s ?d ?f ?g ?h ?n ?w ?e ?r ?y
-                    ?u ?o ?t ?v ?i ?j ?k ?l))
+(setq avy-keys '(?a ?s ?d ?f ?g ?h ?n ?w ?e ?r ?y ?u ?o ?t ?v ?i ?j ?k ?l))
 
 ;; IDO Mode (& ido-vertical-mode)
 (setq ido-enable-flex-matching t)
@@ -320,8 +322,7 @@
 (require 'esh-autosuggest)  ;; Fish-like autosuggestion
 (add-hook 'eshell-mode-hook #'esh-autosuggest-mode)
 (setq eshell-prompt-function (lambda nil
-                               (concat
-                                "\n"
+                               (concat "\n"
                                 (propertize "\xf302 " 'face
                                             `(:foreground "#95a71a"))
                                 (propertize(format-time-string "| %H:%M:%S"
@@ -336,10 +337,8 @@
                                                 "~" (eshell/basename
                                                      (eshell/pwd))) 'face
                                                      `(:foreground "#95A71A"))
-                                (propertize " $" 'face
-                                            `(:foreground "#DF7823"))
-                                (propertize " " 'face
-                                            `(:foreground "#93A1A1"))
+                                (propertize " $" 'face `(:foreground "#DF7823"))
+                                (propertize " " 'face `(:foreground "#93A1A1"))
                                 )))
 (setq eshell-highlight-prompt nil)
 
@@ -358,11 +357,10 @@
 
 ;; JavaScript
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(js2-imenu-extras-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 (require 'prettier-js)
 (add-hook 'js2-mode-hook 'prettier-js-mode)
-(add-hook 'web-mode-hook 'prettier-js-mode)
 
 (set-cursor-color "#B2B2B2")
 
@@ -377,6 +375,7 @@
 
 ;; Change yes/no to y/n
 (fset 'yes-or-no-p 'y-or-n-p)
+
 ;; Registers
 (set-register ?e (cons 'file "~/.emacs"))
 (set-register ?t (cons 'file "~/todo.org"))
@@ -385,6 +384,5 @@
 
 ;; Magit
 (require 'evil-magit)
-
 
 ;;; .emacs ends here
