@@ -7,10 +7,9 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'load-path "~/.emacs.d/evil")
 (setq package-enable-at-startup nil)
-(package-initialize)
 
 ;; Load theme by hand, don't use 'M-x customize-themes'
-(load-theme 'spacemacs-dark t)
+(load-theme 'base16-ocean t)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'highlight-operators-mode)
 (hes-mode)  ;; highlight escape sequences
@@ -28,15 +27,13 @@
  '(dashboard-heading-face ((t (:inherit default :foreground "#EAB102" :height 1.1))))
  '(magit-diff-added-highlight ((t (:background "#339532" :foreground "#cceecc"))))
  '(magit-diff-removed-highlight ((t (:background "#a73335" :foreground "#eecccc"))))
- '(mode-line ((t (:foreground "#c1c1c1" :background "#000" :box nil))))
- '(mode-line-inactive ((t (:foreground "#3a3a3a" :background "#000" :box nil))))
  '(neo-dir-link-face ((t (:foreground "#fffafa" :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:height 140 :family "San Francisco"))))
  '(nlinum-relative-current-face ((t (:inherit linum :background "#444444" :foreground "#c6c6c6" :weight normal))))
  '(org-block ((t (:background "#1D1124" :foreground "#D2B6F1"))))
- '(org-document-title ((t (:foreground "#E2DCCB" :weight bold :height 2.0))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.3))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.1))))
+ '(org-document-title ((t ( :height 2.0))))
+ '(org-level-1 ((t (:inherit outline-1 :foreground "#59B1FF" :height 1.3))))
+ '(org-level-2 ((t (:inherit outline-2 :foreground "#F26749" :height 1.1))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
@@ -49,29 +46,23 @@
  ;; If there is more than one, they won't work right.
  '(css-fontify-colors nil)
  '(css-indent-offset 2)
- '(fringe-mode (quote (nil . 1)) nil (fringe))
- '(jdee-compiler (quote ("javac")))
+ '(fringe-mode '(nil . 1) nil (fringe))
+ '(jdee-compiler '("javac"))
  '(jdee-server-dir "~/myJars")
  '(js-indent-level 2)
  '(js2-strict-missing-semi-warning nil)
+ '(moody-mode-line-height 15)
  '(neo-autorefresh t)
- '(neo-window-position (quote right))
+ '(neo-window-position 'right)
  '(neo-window-width 30)
  '(nlinum-relative-redisplay-delay 0)
- '(nyan-animate-nyancat nil)
- '(nyan-bar-length 40)
- '(nyan-cat-face-number 1)
- '(nyan-mode t)
  '(org-agenda-files
-   (quote
-    ("~/todo.org" "~/Notes-in-Org-LaTeX/GNU-Emacs/gnu-emacs.org" "~/Notes-in-Org-LaTeX/Docker/docker.org")))
+   '("~/todo.org" "~/Notes-in-Org-LaTeX/GNU-Emacs/gnu-emacs.org" "~/Notes-in-Org-LaTeX/Docker/docker.org"))
  '(org-format-latex-options
-   (quote
-    (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
-                 ("begin" "$1" "$" "$$" "\\(" "\\["))))
+   '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+                 ("begin" "$1" "$" "$$" "\\(" "\\[")))
  '(org-latex-classes
-   (quote
-    (("article" "\\documentclass[12pt]{article}"
+   '(("article" "\\documentclass[12pt]{article}"
       ("\\section{%s}" . "\\section*{%s}")
       ("\\subsection{%s}" . "\\subsection*{%s}")
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -88,18 +79,16 @@
       ("\\chapter{%s}" . "\\chapter*{%s}")
       ("\\section{%s}" . "\\section*{%s}")
       ("\\subsection{%s}" . "\\subsection*{%s}")
-      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))))
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
  '(package-selected-packages
-   (quote
-    (edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode)))
+   '(minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2)
  '(spacemacs-theme-comment-bg nil)
  '(spacemacs-theme-comment-italic t))
 
-(setq user-full-name "Ian Y.E. Pan")
-
 ;; Start-up
+(setq user-full-name "Ian Y.E. Pan")
 (setq initial-major-mode 'org-mode) ;; for *scratch* buffer
 (setq initial-scratch-message nil)
 (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
@@ -114,7 +103,6 @@
 (setq ring-bell-function 'ignore)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(scroll-bar-mode -1)
 (blink-cursor-mode 0)
 
 ;; Auto-completion
@@ -264,25 +252,6 @@
 ;; Word-wrapping
 (global-visual-line-mode t)
 
-;; Mode Line
-(setq-default mode-line-format
-              (list
-               '(:eval (propertize "  \xf0c9 %b " 'face `(:foreground "#D5A102")
-                                   'help-echo (buffer-file-name)))
-               '(:eval (when (buffer-modified-p)
-                         (concat (propertize "\xe780 "
-                                             'face 'font-lock-constant-face
-                                             'help-echo
-                                             "Buffer has been modified"))))
-               "| " '(:eval (propertize "\xe799 %m" 'face 'font-lock-string-face
-                                   'help-echo buffer-file-coding-system))
-               " | " (propertize "\xf161 %p" 'face 'font-lock-constant-face)
-               " | " '(:eval (list (nyan-create)))
-               " | " "\xf0ca Line:"
-               (propertize "%02l" 'face 'font-lock-type-face) " |"
-               "%-"  ;; fill with '-'
-               ))
-
 
 (setq-default indicate-empty-lines t)
 
@@ -292,6 +261,7 @@
 (global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + F = replace
 (global-set-key (kbd "s-P") 'smex)   ;; Command + Shift + P
 (global-set-key (kbd "s-p") 'find-file)   ;; Command + p
+(global-set-key (kbd "s-k") 'ido-kill-buffer)   ;; Command + k
 (global-set-key (kbd "s-K") 'kill-some-buffers)   ;; Command + Shift + K
 
 ;; Spell checker software Aspell (to replace ispell)
@@ -347,11 +317,12 @@
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)))
-
 (global-set-key (kbd "C-8") 'eshell-previous-input)
 (global-set-key (kbd "C-9") 'eshell-next-input)
+
 ;; To let Eshell use brew-installed commands
 (setenv "PATH" (concat "/usr/local/bin/" ":" (getenv "PATH")))
+(setq exec-path (append '("/usr/local/bin/") exec-path))
 ;; Eshell aliases
 (defalias 'ff 'find-file)
 
@@ -397,5 +368,19 @@
 ;; Edit with Emacs-Chrome
 (require 'edit-server)
 (edit-server-start)
+
+;; Mode Line
+(require 'moody)
+(moody-replace-mode-line-buffer-identification)
+(moody-replace-vc-mode)
+(let ((line (face-attribute 'mode-line :underline)))
+  (set-face-attribute 'mode-line          nil :foreground   "#A1AACF")
+  (set-face-attribute 'mode-line          nil :background   "#000000")
+  (set-face-attribute 'mode-line          nil :overline   nil)
+  (set-face-attribute 'mode-line-inactive nil :overline   nil)
+  (set-face-attribute 'mode-line-inactive nil :underline  nil)
+  (set-face-attribute 'mode-line          nil :box        nil)
+  (set-face-attribute 'mode-line-inactive nil :box        nil))
+(minions-mode)
 
 ;;; .emacs ends here
