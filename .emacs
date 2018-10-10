@@ -9,7 +9,7 @@
 (setq package-enable-at-startup nil)
 
 ;; Load theme by hand, don't use 'M-x customize-themes'
-(load-theme 'base16-ocean t)
+(load-theme 'base16-solarized-dark t)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'highlight-operators-mode)
 (hes-mode)  ;; highlight escape sequences
@@ -25,16 +25,14 @@
  '(bold ((t (:weight normal))))
  '(dashboard-banner-logo-title-face ((t (:inherit default :overline t :height 1.15 :family "Monaco"))))
  '(dashboard-heading-face ((t (:inherit default :foreground "#EAB102" :height 1.1))))
- '(magit-diff-added-highlight ((t (:background "#339532" :foreground "#cceecc"))))
- '(magit-diff-removed-highlight ((t (:background "#a73335" :foreground "#eecccc"))))
  '(neo-dir-link-face ((t (:foreground "#fffafa" :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:height 140 :family "San Francisco"))))
  '(nlinum-relative-current-face ((t (:inherit linum :background "#444444" :foreground "#c6c6c6" :weight normal))))
  '(org-block ((t (:background "#1D1124" :foreground "#D2B6F1"))))
- '(org-document-title ((t ( :height 2.0))))
- '(org-level-1 ((t (:inherit outline-1 :foreground "#59B1FF" :height 1.3))))
- '(org-level-2 ((t (:inherit outline-2 :foreground "#F26749" :height 1.1))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
+ '(org-document-title ((t (:height 2.0))))
+ '(org-level-1 ((t (:inherit outline-1 :weight bold :foreground "#59B1FF" :height 1.3))))
+ '(org-level-2 ((t (:inherit outline-2 :weight bold :foreground "#F26749" :height 1.1))))
+ '(org-level-3 ((t (:inherit outline-3 :weight bold :height 1.1))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
@@ -44,12 +42,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-cmake-executable nil)
+ '(company-global-modes '(not eshell-mode))
+ '(company-idle-delay t)
  '(css-fontify-colors nil)
  '(css-indent-offset 2)
  '(fringe-mode '(nil . 1) nil (fringe))
+ '(global-company-mode t)
  '(jdee-compiler '("javac"))
  '(jdee-server-dir "~/myJars")
- '(js-indent-level 2)
+ '(js-indent-level 2 t)
  '(js2-strict-missing-semi-warning nil)
  '(moody-mode-line-height 15)
  '(neo-autorefresh t)
@@ -62,7 +64,7 @@
    '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\[")))
  '(org-latex-classes
-   '(("article" "\\documentclass[12pt]{article}"
+   '(("article" "\\documentclass[12pt, a4paper]{article}"
       ("\\section{%s}" . "\\section*{%s}")
       ("\\subsection{%s}" . "\\subsection*{%s}")
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -81,11 +83,11 @@
       ("\\subsection{%s}" . "\\subsection*{%s}")
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
  '(package-selected-packages
-   '(minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nyan-mode nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
+   '(minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
  '(python-indent-guess-indent-offset nil)
- '(smooth-scroll-margin 2)
- '(spacemacs-theme-comment-bg nil)
- '(spacemacs-theme-comment-italic t))
+ '(smooth-scroll-margin 2))
+ ;; '(spacemacs-theme-comment-bg nil)
+ ;; '(spacemacs-theme-comment-italic t))
 
 ;; Start-up
 (setq user-full-name "Ian Y.E. Pan")
@@ -96,8 +98,8 @@
 (require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Welcome, my Lord. GNU Emacs at your command.")
-;; (setq dashboard-startup-banner "~/Downloads/emacs-logo.png")
 (setq dashboard-startup-banner "~/Downloads/gnuemacs.png")
+(set-face-attribute 'font-lock-comment-face nil :background nil :slant 'italic)  ;; Italic comments
 
 ;; Cleaning up the interface
 (setq ring-bell-function 'ignore)
@@ -339,7 +341,8 @@
 (require 'prettier-js)
 (setq prettier-js-args '(
   "--trailing-comma" "all"
-  "--bracket-spacing" "true"))
+  "--bracket-spacing" "true"
+  "--jsx-bracket-same-line" "true"))
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 
 (set-cursor-color "#B2B2B2")
@@ -382,5 +385,6 @@
   (set-face-attribute 'mode-line          nil :box        nil)
   (set-face-attribute 'mode-line-inactive nil :box        nil))
 (minions-mode)
+
 
 ;;; .emacs ends here
