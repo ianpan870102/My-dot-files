@@ -9,7 +9,7 @@
 (setq package-enable-at-startup nil)
 
 ;; Load theme by hand, don't use 'M-x customize-themes'
-(load-theme 'base16-solarized-dark t)
+;; (load-theme 'base16-ocean t)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'highlight-operators-mode)
 (hes-mode)  ;; highlight escape sequences
@@ -19,15 +19,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 150 :width normal :foundry "nil" :family "Monaco"))))
+ '(default ((t (:inherit nil :stipple nil :background "Black" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Monaco"))))
  '(avy-lead-face ((t (:foreground "#F95323"))))
  '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
- '(bold ((t (:weight normal))))
+ '(bold ((t (:weight normal :foreground "DarkGoldenrod2"))))
  '(column-enforce-face ((t (:foreground "#EC655D" :underline t))))
+ '(company-scrollbar-bg ((t (:background "#000000"))))
+ '(company-scrollbar-fg ((t (:background "#aaaaaa"))))
+ '(company-template-field ((t (:background "#333333" :foreground "#bbbbbb"))))
+ '(company-tooltip ((t (:background "#333333" :foreground "#bbbbbb"))))
+ '(company-tooltip-selection ((t (:background "#666666"))))
  '(dashboard-banner-logo-title-face ((t (:inherit default :overline t :height 1.15 :family "Monaco"))))
  '(dashboard-heading-face ((t (:inherit default :foreground "#EAB102" :height 1.1))))
- '(linum ((t (:foreground  "#475B5B" :background "#002B36" ))))
- '(fringe ((t (:background "#002b36" ))))
+ '(fringe ((t (:background "#000000"))))
+ '(linum ((t (:foreground "#676767"))))
  '(neo-dir-link-face ((t (:foreground "#fffafa" :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:height 140 :family "San Francisco"))))
  '(nlinum-relative-current-face ((t (:inherit linum :background "#4E5F6E" :foreground "#c6c6c6" :weight normal))))
@@ -54,7 +59,10 @@
  '(css-fontify-colors nil)
  '(css-indent-offset 2)
  '(display-time-24hr-format t)
+ '(display-time-day-and-date t)
+ '(display-time-interval 1)
  '(display-time-mode t)
+ '(frame-background-mode 'dark)
  '(fringe-mode '(nil . 1) nil (fringe))
  '(global-company-mode t)
  '(jdee-compiler '("javac"))
@@ -80,16 +88,12 @@
       ("\\paragraph{%s}" . "\\paragraph*{%s}")
       ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
  '(package-selected-packages
-   '(arjen-grey-theme all-the-icons-dired all-the-icons minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
+   '(tide all-the-icons minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
- ;; '(spacemacs-theme-comment-bg nil)
- ;; '(spacemacs-theme-comment-italic t))
 
 ;; Start-up
-(display-time-mode t)
 (setq user-full-name "Ian Y.E. Pan")
-(setq initial-major-mode 'org-mode) ;; for *scratch* buffer
 (setq initial-scratch-message nil)
 (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
 (setq frame-title-format '( "GNU Emacs @ %b" " [" (:eval mode-name) "]"))
@@ -104,6 +108,20 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (blink-cursor-mode 0)
+
+;; *scratch* buffer
+(setq initial-major-mode 'org-mode) ;; for *scratch* buffer
+(with-current-buffer
+  (get-buffer-create "*scratch*") (org-mode)
+  (make-local-variable 'kill-buffer-query-functions)
+  (add-hook 'kill-buffer-query-functions 'kill-scratch-buffer))
+(defun kill-scratch-buffer ()
+  (set-buffer (get-buffer-create "*scratch*"))
+  (remove-hook 'kill-buffer-query-functions 'kill-scratch-buffer)
+  (kill-buffer (current-buffer))
+  (set-buffer (get-buffer-create "*scratch*")) (org-mode)
+  (make-local-variable 'kill-buffer-query-functions)
+  (add-hook 'kill-buffer-query-functions 'kill-scratch-buffer) nil)
 
 ;; Auto-completion
 (add-hook 'after-init-hook 'global-company-mode)
@@ -146,10 +164,9 @@
               (kbd "A") 'neotree-stretch-toggle)
             (define-key evil-normal-state-local-map
               (kbd "zh") 'neotree-hidden-file-toggle)))
-;; (setq neo-theme 'arrow)(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
-;; Rainbow
+;; Rainbow brackets and rainbow color highlight
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'jdee-mode-hook 'rainbow-delimiters-mode)
@@ -186,6 +203,9 @@
 (setq elpy-rpc-python-command "/usr/local/bin/python3")
 (setq python-shell-interpreter "/usr/local/bin/python3")
 (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))  ;; company-jedi
+(add-hook 'python-mode-hook 'my/python-mode-hook)
 
 ;; Yasnippets enable
 (yas-global-mode 1)
@@ -334,7 +354,7 @@
 (add-hook 'js2-mode-hook 'emmet-mode)
 
 ;; JavaScript
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 (require 'prettier-js)
@@ -353,7 +373,6 @@
 (put 'dired-find-alternate-file 'disabled nil)
 (add-hook 'dired-mode-hook (lambda () (define-key dired-mode-map (kbd "RET")
                                         'dired-find-alternate-file)))
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 ;; Change yes/no to y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -376,8 +395,8 @@
 (moody-replace-mode-line-buffer-identification)
 (moody-replace-vc-mode)
 (let ((line (face-attribute 'mode-line :underline)))
-  (set-face-attribute 'mode-line          nil :foreground   "#A1AACF")
-  (set-face-attribute 'mode-line          nil :background   "#000000")
+  (set-face-attribute 'mode-line          nil :foreground   "#D2D2D2")
+  (set-face-attribute 'mode-line          nil :background   "#333333")
   (set-face-attribute 'mode-line          nil :overline   nil)
   (set-face-attribute 'mode-line-inactive nil :overline   nil)
   (set-face-attribute 'mode-line-inactive nil :underline  nil)
@@ -391,5 +410,10 @@
      (set-face-foreground 'diff-added "#dcffdd")
      (set-face-background 'diff-removed "#553333")
      (set-face-foreground 'diff-removed "#ffdddc")))
+;; Comparing Files
+(global-set-key (kbd "C-c d") 'diff)
+(global-set-key (kbd "C-c e") 'ediff)
+(global-set-key (kbd "C-c D") 'diff-buffer-with-file)
+(global-set-key (kbd "C-c E") 'ediff-current-file)
 
 ;;; .emacs ends here
