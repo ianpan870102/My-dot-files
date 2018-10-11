@@ -19,21 +19,24 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 150 :width normal :foundry "nil" :family "DejaVusansmono nerd font"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 150 :width normal :foundry "nil" :family "Monaco"))))
  '(avy-lead-face ((t (:foreground "#F95323"))))
  '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
  '(bold ((t (:weight normal))))
+ '(column-enforce-face ((t (:foreground "#EC655D" :underline t))))
  '(dashboard-banner-logo-title-face ((t (:inherit default :overline t :height 1.15 :family "Monaco"))))
  '(dashboard-heading-face ((t (:inherit default :foreground "#EAB102" :height 1.1))))
+ '(linum ((t (:foreground  "#475B5B" :background "#002B36" ))))
+ '(fringe ((t (:background "#002b36" ))))
  '(neo-dir-link-face ((t (:foreground "#fffafa" :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:height 140 :family "San Francisco"))))
- '(nlinum-relative-current-face ((t (:inherit linum :background "#444444" :foreground "#c6c6c6" :weight normal))))
+ '(nlinum-relative-current-face ((t (:inherit linum :background "#4E5F6E" :foreground "#c6c6c6" :weight normal))))
  '(org-block ((t (:background "#1D1124" :foreground "#D2B6F1"))))
- '(org-document-title ((t (:height 2.0))))
+ '(org-document-title ((t (:height 2.0 :family "Georgia"))))
  '(org-level-1 ((t (:inherit outline-1 :weight bold :foreground "#59B1FF" :height 1.3))))
  '(org-level-2 ((t (:inherit outline-2 :weight bold :foreground "#F26749" :height 1.1))))
- '(org-level-3 ((t (:inherit outline-3 :weight bold :height 1.1))))
- '(org-table ((t (:background "#002831" :foreground "#6c71c4"))))
+ '(org-level-3 ((t (:inherit outline-3 :weight bold :foreground "#686BC7" :height 1.1))))
+ '(org-table ((t (:background "#002831"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
@@ -43,18 +46,23 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(all-the-icons-scale-factor 1.0)
+ '(column-enforce-column 79)
  '(company-cmake-executable nil)
  '(company-global-modes '(not eshell-mode))
  '(company-idle-delay t)
  '(css-fontify-colors nil)
  '(css-indent-offset 2)
+ '(display-time-24hr-format t)
+ '(display-time-mode t)
  '(fringe-mode '(nil . 1) nil (fringe))
  '(global-company-mode t)
  '(jdee-compiler '("javac"))
  '(jdee-server-dir "~/myJars")
- '(js-indent-level 2 t)
+ '(js-indent-level 2)
  '(js2-strict-missing-semi-warning nil)
  '(moody-mode-line-height 15)
+ '(mouse-wheel-progressive-speed nil)
  '(neo-autorefresh t)
  '(neo-window-position 'right)
  '(neo-window-width 30)
@@ -72,13 +80,14 @@
       ("\\paragraph{%s}" . "\\paragraph*{%s}")
       ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
  '(package-selected-packages
-   '(minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js pdf-tools org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
+   '(arjen-grey-theme all-the-icons-dired all-the-icons minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
  ;; '(spacemacs-theme-comment-bg nil)
  ;; '(spacemacs-theme-comment-italic t))
 
 ;; Start-up
+(display-time-mode t)
 (setq user-full-name "Ian Y.E. Pan")
 (setq initial-major-mode 'org-mode) ;; for *scratch* buffer
 (setq initial-scratch-message nil)
@@ -137,7 +146,8 @@
               (kbd "A") 'neotree-stretch-toggle)
             (define-key evil-normal-state-local-map
               (kbd "zh") 'neotree-hidden-file-toggle)))
-(setq neo-theme 'arrow)
+;; (setq neo-theme 'arrow)(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 ;; Rainbow
 (require 'rainbow-delimiters)
@@ -332,7 +342,6 @@
   "--trailing-comma" "all"
   "--bracket-spacing" "true"
   "--jsx-bracket-same-line" "true"))
-(add-hook 'js2-mode-hook 'prettier-js-mode)
 
 (set-cursor-color "#B2B2B2")
 
@@ -340,10 +349,11 @@
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
-;; Enter new buffer in Dired and kill old one
+;; Dired
 (put 'dired-find-alternate-file 'disabled nil)
 (add-hook 'dired-mode-hook (lambda () (define-key dired-mode-map (kbd "RET")
                                         'dired-find-alternate-file)))
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 ;; Change yes/no to y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -375,5 +385,11 @@
   (set-face-attribute 'mode-line-inactive nil :box        nil))
 (minions-mode)
 
+(eval-after-load 'diff-mode
+  '(progn
+     (set-face-background 'diff-added "#355531")
+     (set-face-foreground 'diff-added "#dcffdd")
+     (set-face-background 'diff-removed "#553333")
+     (set-face-foreground 'diff-removed "#ffdddc")))
 
 ;;; .emacs ends here
