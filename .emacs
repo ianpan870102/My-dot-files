@@ -58,16 +58,17 @@
  '(company-idle-delay t)
  '(css-fontify-colors nil)
  '(css-indent-offset 2)
+ '(dired-sidebar-width 25)
+ '(dired-use-ls-dired nil)
  '(display-time-24hr-format t)
  '(display-time-day-and-date t)
  '(display-time-interval 1)
  '(display-time-mode t)
- '(frame-background-mode 'dark)
  '(fringe-mode '(nil . 1) nil (fringe))
  '(global-company-mode t)
  '(jdee-compiler '("javac"))
  '(jdee-server-dir "~/myJars")
- '(js-indent-level 2)
+ '(js-indent-level 2 t)
  '(js2-strict-missing-semi-warning nil)
  '(moody-mode-line-height 15)
  '(mouse-wheel-progressive-speed nil)
@@ -88,7 +89,7 @@
       ("\\paragraph{%s}" . "\\paragraph*{%s}")
       ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
  '(package-selected-packages
-   '(tide all-the-icons minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
+   '(vscode-icon dired-sidebar tide all-the-icons minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
  '(python-indent-guess-indent-offset nil)
  '(smooth-scroll-margin 2))
 
@@ -102,6 +103,11 @@
 (setq dashboard-banner-logo-title "Welcome, my Lord. GNU Emacs at your command.")
 (setq dashboard-startup-banner "~/Downloads/gnuemacs.png")
 (set-face-attribute 'font-lock-comment-face nil :background nil :slant 'italic)  ;; Italic comments
+(setq split-height-threshold nil)  ;; always split windows side by side
+(setq split-width-threshold 0)
+;; Dark natural color title-bar (matching theme)
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;; Cleaning up the interface
 (setq ring-bell-function 'ignore)
@@ -112,9 +118,9 @@
 ;; *scratch* buffer
 (setq initial-major-mode 'org-mode) ;; for *scratch* buffer
 (with-current-buffer
-  (get-buffer-create "*scratch*") (org-mode)
-  (make-local-variable 'kill-buffer-query-functions)
-  (add-hook 'kill-buffer-query-functions 'kill-scratch-buffer))
+    (get-buffer-create "*scratch*") (org-mode)
+    (make-local-variable 'kill-buffer-query-functions)
+    (add-hook 'kill-buffer-query-functions 'kill-scratch-buffer))
 (defun kill-scratch-buffer ()
   (set-buffer (get-buffer-create "*scratch*"))
   (remove-hook 'kill-buffer-query-functions 'kill-scratch-buffer)
@@ -141,6 +147,23 @@
 (global-evil-surround-mode 1)
 (evil-commentary-mode)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
+
+;; God Mode in Evil Mode
+(define-key evil-normal-state-map "\C-n" 'evil-next-line)
+(define-key evil-insert-state-map "\C-n" 'evil-next-line)
+(define-key evil-visual-state-map "\C-n" 'evil-next-line)
+
+(define-key evil-normal-state-map "\C-p" 'evil-previous-line)
+(define-key evil-insert-state-map "\C-p" 'evil-previous-line)
+(define-key evil-visual-state-map "\C-p" 'evil-previous-line)
+
+(define-key evil-normal-state-map "\C-f" 'evil-forward-char)
+(define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+(define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+
+(define-key evil-normal-state-map "\C-b" 'evil-backward-char)
+(define-key evil-insert-state-map "\C-b" 'evil-backward-char)
+(define-key evil-visual-state-map "\C-b" 'evil-backward-char)
 
 ;; Line Numbers
 (require 'nlinum-relative)
@@ -314,23 +337,23 @@
 (add-hook 'eshell-mode-hook #'esh-autosuggest-mode)
 (setq eshell-prompt-function (lambda nil
                                (concat "\n"
-                                (propertize "\xf302 " 'face
-                                            `(:foreground "#95a71a"))
-                                (propertize(format-time-string "| %H:%M:%S"
-                                                               (current-time))
-                                           'face `(:foreground "#DF7823"))
-                                (propertize " | " 'face
-                                            `(:foreground "#DF7823"))
-                                (propertize "\xf115 " 'face
-                                            `(:foreground "#95A71A"))
-                                (propertize (if (string= (eshell/pwd)
-                                                         (getenv "HOME"))
-                                                "~" (eshell/basename
-                                                     (eshell/pwd))) 'face
-                                                     `(:foreground "#95A71A"))
-                                (propertize " $" 'face `(:foreground "#DF7823"))
-                                (propertize " " 'face `(:foreground "#93A1A1"))
-                                )))
+                                       (propertize "\xf302 " 'face
+                                                   `(:foreground "#95a71a"))
+                                       (propertize(format-time-string "| %H:%M:%S"
+                                                                      (current-time))
+                                                  'face `(:foreground "#DF7823"))
+                                       (propertize " | " 'face
+                                                   `(:foreground "#DF7823"))
+                                       (propertize "\xf115 " 'face
+                                                   `(:foreground "#95A71A"))
+                                       (propertize (if (string= (eshell/pwd)
+                                                                (getenv "HOME"))
+                                                       "~" (eshell/basename
+                                                            (eshell/pwd))) 'face
+                                                            `(:foreground "#95A71A"))
+                                       (propertize " $" 'face `(:foreground "#DF7823"))
+                                       (propertize " " 'face `(:foreground "#93A1A1"))
+                                       )))
 (setq eshell-highlight-prompt nil)
 
 (defun eshell/clear ()
@@ -359,15 +382,11 @@
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 (require 'prettier-js)
 (setq prettier-js-args '(
-  "--trailing-comma" "all"
-  "--bracket-spacing" "true"
-  "--jsx-bracket-same-line" "true"))
+                         "--trailing-comma" "all"
+                         "--bracket-spacing" "true"
+                         "--jsx-bracket-same-line" "true"))
 
 (set-cursor-color "#B2B2B2")
-
-;; Dark natural color title-bar (matching theme)
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;; Dired
 (put 'dired-find-alternate-file 'disabled nil)
@@ -415,5 +434,48 @@
 (global-set-key (kbd "C-c e") 'ediff)
 (global-set-key (kbd "C-c D") 'diff-buffer-with-file)
 (global-set-key (kbd "C-c E") 'ediff-current-file)
+
+;; Transparency
+(defun toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ((numberp (cadr alpha)) (cadr alpha))) 100)
+         '(75 . 75) '(100 . 100)))))
+(global-set-key (kbd "C-c t") 'toggle-transparency)
+
+
+;; Toggle between horizontal and vertical view
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+(global-set-key (kbd "C-x 5") 'toggle-window-split)
+
+;; Dired Sidebar
+(global-set-key (kbd "s-d") 'dired-sidebar-toggle-sidebar)
 
 ;;; .emacs ends here
