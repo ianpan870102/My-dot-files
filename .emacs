@@ -9,7 +9,7 @@
 (setq package-enable-at-startup nil)
 
 ;; Load theme by hand, don't use 'M-x customize-themes'
-;; (load-theme 'base16-ocean t)
+(load-theme 'doom-city-lights t)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'highlight-operators-mode)
 (hes-mode)  ;; highlight escape sequences
@@ -19,9 +19,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "Black" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Monaco"))))
- '(avy-lead-face ((t (:foreground "#F95323"))))
- '(avy-lead-face-0 ((t (:foreground "#EEAD0F"))))
+ '(default ((t (:inherit nil :stipple nil :background "Black" :foreground "#6A8397" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Monaco"))))
+ '(avy-lead-face ((t (:foreground "#FF4E4e"))))
+ '(avy-lead-face-0 ((t (:foreground "DarkGoldenrod2"))))
  '(bold ((t (:weight normal :foreground "DarkGoldenrod2"))))
  '(column-enforce-face ((t (:foreground "#EC655D" :underline t))))
  '(company-scrollbar-bg ((t (:background "#000000"))))
@@ -30,21 +30,32 @@
  '(company-tooltip ((t (:background "#333333" :foreground "#bbbbbb"))))
  '(company-tooltip-selection ((t (:background "#666666"))))
  '(dashboard-banner-logo-title-face ((t (:inherit default :overline t :height 1.15 :family "Monaco"))))
- '(dashboard-heading-face ((t (:inherit default :foreground "#EAB102" :height 1.1))))
+ '(dashboard-heading-face ((t (:inherit default :foreground "#CBEBFF" :height 1.1))))
+ '(eshell-git-prompt-powerline-clean-face ((t (:background "#49A33A" :foreground "#fffafa"))))
+ '(eshell-git-prompt-powerline-dir-face ((t (:background "steel blue" :foreground "#fffafa"))))
+ '(eshell-git-prompt-powerline-not-clean-face ((t (:background "DarkGoldenrod2" :foreground "#fffafa"))))
+ '(font-lock-negation-char-face ((t (:inherit font-lock-preprocessor-face))))
  '(fringe ((t (:background "#000000"))))
- '(linum ((t (:foreground "#676767"))))
+ '(highlight ((t (:background "#2a2a2a"))))
+ '(linum ((t (:background "#000000" :foreground "#455562"))))
  '(neo-dir-link-face ((t (:foreground "#fffafa" :height 140 :family "San Francisco"))))
  '(neo-file-link-face ((t (:height 140 :family "San Francisco"))))
- '(nlinum-relative-current-face ((t (:inherit linum :background "#4E5F6E" :foreground "#c6c6c6" :weight normal))))
- '(org-block ((t (:background "#1D1124" :foreground "#D2B6F1"))))
+ '(nlinum-relative-current-face ((t (:inherit linum :background "#000000" :foreground "#c6c6c6" :weight normal))))
+ '(org-block ((t (:background "#263038" :foreground "#839DB2"))))
  '(org-document-title ((t (:height 2.0 :family "Georgia"))))
  '(org-level-1 ((t (:inherit outline-1 :weight bold :foreground "#59B1FF" :height 1.3))))
  '(org-level-2 ((t (:inherit outline-2 :weight bold :foreground "#F26749" :height 1.1))))
  '(org-level-3 ((t (:inherit outline-3 :weight bold :foreground "#686BC7" :height 1.1))))
  '(org-table ((t (:background "#002831"))))
- '(rainbow-delimiters-depth-1-face ((t (:foreground "DarkGoldenrod2"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "DeepPink2"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "DeepSkyBlue1")))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "#80E3E2"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "#6BB9FE"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "#B5DEFF"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "#80E3E2"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "#6BB9FE"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "#B5DEFF"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "#80E3E2"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "#6BB9FE"))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "#B5DEFF")))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -58,7 +69,7 @@
  '(company-idle-delay t)
  '(css-fontify-colors nil)
  '(css-indent-offset 2)
- '(dired-sidebar-width 25)
+ '(dired-sidebar-width 35)
  '(dired-use-ls-dired nil)
  '(display-time-24hr-format t)
  '(display-time-day-and-date t)
@@ -70,17 +81,18 @@
  '(jdee-server-dir "~/myJars")
  '(js-indent-level 2 t)
  '(js2-strict-missing-semi-warning nil)
- '(moody-mode-line-height 15)
- '(mouse-wheel-progressive-speed nil)
+ '(moody-mode-line-height 21)
  '(neo-autorefresh t)
  '(neo-window-position 'right)
  '(neo-window-width 30)
  '(nlinum-relative-redisplay-delay 0)
+ '(olivetti-body-width 80)
  '(org-agenda-files
    '("~/todo.org" "~/Notes-in-Org-LaTeX/GNU-Emacs/gnu-emacs.org" "~/Notes-in-Org-LaTeX/Docker/docker.org"))
  '(org-format-latex-options
    '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\[")))
+ '(org-highlight-latex-and-related '(latex))
  '(org-latex-classes
    '(("article" "\\documentclass[12pt, a4paper]{article}"
       ("\\section{%s}" . "\\section*{%s}")
@@ -89,12 +101,16 @@
       ("\\paragraph{%s}" . "\\paragraph*{%s}")
       ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
  '(package-selected-packages
-   '(vscode-icon dired-sidebar tide all-the-icons minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
+   '(doom-themes writeroom-mode eshell-git-prompt vscode-icon dired-sidebar tide all-the-icons minions moody edit-server flx-ido vimrc-mode lorem-ipsum dockerfile-mode evil-org rainbow-mode smex esh-autosuggest evil-magit ido-vertical-mode markdown-mode whitespace-cleanup-mode magit spacemacs-theme highlight-escape-sequences dired-icon highlight-operators highlight-numbers company-jedi emmet-mode column-enforce-mode yasnippet-snippets yasnippet-classic-snippets which-key smooth-scrolling rainbow-delimiters prettier-js org-bullets nlinum-relative neotree js2-mode jedi jdee java-snippets evil-surround evil-smartparens evil-commentary elpy dashboard base16-theme avy auto-indent-mode))
  '(python-indent-guess-indent-offset nil)
- '(smooth-scroll-margin 2))
+ '(smooth-scroll-margin 2)
+ '(writeroom-global-effects
+   '(writeroom-set-fullscreen writeroom-set-alpha writeroom-set-menu-bar-lines writeroom-set-tool-bar-lines writeroom-set-bottom-divider-width))
+ '(writeroom-mode-line t))
 
 ;; Start-up
 (setq user-full-name "Ian Y.E. Pan")
+(global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)  ;; Ctrl-Cmd-f to toggle fullscreen
 (setq initial-scratch-message nil)
 (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
 (setq frame-title-format '( "GNU Emacs @ %b" " [" (:eval mode-name) "]"))
@@ -102,7 +118,7 @@
 (dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Welcome, my Lord. GNU Emacs at your command.")
 (setq dashboard-startup-banner "~/Downloads/gnuemacs.png")
-(set-face-attribute 'font-lock-comment-face nil :background nil :slant 'italic)  ;; Italic comments
+(set-face-attribute 'font-lock-comment-face nil :foreground "#CBEBFF" :background nil :slant 'italic)  ;; Italic comments
 (setq split-height-threshold nil)  ;; always split windows side by side
 (setq split-width-threshold 0)
 ;; Dark natural color title-bar (matching theme)
@@ -115,7 +131,7 @@
 (menu-bar-mode -1)
 (blink-cursor-mode 0)
 
-;; *scratch* buffer
+;; *scratch* buffer always exists
 (setq initial-major-mode 'org-mode) ;; for *scratch* buffer
 (with-current-buffer
     (get-buffer-create "*scratch*") (org-mode)
@@ -148,22 +164,22 @@
 (evil-commentary-mode)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 
-;; God Mode in Evil Mode
-(define-key evil-normal-state-map "\C-n" 'evil-next-line)
-(define-key evil-insert-state-map "\C-n" 'evil-next-line)
-(define-key evil-visual-state-map "\C-n" 'evil-next-line)
+;; God Mode within Evil (better visual-line and insert-mode nagivation)
+(define-key evil-normal-state-map "\C-n" 'next-line)
+(define-key evil-insert-state-map "\C-n" 'next-line)
+(define-key evil-visual-state-map "\C-n" 'next-line)
 
-(define-key evil-normal-state-map "\C-p" 'evil-previous-line)
-(define-key evil-insert-state-map "\C-p" 'evil-previous-line)
-(define-key evil-visual-state-map "\C-p" 'evil-previous-line)
+(define-key evil-normal-state-map "\C-p" 'previous-line)
+(define-key evil-insert-state-map "\C-p" 'previous-line)
+(define-key evil-visual-state-map "\C-p" 'previous-line)
 
-(define-key evil-normal-state-map "\C-f" 'evil-forward-char)
-(define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-(define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+(define-key evil-normal-state-map "\C-f" 'forward-char)
+(define-key evil-insert-state-map "\C-f" 'forward-char)
+(define-key evil-insert-state-map "\C-f" 'forward-char)
 
-(define-key evil-normal-state-map "\C-b" 'evil-backward-char)
-(define-key evil-insert-state-map "\C-b" 'evil-backward-char)
-(define-key evil-visual-state-map "\C-b" 'evil-backward-char)
+(define-key evil-normal-state-map "\C-b" 'backward-char)
+(define-key evil-insert-state-map "\C-b" 'backward-char)
+(define-key evil-visual-state-map "\C-b" 'backward-char)
 
 ;; Line Numbers
 (require 'nlinum-relative)
@@ -218,8 +234,10 @@
       '((sequence "TODO" "DOING" "DONE")))
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "#E74E22" :weight bold))
-        ("DOING" . (:foreground "#D9B203" :weight bold))
+        ("DOING" . (:foreground "DarkGoldenrod2" :weight bold))
         ("DONE" . (:foreground "#83E230" :weight bold))))
+(add-hook 'org-mode-hook 'writeroom-mode)
+(global-set-key (kbd "C-c w") 'writeroom-mode) ;; Toggle writeroom
 
 ;; Python
 (elpy-enable)
@@ -230,7 +248,7 @@
   (add-to-list 'company-backends 'company-jedi))  ;; company-jedi
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 
-;; Yasnippets enable
+;; Yasnippets
 (yas-global-mode 1)
 
 ;; Scrolling
@@ -285,28 +303,26 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
-;; In order for 'pdflatex' to work
-;; Also had to export PATH from .zshrc
+;; In order for 'pdflatex' to work. Also had to export PATH from .zshrc
 (setenv "PATH" (concat "/usr/texbin:/Library/TeX/texbin:" (getenv "PATH")))
 (setq exec-path (append '("/usr/texbin" "/Library/TeX/texbin") exec-path))
 
 ;; No 'index.js~' back-ups
 (setq make-backup-files nil)
 
-;; Word-wrapping
+;; Word-wrapping and indicating empty lines
 (global-visual-line-mode t)
-
-
 (setq-default indicate-empty-lines t)
 
 ;; Some macOS-like keybindings
-(global-set-key (kbd "s-s") 'save-buffer)   ;; Command + s = save
-(global-set-key (kbd "s-r") 'load-file)   ;; Command + 'r' = reload file
-(global-set-key (kbd "s-F") 'replace-string)   ;; Command + Shift + F = replace
-(global-set-key (kbd "s-P") 'smex)   ;; Command + Shift + P
-(global-set-key (kbd "s-p") 'find-file)   ;; Command + p
-(global-set-key (kbd "s-k") 'ido-kill-buffer)   ;; Command + k
-(global-set-key (kbd "s-K") 'kill-some-buffers)   ;; Command + Shift + K
+(global-set-key (kbd "s-s") 'save-buffer)   ;; Cmd + s = save
+(global-set-key (kbd "s-r") 'load-file)   ;; Cmd + 'r' = reload file
+(global-set-key (kbd "s-F") 'replace-string)   ;; Cmd + Shift + F = replace
+(global-set-key (kbd "s-P") 'smex)   ;; Cmd + Shift + P
+(global-set-key (kbd "s-x") 'smex)   ;; Cmd + x for (M-x)
+(global-set-key (kbd "s-k") 'ido-kill-buffer)   ;; Cmd + k
+(global-set-key (kbd "s-K") 'kill-some-buffers)   ;; Cmd + Shift + K
+(global-set-key (kbd "s-q") 'save-buffers-kill-terminal)   ;; Cmd + q
 
 ;; Spell checker software Aspell (to replace ispell)
 (setq ispell-program-name "/usr/local/bin/aspell")
@@ -335,26 +351,7 @@
 (global-set-key (kbd "<s-return>") 'eshell)
 (require 'esh-autosuggest)  ;; Fish-like autosuggestion
 (add-hook 'eshell-mode-hook #'esh-autosuggest-mode)
-(setq eshell-prompt-function (lambda nil
-                               (concat "\n"
-                                       (propertize "\xf302 " 'face
-                                                   `(:foreground "#95a71a"))
-                                       (propertize(format-time-string "| %H:%M:%S"
-                                                                      (current-time))
-                                                  'face `(:foreground "#DF7823"))
-                                       (propertize " | " 'face
-                                                   `(:foreground "#DF7823"))
-                                       (propertize "\xf115 " 'face
-                                                   `(:foreground "#95A71A"))
-                                       (propertize (if (string= (eshell/pwd)
-                                                                (getenv "HOME"))
-                                                       "~" (eshell/basename
-                                                            (eshell/pwd))) 'face
-                                                            `(:foreground "#95A71A"))
-                                       (propertize " $" 'face `(:foreground "#DF7823"))
-                                       (propertize " " 'face `(:foreground "#93A1A1"))
-                                       )))
-(setq eshell-highlight-prompt nil)
+(eshell-git-prompt-use-theme 'powerline)
 
 (defun eshell/clear ()
   "Clear the eshell buffer to the top."
@@ -386,7 +383,7 @@
                          "--bracket-spacing" "true"
                          "--jsx-bracket-same-line" "true"))
 
-(set-cursor-color "#B2B2B2")
+(set-cursor-color "#D7F0FF")
 
 ;; Dired
 (put 'dired-find-alternate-file 'disabled nil)
@@ -397,25 +394,22 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Registers
-(set-register ?e (cons 'file "~/.emacs"))
+(set-register ?e (cons 'file "~/.emacs.d/init.el"))
 (set-register ?t (cons 'file "~/todo.org"))
 
 (setq gc-cons-threshold 20000000) ; ie 100mb, default is 800kb
 
 ;; Magit
 (require 'evil-magit)
-
-;; Edit with Emacs-Chrome
-(require 'edit-server)
-(edit-server-start)
+(global-set-key (kbd "C-x g") 'magit)
 
 ;; Mode Line
 (require 'moody)
 (moody-replace-mode-line-buffer-identification)
 (moody-replace-vc-mode)
 (let ((line (face-attribute 'mode-line :underline)))
-  (set-face-attribute 'mode-line          nil :foreground   "#D2D2D2")
-  (set-face-attribute 'mode-line          nil :background   "#333333")
+  (set-face-attribute 'mode-line          nil :foreground   "#CBECFF")
+  (set-face-attribute 'mode-line          nil :background   "#516675")
   (set-face-attribute 'mode-line          nil :overline   nil)
   (set-face-attribute 'mode-line-inactive nil :overline   nil)
   (set-face-attribute 'mode-line-inactive nil :underline  nil)
@@ -423,17 +417,18 @@
   (set-face-attribute 'mode-line-inactive nil :box        nil))
 (minions-mode)
 
+
+;; Comparing files
+(global-set-key (kbd "C-c d") 'diff)
+(global-set-key (kbd "C-c e") 'ediff)
+(global-set-key (kbd "C-c D") 'diff-buffer-with-file)
+(global-set-key (kbd "C-c E") 'ediff-current-file)
 (eval-after-load 'diff-mode
   '(progn
      (set-face-background 'diff-added "#355531")
      (set-face-foreground 'diff-added "#dcffdd")
      (set-face-background 'diff-removed "#553333")
      (set-face-foreground 'diff-removed "#ffdddc")))
-;; Comparing Files
-(global-set-key (kbd "C-c d") 'diff)
-(global-set-key (kbd "C-c e") 'ediff)
-(global-set-key (kbd "C-c D") 'diff-buffer-with-file)
-(global-set-key (kbd "C-c E") 'ediff-current-file)
 
 ;; Transparency
 (defun toggle-transparency ()
@@ -473,9 +468,20 @@
           (set-window-buffer (next-window) next-win-buffer)
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
-(global-set-key (kbd "C-x 5") 'toggle-window-split)
+(global-set-key (kbd "C-x 4 5") 'toggle-window-split)
+
 
 ;; Dired Sidebar
 (global-set-key (kbd "s-d") 'dired-sidebar-toggle-sidebar)
 
-;;; .emacs ends here
+;; Colourful Org LaTeX Code Blocks
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(setq org-latex-minted-options '(("linenos=true")))
+
+
+(provide 'init.el)
+;;; init.el ends here
