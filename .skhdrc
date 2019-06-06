@@ -1,9 +1,6 @@
-alt - return : open -na /Applications/Alacritty.app
+alt - return : open -na /Applications/iTerm.app
 alt - e : emacsclient -create-frame --alternate-editor="" --no-wait --quiet
 shift + alt - return : open -na /Applications/Google\ Chrome.app
-
-# close focused window
-alt - w : chunkc tiling::window --close
 
 # focus window
 alt - h : chunkc tiling::window --focus west
@@ -45,22 +42,12 @@ ctrl + alt - j : chunkc tiling::window --use-insertion-point south
 ctrl + alt - k : chunkc tiling::window --use-insertion-point north
 ctrl + alt - l : chunkc tiling::window --use-insertion-point east
 
-# rotate tree (counterclockwise)
-alt - r : chunkc tiling::desktop --rotate 90
-
 # toggle desktop offset: disable or enable gaps
 alt - a : chunkc tiling::desktop --toggle offset
 
-# toggle window fullscreen (for quick concentration, only for Emacs and Alacritty)
+# toggle window fullscreen (for quick concentration, somwhow only works for Emacs and terminals)
 shift + alt - f : chunkc tiling::window --toggle fullscreen
 
 # float / unfloat window and center on screen
 alt - t : chunkc tiling::window --toggle float;\
           chunkc tiling::window --grid-layout 4:4:1:1:2:2
-
-# change layout of desktop
-ctrl + alt - a : chunkc tiling::desktop --layout bsp
-ctrl + alt - s : chunkc tiling::desktop --layout monocle
-ctrl + alt - d : chunkc tiling::desktop --layout float
-
-ctrl + alt - w : chunkc tiling::desktop --deserialize ~/.chunkwm_layouts/dev_1
