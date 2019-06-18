@@ -26,8 +26,8 @@
 (scroll-bar-mode -1)
 (blink-cursor-mode t)
 (setq blink-cursor-blinks 0)
-(show-paren-mode 1)
 (setq show-paren-delay 0)
+(show-paren-mode 1)
 (setq make-backup-files nil)
 (setq-default indicate-empty-lines t)
 (setq-default line-spacing 3)
@@ -58,8 +58,8 @@
 (setq js-indent-level 2)
 (setq c-default-style
       '((java-mode . "java")
-    (awk-mode . "awk")
-    (other . "k&r")))
+        (awk-mode . "awk")
+        (other . "k&r")))
 (setq-default c-basic-offset 4)
 
 (defun ian/newline-and-push-brace ()
@@ -79,7 +79,6 @@
 
 (use-package evil
   :ensure t
-  :defer 5
   :init
   (setq evil-want-C-u-scroll t)
   (add-hook 'after-init-hook 'evil-mode)
@@ -128,7 +127,8 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (add-hook 'org-mode-hook 'visual-line-mode))
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook 'org-indent-mode))
 
 (use-package ranger
   :ensure t
@@ -153,12 +153,12 @@
   :config
   (smooth-scrolling-mode 1)
   (setq scroll-margin 1
-    smooth-scroll-margin 1
-    scroll-conservatively 0
-    scroll-up-aggressively 0.01
-    scroll-down-aggressively 0.01)
+        smooth-scroll-margin 1
+        scroll-conservatively 0
+        scroll-up-aggressively 0.01
+        scroll-down-aggressively 0.01)
   (setq-default scroll-up-aggressively 0.01
-        scroll-down-aggressively 0.01))
+                scroll-down-aggressively 0.01))
 
 (use-package which-key
   :ensure t
@@ -176,6 +176,23 @@
   (setq dashboard-banner-logo-title "Welcome to Emacs. Happy Hacking!")
   (setq dashboard-items nil)
   (setq dashboard-set-footer nil))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1)
+  (advice-add 'company-complete-common
+              :before
+              (lambda ()
+                (setq my-company-point (point))))
+  (advice-add 'company-complete-common
+              :after
+              (lambda ()
+                (when (equal my-company-point (point))
+                  (yas-expand)))))
+
+(use-package yasnippet-snippets
+  :ensure t)
 
 (setq gc-cons-threshold 16777216
       gc-cons-percentage 0.1)
