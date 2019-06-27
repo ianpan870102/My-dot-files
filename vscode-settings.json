@@ -1,5 +1,5 @@
 {
-  "editor.fontFamily": "Source Code Proem",
+  "editor.fontFamily": "Source Code Pro",
   "editor.fontSize": 13,
   "editor.wordWrap": "on",
   "terminal.integrated.shell.osx": "/bin/zsh",
