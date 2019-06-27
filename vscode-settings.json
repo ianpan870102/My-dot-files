@@ -1,11 +1,11 @@
 {
   "editor.fontFamily": "Source Code Pro",
-  "editor.fontSize": 13,
+  "editor.fontSize": 14,
   "editor.wordWrap": "on",
   "terminal.integrated.shell.osx": "/bin/zsh",
   "terminal.integrated.fontSize": 13,
   "workbench.colorCustomizations": {
-    // "editorBracketMatch.background": "#99ff005e",
+    "editorCursor.foreground": "#3F738F"
   },
   "editor.lineNumbers": "off",
   "explorer.openEditors.visible": 0,
@@ -48,5 +48,6 @@
   "prettier.jsxSingleQuote": true,
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "workbench.colorTheme": "Base16 Tomorrow Dark"
 }
