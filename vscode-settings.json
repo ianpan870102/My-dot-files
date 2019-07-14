@@ -40,6 +40,9 @@
     "editor.tabSize": 2
   },
   "java.errors.incompleteClasspath.severity": "ignore",
-
-  "workbench.colorTheme": "Zenburn"
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#1A1A1A",
+    "statusBar.noFolderBackground": "#212121",
+    "statusBar.debuggingBackground": "#263238"
+  }
 }
