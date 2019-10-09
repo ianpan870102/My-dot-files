@@ -6,8 +6,8 @@ ignore =
     # whitespace around operators, before "(" etc
     E225, E211,
 
-    # others
-    W503, W504, E305, E302, W292
+    # others (too many blank lines, operator next line etc.)
+    W503, W504, E305, E302, E303, W292
 
 
 max-line-length=100
