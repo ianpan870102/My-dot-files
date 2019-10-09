@@ -1,13 +1,14 @@
 {
-  "editor.fontFamily": "Source Code Pro",
-  "editor.fontSize": 14,
-  "terminal.integrated.fontSize": 13,
+  "editor.fontFamily": "Menlo",
+  "terminal.integrated.fontSize": 12,
+  "editor.tabSize": 2,
   "editor.fontWeight": "500",
   "terminal.integrated.fontWeight": "500",
-  "editor.lineHeight": 20,
-  "editor.wordWrap": "on",
+  "editor.lineHeight": 17,
+  "window.zoomLevel": 0,
   "terminal.integrated.shell.osx": "/bin/zsh",
-  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorBlinking": false,
+  "editor.cursorBlinking": "solid",
   "editor.lineNumbers": "off",
   "explorer.openEditors.visible": 0,
   "editor.minimap.enabled": false,
@@ -34,15 +35,37 @@
     "editor.tabSize": 2
   },
   "[html]": {
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[css]": {
     "editor.tabSize": 2
   },
   "java.errors.incompleteClasspath.severity": "ignore",
   "workbench.colorCustomizations": {
-    "statusBar.background": "#1A1A1A",
+    "statusBar.background": "#1e1e1e",
     "statusBar.noFolderBackground": "#212121",
-    "statusBar.debuggingBackground": "#263238"
-  }
+    "[Pitch Black]": {
+      "editor.background": "#111111",
+      "statusBar.background": "#000000",
+      "editor.selectionBackground": "#5e5e5e"
+    }
+  },
+  "editor.tokenColorCustomizations": {
+    "[Pitch Black]": {
+      "comments": "#FF7F24",
+      "functions": "#eeeeee",
+      "keywords": "#98FC97",
+      "numbers": "#80FCD4",
+      "strings": "#FEA17A",
+      "types": "#ff00ff",
+      "variables": "#DDDDDC"
+    }
+  },
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "workbench.colorTheme": "Pitch Black"
 }
+  
