@@ -1,2 +1,13 @@
 [flake8]
-ignore = E501, W503
+ignore =
+    # indentation width
+    E111, E114,
+
+    # whitespace around operators, before "(" etc
+    E225, E211,
+
+    # others
+    W503, W504, E305, E302, W292
+
+
+max-line-length=100
