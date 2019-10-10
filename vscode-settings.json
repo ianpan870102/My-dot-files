@@ -9,43 +9,24 @@
   "terminal.integrated.shell.osx": "/bin/zsh",
   "terminal.integrated.cursorBlinking": false,
   "editor.cursorBlinking": "solid",
-  "editor.lineNumbers": "off",
+  "editor.lineNumbers": "on",
   "explorer.openEditors.visible": 0,
   "editor.minimap.enabled": false,
   "breadcrumbs.enabled": false,
   "editor.renderLineHighlight": "none",
   "editor.highlightActiveIndentGuide": false,
-  "editor.renderIndentGuides": false,
+  "editor.renderIndentGuides": true,
   "workbench.startupEditor": "none",
   "workbench.tips.enabled": false,
   "workbench.activityBar.visible": false,
   "editor.detectIndentation": false,
   "git.enabled": false,
-  "[javascript]": {
-    "editor.tabSize": 2,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.tabSize": 2
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascriptreact]": {
-    "editor.tabSize": 2
-  },
-  "[html]": {
-    "editor.tabSize": 2,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.tabSize": 2
-  },
   "java.errors.incompleteClasspath.severity": "ignore",
   "workbench.colorCustomizations": {
     "statusBar.background": "#1e1e1e",
     "statusBar.noFolderBackground": "#212121",
     "[Pitch Black]": {
+      "editorCursor.foreground": "#fffafa",
       "editor.background": "#111111",
       "statusBar.background": "#000000",
       "editor.selectionBackground": "#5e5e5e"
@@ -55,10 +36,10 @@
     "[Pitch Black]": {
       "comments": "#FF7F24",
       "functions": "#eeeeee",
-      "keywords": "#98FC97",
+      "keywords": "#b2ffb0",
       "numbers": "#80FCD4",
-      "strings": "#FEA17A",
-      "types": "#ff00ff",
+      "strings": "#ffae8b",
+      "types": "#5efcff",
       "variables": "#DDDDDC"
     }
   },
@@ -66,6 +47,7 @@
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
   "liveServer.settings.donotShowInfoMsg": true,
-  "workbench.colorTheme": "Pitch Black"
+  "workbench.colorTheme": "Pitch Black",
+  "python.formatting.provider": "yapf"
 }
   
