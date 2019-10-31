@@ -1,11 +1,10 @@
 {
-  "editor.fontFamily": "Menlo",
+  "editor.fontFamily": "Droid Sans Mono Slashed",
   "editor.fontSize": 12,
   "terminal.integrated.fontSize": 12,
   "editor.tabSize": 2,
   "editor.fontWeight": "500",
   "terminal.integrated.fontWeight": "500",
-  "editor.lineHeight": 17,
   "window.zoomLevel": 0,
   "terminal.integrated.shell.osx": "/bin/zsh",
   "terminal.integrated.cursorBlinking": false,
@@ -13,15 +12,16 @@
   "editor.lineNumbers": "on",
   "explorer.openEditors.visible": 0,
   "editor.minimap.enabled": false,
-  "breadcrumbs.enabled": false,
+  "breadcrumbs.enabled": true,
   "editor.renderLineHighlight": "none",
   "editor.highlightActiveIndentGuide": false,
   "editor.renderIndentGuides": true,
   "workbench.startupEditor": "none",
   "workbench.tips.enabled": false,
-  "workbench.activityBar.visible": false,
+  "workbench.activityBar.visible": true,
   "editor.detectIndentation": false,
   "git.enabled": false,
+  "workbench.editor.enablePreview": false,
   "java.errors.incompleteClasspath.severity": "ignore",
   "workbench.colorCustomizations": {
     "statusBar.background": "#1e1e1e",
@@ -32,17 +32,24 @@
       "editor.background": "#111111",
       "statusBar.background": "#000000",
       "editor.selectionBackground": "#5e5e5e"
+    },
+    "[Darcula]": {
+      "editor.foreground": "#b0bdc9",
+      "terminal.background": "#1d1d1d"
+    },
+    "[Default Light+]": {
+      "editor.selectionHighlightBackground": "#eef8fd"
     }
   },
   "editor.tokenColorCustomizations": {
     "[Pitch Black]": {
       "comments": "#FF7F24",
-      "functions": "#eeeeee",
-      "keywords": "#b2ffb0",
+      "functions": "#a0dbff",
+      "types": "#b2ffb0",
       "numbers": "#80FCD4",
       "strings": "#ffae8b",
-      "types": "#5efcff",
-      "variables": "#DDDDDC"
+      "keywords": "#5efcff",
+      "variables": "#dddddd"
     }
   },
   "python.linting.pylintEnabled": false,
@@ -50,6 +57,12 @@
   "python.linting.enabled": true,
   "liveServer.settings.donotShowInfoMsg": true,
   "python.formatting.provider": "yapf",
-  "workbench.colorTheme": "Pitch Black"
+  "explorer.confirmDelete": false,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "Default Light+"
 }
-  
