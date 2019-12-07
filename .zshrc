@@ -14,5 +14,7 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8 # Use English (instead of German etc.)
 export EDITOR='vim'
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PATH="$PATH:/Library/TeX/texbin"
-export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+PATH="/usr/local/opt/llvm/bin:$PATH"
+PATH="$PATH:/Users/the_happy_hacker/opt/anaconda3/bin"
+export PATH
