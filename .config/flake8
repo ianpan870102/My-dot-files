@@ -3,11 +3,12 @@ ignore =
     # indentation width
     E111, E114,
 
-    # whitespace around operators, before "(" etc
-    E225, E211, E226
+    # whitespace around operators (+-*/><=)
+    E225, E226
 
-    # others (too many blank lines, operator next line etc.)
+    # others insignificant warnings
     W503, W504, E305, E302, E303, W292, E129, W293, E261, E402
+
 
 max-line-length=100
 
