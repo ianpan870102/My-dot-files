@@ -1,3 +1,4 @@
 [style]
 based_on_style = chromium
+indent_width = 4  # default: 2 (chromium)
 column_limit = 100
