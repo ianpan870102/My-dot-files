@@ -1,5 +1,6 @@
 [style]
-based_on_style = chromium
-indent_width = 4  # default: 2 (chromium)
+based_on_style = pep8
+indent_width = 4
+continuation_indent_width = 4
 column_limit = 100
 spaces_before_comment = 15, 20
