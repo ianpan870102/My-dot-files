@@ -2,6 +2,7 @@
 filetype plugin indent on
 syntax on
 colo peachpuff
+set nu
 set et
 set shiftwidth=2
 set sts=2
