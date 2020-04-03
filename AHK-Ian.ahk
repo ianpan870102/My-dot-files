@@ -31,6 +31,10 @@ return
 Send, {end}
 return
 
+!d::
+Send, {delete}
+return
+
 !t::
 Send, +{left}
 Send, ^x
