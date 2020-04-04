@@ -19,3 +19,4 @@ set is
 set ru
 set ttm=10
 autocmd FileType python setlocal sw=2 sts=2 et
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
