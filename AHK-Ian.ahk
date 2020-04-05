@@ -47,6 +47,23 @@ Send, +{end}
 Send, {delete}
 return
 
+!x::
+Send, ^x
+return
+
+!c::
+Send, ^c
+return
+
+!g::
+Send, ^g
+return
+
+
+!h::
+Send, ^h
+return
+
 ;; Below is the same mod except for AltGr too
 
 <^>!b::
@@ -87,4 +104,20 @@ return
 <^>!k::
 Send, +{end}
 Send, {delete}
+return
+
+<^>!x::
+Send, ^x
+return
+
+<^>!c::
+Send, ^c
+return
+
+<^>!g::
+Send, ^g
+return
+
+<^>!h::
+Send, ^h
 return
