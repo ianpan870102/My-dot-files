@@ -147,7 +147,9 @@
 (use-package cperl-mode
   :ensure nil
   :config
-  ;; (defalias 'perl-mode 'cperl-mode)
+  (defalias 'perl-mode 'cperl-mode)
+  (setq cperl-invalid-face nil)
+  ;; (setq cperl-invalid-face (quote off))
   (setq cperl-indent-level ian/indent-width))
 
 (use-package prolog
@@ -179,8 +181,8 @@
   :preface
   (defun ian/set-default-font ()
     (interactive)
-    (when (member "Source Code Pro" (font-family-list))
-      (set-face-attribute 'default nil :family "Source Code Pro"))
+    ;; (when (member "Source Code Pro" (font-family-list))
+    ;;   (set-face-attribute 'default nil :family "Source Code Pro"))
     (set-face-attribute 'default nil
                         :height 110 ; smaller for XServer
                         :weight 'normal))
@@ -288,11 +290,16 @@
     (save-buffer)
     (kill-this-buffer))
   :config
-  (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
-    (define-key evil-insert-state-map (kbd "C-n") nil)
+  (with-eval-after-load 'evil-maps
+    (define-key evil-normal-state-map (kbd "gd") #'xref-find-definitions)
+    (define-key evil-insert-state-map (kbd "C-n") nil); avoid conflict with company tooltip selection
     (define-key evil-insert-state-map (kbd "C-p") nil)
     (define-key evil-normal-state-map (kbd "C-p") nil)
-    (define-key evil-normal-state-map (kbd "gd") #'xref-find-definitions))
+    (define-key evil-insert-state-map (kbd "C-S-C") #'evil-yank)        ; for WSL
+    (define-key evil-insert-state-map (kbd "C-S-V") #'evil-paste-after) ; for WSL
+    (define-key evil-normal-state-map (kbd "C-S-C") #'evil-yank)        ; for WSL
+    (define-key evil-normal-state-map (kbd "C-S-V") #'evil-paste-after) ; for WSL
+    )
   (evil-ex-define-cmd "q" nil)
   (evil-ex-define-cmd "wq" nil))
 
@@ -357,6 +364,8 @@
   (global-set-key (kbd "s-P") #'counsel-M-x)
   (global-set-key (kbd "C-S-p") #'counsel-M-x)
   (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x <C-right>") 'counsel-find-file) ; autohotkey fix
+  (global-set-key (kbd "C-x <right>") 'counsel-find-file) ; autohotkey fix
   (global-set-key (kbd "s-f") #'counsel-grep-or-swiper)) ; C-c p f
 
 (use-package counsel-projectile
@@ -384,7 +393,8 @@
   (define-key projectile-mode-map (kbd "C-c p") #'projectile-command-map)
   (define-key projectile-mode-map (kbd "s-p") #'projectile-find-file)
   (define-key projectile-mode-map (kbd "C-p") #'projectile-find-file)
-  (define-key projectile-mode-map (kbd "s-F") #'projectile-ripgrep))
+  (define-key projectile-mode-map (kbd "s-F") #'projectile-ripgrep)
+  (define-key projectile-mode-map (kbd "C-S-f") #'projectile-ripgrep))
 
 (use-package wgrep
   :commands wgrep-change-to-wgrep-mode
@@ -418,6 +428,7 @@
 
 (use-package lsp-mode
   :hook ((c-mode          ; clangd
+          c++-mode        ; clangd
           c-or-c++-mode   ; clangd
           java-mode       ; eclipse-jdtls
           js-mode         ; ts-ls (tsserver wrapper)
@@ -425,6 +436,7 @@
           typescript-mode ; ts-ls (tsserver wrapper)
           python-mode     ; pyls
           web-mode
+          cperl-mode
           ) . lsp)
   :commands lsp
   :config
@@ -509,7 +521,7 @@
   :hook (prog-mode . company-mode)
   :config
   (setq company-minimum-prefix-length 1)
-  (setq company-idle-delay 0.3)
+  (setq company-idle-delay 0.4)
   (setq company-selection-wrap-around t)
   (setq company-tooltip-align-annotations t)
   (setq company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
