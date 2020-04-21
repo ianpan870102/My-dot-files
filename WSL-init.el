@@ -137,7 +137,8 @@
   (setq c-default-style '((java-mode . "java")
                           (awk-mode  . "awk")
                           (other     . "k&r")))
-  (setq-default c-basic-offset ian/indent-width))
+  (setq-default c-basic-offset ian/indent-width)
+  (define-key c++-mode-map ":" nil)) ; don't indent std:: on-the-fly etc.
 
 (use-package perl-mode
   :ensure nil
@@ -181,10 +182,10 @@
   :preface
   (defun ian/set-default-font ()
     (interactive)
-    ;; (when (member "Source Code Pro" (font-family-list))
-    ;;   (set-face-attribute 'default nil :family "Source Code Pro"))
+    (when (member "Px437 IBM VGA8" (font-family-list))
+      (set-face-attribute 'default nil :family "Consolas"))
     (set-face-attribute 'default nil
-                        :height 110 ; smaller for XServer
+                        :height 120 ; smaller for XServer
                         :weight 'normal))
   :ensure nil
   :config
@@ -201,7 +202,7 @@
 (use-package flyspell
   :ensure nil
   :config
-  (setq ispell-program-name "/usr/local/bin/aspell"))
+  (setq ispell-program-name "/usr/bin/aspell"))
 
 (use-package elec-pair
   :ensure nil
@@ -213,8 +214,10 @@
 
 (use-package dired
   :ensure nil
+  :hook ((dired-mode . dired-hide-details-mode)
+         (dired-mode . hl-line-mode))
   :config
-  (setq delete-by-moving-to-trash t)
+  (setq dired-listing-switches "-lat") ; sort by date (new first)
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package saveplace
@@ -235,32 +238,17 @@
   :config
   (setq-default display-line-numbers-width 3))
 
-(use-package ox
-  :ensure nil
-  :config
-  (setq org-export-with-smart-quotes t))
-
-(use-package ox-latex
-  :ensure nil
-  :config
-  (setq org-latex-packages-alist '(("margin=1in" "geometry" nil)
-                                   ("bitstream-charter" "mathdesign" nil)
-                                   ("" "inconsolata" nil)))
-  (setq org-latex-pdf-process
-        '("/Library/TeX/texbin/pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f; rm *.tex *.out *.aux *.log"
-          "/Library/TeX/texbin/pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f; rm *.tex *.out *.aux *.log"
-          "/Library/TeX/texbin/pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f; rm *.tex *.out *.aux *.log")))
-
 ;;; Third-party Packages
 
 ;; GUI enhancements
 
-(use-package doom-themes
+(use-package color-theme-sanityinc-tomorrow
   :custom-face
-  (cursor ((t (:background "#bbbbbb"))))
+  (show-paren-match      ((t (:foreground "#ffffff" :background "#3333ff"))))
+  (highlight-symbol-face ((t (:background "#0000bb"))))
+  (cursor                ((t (:background "#ffffff"))))
   :config
-  (setq doom-themes-enable-bold nil)
-  (load-theme 'doom-dark+ t))
+  (load-theme 'sanityinc-tomorrow-blue t))
 
 (use-package highlight-symbol
   :hook (prog-mode . highlight-symbol-mode)
@@ -295,13 +283,12 @@
     (define-key evil-insert-state-map (kbd "C-n") nil); avoid conflict with company tooltip selection
     (define-key evil-insert-state-map (kbd "C-p") nil)
     (define-key evil-normal-state-map (kbd "C-p") nil)
-    (define-key evil-insert-state-map (kbd "C-S-C") #'evil-yank)        ; for WSL
-    (define-key evil-insert-state-map (kbd "C-S-V") #'evil-paste-after) ; for WSL
-    (define-key evil-normal-state-map (kbd "C-S-C") #'evil-yank)        ; for WSL
-    (define-key evil-normal-state-map (kbd "C-S-V") #'evil-paste-after) ; for WSL
+    (define-key evil-insert-state-map (kbd "C-S-C") #'evil-yank)         ; for WSL
+    (define-key evil-normal-state-map (kbd "C-S-C") #'evil-yank)         ; for WSL
+    (define-key evil-insert-state-map (kbd "C-S-V") #'evil-paste-before) ; for WSL
     )
-  (evil-ex-define-cmd "q" nil)
-  (evil-ex-define-cmd "wq" nil))
+  (evil-ex-define-cmd "q" #'kill-this-buffer)
+  (evil-ex-define-cmd "wq" #'ian/save-and-kill-this-buffer))
 
 (use-package evil-collection
   :after evil
@@ -436,7 +423,6 @@
           typescript-mode ; ts-ls (tsserver wrapper)
           python-mode     ; pyls
           web-mode
-          cperl-mode
           ) . lsp)
   :commands lsp
   :config
@@ -531,13 +517,6 @@
     (define-key company-active-map (kbd "C-n") #'company-select-next)
     (define-key company-active-map (kbd "C-p") #'company-select-previous)))
 
-;; (use-package company-posframe
-;;   :config
-;;   (setq company-posframe-show-metadata nil)
-;;   (setq company-posframe-show-indicator nil)
-;;   (setq company-posframe-quickhelp-delay nil)
-;;   (company-posframe-mode +1))
-
 (use-package flycheck
   :hook ((prog-mode   . flycheck-mode))
   :config
@@ -598,6 +577,26 @@
   :config
   (add-to-list 'hl-todo-keyword-faces '("DOING" . "#94bff3"))
   (global-hl-todo-mode +1))
+
+;;; Dired
+
+(use-package dired-single
+  :preface
+  (defun ian/dired-single-init ()
+    (define-key dired-mode-map [return] #'dired-single-buffer)
+    (define-key dired-mode-map [remap dired-mouse-find-file-other-window] #'dired-single-buffer-mouse)
+    (define-key dired-mode-map [remap dired-up-directory] #'dired-single-up-directory))
+  :config
+  (if (boundp 'dired-mode-map)
+      (ian/dired-single-init)
+    (add-hook 'dired-load-hook #'ian/dired-single-init)))
+
+(use-package dired-subtree
+  :ensure t
+  :after dired
+  :config
+  (setq dired-subtree-use-backgrounds nil)
+  :bind (:map dired-mode-map ("<tab>" . dired-subtree-toggle)))
 
 (provide 'init)
 ;;; init.el ends here
