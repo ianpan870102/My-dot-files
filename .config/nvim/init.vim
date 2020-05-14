@@ -1,8 +1,8 @@
 " Vim plug
 call plug#begin('~/.vim/plugged')
-Plug 'tomasiser/vim-code-dark'
-Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-commentary'
+Plug 'tomasiser/vim-code-dark'
 call plug#end()
 
 filetype plugin indent on
@@ -18,5 +18,11 @@ set hls
 set is
 set ru
 set ttm=10
+set clipboard=unnamed
 autocmd FileType python setlocal sw=2 sts=2 et
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+set path+=**
+set wildmenu
+set wildignore+=**/node_modules/**
+set hidden
