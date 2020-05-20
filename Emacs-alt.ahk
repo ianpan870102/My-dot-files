@@ -64,6 +64,18 @@ return
 Send, ^h
 return
 
+!s::
+Send, ^s
+return
+
+!w::
+Send, ^w
+return
+
+!o::
+Send, ^o
+return
+
 ;; Below is the same mod except for AltGr too
 
 <^>!b::
@@ -120,4 +132,16 @@ return
 
 <^>!h::
 Send, ^h
+return
+
+<^>!s::
+Send, ^s
+return
+
+<^>!w::
+Send, ^w
+return
+
+<^>!o::
+Send, ^o
 return
