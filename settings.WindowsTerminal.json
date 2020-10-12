@@ -1,0 +1,134 @@
+// To view the default settings, hold "alt" while clicking on the "Settings" button.
+// For documentation on these settings, see: https://aka.ms/terminal-documentation
+
+{
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "defaultProfile": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
+  "initialRows": 23,
+  "initialCols": 67,
+  
+  "profiles": {
+    "defaults": {
+      // Put settings here that you want to apply to all profiles
+    },
+    "list": [
+      {
+        // Ubuntu WSL 20.04
+        "guid": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
+        "hidden": false,
+        "name": "Ubuntu-20.04",
+        "source": "Windows.Terminal.Wsl",
+        "cursorShape": "vintage",
+        "fontFace": "Consolas",
+        "fontSize": 12,
+        "colorScheme": "Ubuntu",
+        "useAcrylic": true,
+        "acrylicOpacity" : 0.85,
+        "startingDirectory": "//wsl$/Ubuntu-18.04/home/ianpan/"
+      },
+      {
+        // Powershell
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "name": "Windows PowerShell",
+        "commandline": "powershell.exe",
+        "hidden": false,
+        "cursorShape": "vintage",
+        "fontFace": "Consolas",
+        "fontSize": 12,
+        "colorScheme": "Powershell",
+      },
+      {
+        // CMD
+        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+        "name": "cmd",
+        "commandline": "cmd.exe",
+        "cursorShape": "filledBox",
+        "fontFace": "Consolas",
+        "fontSize": 12,
+        "colorScheme": "ayu",
+        "hidden": false
+      },
+      {
+        // Azure Cloud Shell
+        "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+        "hidden": false,
+        "name": "Azure Cloud Shell",
+        "cursorShape": "vintage",
+        "source": "Windows.Terminal.Azure"
+      }
+    ]
+  },
+
+  // Add custom color schemes to this array
+  "schemes": [
+    {
+      "name": "Ubuntu",
+      "black": "#2e2e2e",
+      "red": "#cc0000",
+      "green": "#8ae234",
+      "yellow": "#c4a000",
+      "blue": "#3465a4",
+      "purple": "#75507b",
+      "cyan": "#06989a",
+      "white": "#d3d7cf",
+      "brightBlack": "#555753",
+      "brightRed": "#ef2929",
+      "brightGreen": "#8ae234",
+      "brightYellow": "#fce94f",
+      "brightBlue": "#729fcf",
+      "brightPurple": "#ad7fa8",
+      "brightCyan": "#34e2e2",
+      "brightWhite": "#eeeeec",
+      //"background": "#300a24",
+      "background": "#2e2e2e",
+      "foreground": "#eeeeec"
+    },
+    {
+      "name": "Powershell",
+      "black": "#000000",
+      "red": "#ff0000",
+      "green": "#00ff00",
+      "yellow": "#ffff00",
+      "blue": "#0000ff",
+      "purple": "#ff00ff",
+      "cyan": "#008080",
+      "white": "#ffffff",
+      "brightBlack": "#808080",
+      "brightRed": "#ff0000",
+      "brightGreen": "#00ff00",
+      "brightYellow": "#ffff00",
+      "brightBlue": "#0000ff",
+      "brightPurple": "#ff00ff",
+      "brightCyan": "#008080",
+      "brightWhite": "#ffffff",
+      "background": "#012456",
+      "foreground": "#eeedf0"
+    },
+    {
+      "name": "ayu",
+      "black": "#000000",
+      "red": "#ff3333",
+      "green": "#b8cc52",
+      "yellow": "#e7c547",
+      "blue": "#36a3d9",
+      "purple": "#f07178",
+      "cyan": "#95e6cb",
+      "white": "#ffffff",
+      "brightBlack": "#323232",
+      "brightRed": "#ff6565",
+      "brightGreen": "#eafe84",
+      "brightYellow": "#fff779",
+      "brightBlue": "#68d5ff",
+      "brightPurple": "#ffa3aa",
+      "brightCyan": "#c7fffd",
+      "brightWhite": "#ffffff",
+      "background": "#0f1419",
+      "foreground": "#e6e1cf"
+    }
+  ],
+
+  // Add any keybinding overrides to this array.
+  // To unbind a default keybinding, set the command to "unbound"
+  "keybindings": []
+}
+
