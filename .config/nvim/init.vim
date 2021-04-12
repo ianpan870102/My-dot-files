@@ -3,7 +3,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'tomasiser/vim-code-dark'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
-Plug 'liuchengxu/vim-which-key' " TODO: can't get it to work yet
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
@@ -11,6 +10,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 filetype plugin indent on
@@ -28,6 +28,8 @@ set is
 set ru
 set ttm=10
 set clipboard=unnamed
+set ignorecase
+set smartcase
 autocmd FileType python setlocal sw=2 sts=2 et
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
@@ -46,7 +48,9 @@ set shortmess+=c
 
 " Package configurations
 let g:NERDTreeShowHidden=1
-nnoremap <C-S-e> :NERDTreeToggle<CR>
+nnoremap <silent><C-S-e> :NERDTreeToggle<CR>
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif
 
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
@@ -107,9 +111,6 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Formatting selected code.
-nnoremap <A-S-f>  <Plug>(coc-format-selected)
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -128,33 +129,17 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" Formatting selected code.
+" nnoremap <A-S-f>  <Plug>(coc-format-selected)
+" nnoremap <M-S-f>  <Plug>(coc-format-selected)
+nnoremap <A-S-f>  :Format<cr>
+nnoremap <M-S-f>  :Format<cr>
 
 " Neovide GUI configurations
-let g:neovide_cursor_animation_length=0.05
+let g:neovide_cursor_animation_length=0.08
 let g:neovide_cursor_trail_length=0.01
 set clipboard+=unnamedplus
+set guifont=Consolas:h13
