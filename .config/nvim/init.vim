@@ -4,13 +4,15 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 
-Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'sheerun/vim-polyglot'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegune/fzf.vim' " TODO: can't find repo (?)
+" Plug 'nvim-treesitter/nvim-treesitter' " TODO: neovim nightly build fails (issue opened)
 call plug#end()
 
 filetype plugin indent on
@@ -46,18 +48,31 @@ set updatetime=300
 set timeoutlen=400
 set shortmess+=c
 
+imap <C-BS> <C-W>
+
 " Package configurations
 let g:NERDTreeShowHidden=1
-nnoremap <silent><C-S-e> :NERDTreeToggle<CR>
+nnoremap <silent><C-S-e> :NERDTreeToggleVCS<CR>
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_root_markers = ['.projectile']
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = '[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '[\/]\.(git|hg|svn)$',
+  \ 'file': '\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+let g:ctrlp_user_command = 'rg --vimgrep %s'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 let g:coc_global_extensions = [
   \ 'coc-clangd',
   \ 'coc-tsserver',
   \ 'coc-pyright',
+  \ 'coc-pairs',
   \ ]
 
 if has("patch-8.1.1564")
@@ -85,11 +100,6 @@ endif
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -132,14 +142,28 @@ endif
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
-" Formatting selected code.
+" Formatting selected code with Alt-Shift-f
 " nnoremap <A-S-f>  <Plug>(coc-format-selected)
 " nnoremap <M-S-f>  <Plug>(coc-format-selected)
-nnoremap <A-S-f>  :Format<cr>
-nnoremap <M-S-f>  :Format<cr>
+nnoremap <A-S-f> :Format<cr>
+nnoremap <M-S-f> :Format<cr>
 
 " Neovide GUI configurations
-let g:neovide_cursor_animation_length=0.08
+let g:neovide_cursor_animation_length=0.03
 let g:neovide_cursor_trail_length=0.01
-set clipboard+=unnamedplus
+let g:neovide_cursor_antialiasing=v:true
+set clipboard=unnamedplus
 set guifont=Consolas:h13
+
+let s:clip = '/mnt/c/Windows/System32/clip.exe' 
+if executable(s:clip)
+  augroup WSLYank
+    autocmd!
+    autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
+  augroup END
+end
+
+map <silent> "=p :r !powershell.exe -Command Get-Clipboard<CR>
+map! <silent> <C-r>= :r !powershell.exe -Command Get-Clipboard<CR>
+
+" noremap "*p :exe 'norm a'.system('/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -Command Get-Clipboard')<CR>
