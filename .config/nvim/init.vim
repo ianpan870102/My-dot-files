@@ -9,10 +9,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sheerun/vim-polyglot'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegune/fzf.vim' " TODO: can't find repo (?)
-" Plug 'nvim-treesitter/nvim-treesitter' " TODO: neovim nightly build fails (issue opened)
+
+" Plug 'sheerun/vim-polyglot' " No need if using treesitter already
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " TODO: neovim nightly build fails (issue opened)
 call plug#end()
 
 filetype plugin indent on
@@ -29,7 +30,6 @@ set hls
 set is
 set ru
 set ttm=10
-set clipboard=unnamed
 set ignorecase
 set smartcase
 autocmd FileType python setlocal sw=2 sts=2 et
@@ -51,18 +51,19 @@ set shortmess+=c
 imap <C-BS> <C-W>
 
 " Package configurations
+" let g:NERDTreeMapCustomOpen = '<TAB>' " TODO Don't overwrite <CR> as default binding
 let g:NERDTreeShowHidden=1
-nnoremap <silent><C-S-e> :NERDTreeToggleVCS<CR>
+nnoremap <silent> <C-S-e> :NERDTreeToggleVCS<CR>
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_root_markers = ['.projectile']
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = '[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '[\/]\.(git|hg|svn)$',
-  \ 'file': '\.(exe|so|dll)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 let g:ctrlp_user_command = 'rg --vimgrep %s'
@@ -148,22 +149,27 @@ command! -nargs=0 Format :call CocAction('format')
 nnoremap <A-S-f> :Format<cr>
 nnoremap <M-S-f> :Format<cr>
 
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ignore_install = {}, -- List of parsers to ignore installing
+    highlight = {
+      enable = true, -- false will disable the whole extension
+      disable = {},  -- list of language that will be disabled
+  },
+}
+EOF
+
 " Neovide GUI configurations
+
+" System clipboard support on WSL2:
+" $ curl -sLo/tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+" $ unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
+" $ chmod +x /tmp/win32yank.exe
+" $ sudo mv /tmp/win32yank.exe /usr/local/bin/
 let g:neovide_cursor_animation_length=0.03
 let g:neovide_cursor_trail_length=0.01
 let g:neovide_cursor_antialiasing=v:true
 set clipboard=unnamedplus
 set guifont=Consolas:h13
-
-let s:clip = '/mnt/c/Windows/System32/clip.exe' 
-if executable(s:clip)
-  augroup WSLYank
-    autocmd!
-    autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
-  augroup END
-end
-
-map <silent> "=p :r !powershell.exe -Command Get-Clipboard<CR>
-map! <silent> <C-r>= :r !powershell.exe -Command Get-Clipboard<CR>
-
-" noremap "*p :exe 'norm a'.system('/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -Command Get-Clipboard')<CR>
