@@ -1,17 +1,12 @@
-PROMPT='ianpan@ubuntu:%1~/ %# '
+PROMPT='ianpan@arch:%1~/ %# '
 alias vi="neovide.exe --wsl"
 export EDITOR="neovide.exe --wsl"
 
-# For WSL1:
-# export DISPLAY=:0
-
-# For WSL2:
+# For WSL2 X-server VcXsrv
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 export LIBGL_ALWAYS_INDIRECT=1
-# export GDK_SCALE=2
-# export GDK_DPI_SCALE=0.5
 
-xset r rate 200 50 # need to be set after export DISPLAY
+xset r rate 200 50 # key repeat rate, set after DISPLAY
 
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
@@ -25,12 +20,15 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-PATH="/home/ianpan/.local/bin:$PATH"
-PATH="/usr/share:$PATH"
-export PATH
+autoload -U compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # case insensitive "cd" etc.
+
+bindkey -e # Emacs-style keybindings in zsh
 
 export FZF_DEFAULT_OPTS='--color=dark'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
-[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources # load mouse cursor theme
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+cd ~ # sometimes Windows Terminal messes up default dir
