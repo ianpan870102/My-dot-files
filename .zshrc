@@ -31,4 +31,4 @@ export FZF_DEFAULT_OPTS='--color=dark'
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-cd ~ # sometimes Windows Terminal messes up default dir
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
