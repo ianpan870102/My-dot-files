@@ -1,12 +1,13 @@
 PROMPT='ianpan@arch:%1~/ %# '
 alias vi="neovide.exe --wsl"
 export EDITOR="neovide.exe --wsl"
+alias l="ls -lah"
 
 # For WSL2 X-server VcXsrv
 export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0
 export LIBGL_ALWAYS_INDIRECT=1
 
-xset r rate 200 50 # key repeat rate, set after DISPLAY
+xset r rate 200 50 # key repeat rate
 
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
@@ -21,14 +22,16 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 autoload -U compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # case insensitive "cd" etc.
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # case insensitive completion
 
 bindkey -e # Emacs-style keybindings in zsh
 
-export FZF_DEFAULT_OPTS='--color=dark'
+export PATH=$HOME/.local/bin:$PATH
+
+export FZF_DEFAULT_OPTS='--layout=reverse --color=dark'
+export FZF_DEFAULT_COMMAND='fd --type f'
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
