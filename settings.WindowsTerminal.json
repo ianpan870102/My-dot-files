@@ -42,14 +42,14 @@
     "confirmCloseAllTabs": false,
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
-    "initialCols": 70,
+    "defaultProfile": "{a5a97cb8-8961-5535-816d-772efe0c6a3f}",
+    "initialCols": 75,
     "initialRows": 25,
     "profiles": 
     {
         "defaults": 
         {
-            "acrylicOpacity": 0.94999999999999996,
+            "acrylicOpacity": 0.95,
             "cursorShape": "vintage",
             "fontFace": "Consolas",
             "fontSize": 11,
@@ -57,13 +57,23 @@
         },
         "list": 
         [
-            {
-                "colorScheme": "doom one",
-                "guid": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
+           {
+                "colorScheme": "solarized-dark",
+                "guid": "{a5a97cb8-8961-5535-816d-772efe0c6a3f}",
                 "hidden": false,
-                "name": "Ubuntu-20.04",
+                "icon": "C:\\Users\\bquine\\Pictures\\Saved Pictures\\Icons\\arch-icon.png",
+                "name": "Arch",
                 "source": "Windows.Terminal.Wsl",
-                "startingDirectory": "//wsl$/Ubuntu-18.04//home/ianpan"
+                "startingDirectory": "//wsl$/Arch//home/yep808"
+            },
+            {
+              "colorScheme": "ubuntu",
+                "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
+              "icon": "C:\\Users\\bquine\\Pictures\\Saved Pictures\\Icons\\ubuntu-icon.png",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Windows.Terminal.Wsl",
+              "startingDirectory": "//wsl$/Ubuntu-20.04//home/ianpan"
             },
             {
                 "colorScheme": "powershell",
@@ -349,7 +359,30 @@
             "yellow": "#FFFF00"
         },
         {
-            "background": "#111111",
+            "background": "#002831",
+            "black": "#000000",
+            "blue": "#268BD2",
+            "brightBlack": "#475B62",
+            "brightBlue": "#268BD2",
+            "brightCyan": "#2AA198",
+            "brightGreen": "#859900",
+            "brightPurple": "#D33682",
+            "brightRed": "#DC322F",
+            "brightWhite": "#EAE3CB",
+            "brightYellow": "#B58900",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#2AA198",
+            "foreground": "#BBBBBB",
+            "green": "#859900",
+            "name": "solarized-dark",
+            "purple": "#D33682",
+            "red": "#DC322F",
+            "selectionBackground": "#B5D5FF",
+            "white": "#EAE3CB",
+            "yellow": "#B58900"
+        },
+        {
+            "background": "#300A24",
             "black": "#2E3436",
             "blue": "#3465A4",
             "brightBlack": "#555753",
@@ -360,7 +393,7 @@
             "brightRed": "#EF2929",
             "brightWhite": "#EEEEEC",
             "brightYellow": "#FCE94F",
-            "cursorColor": "#BBBBBB",
+            "cursorColor": "#FFFFFF",
             "cyan": "#06989A",
             "foreground": "#EEEEEC",
             "green": "#8AE234",
